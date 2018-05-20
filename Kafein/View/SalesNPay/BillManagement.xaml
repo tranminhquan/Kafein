@@ -5,9 +5,25 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Kafein.View.SalesNPay"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:viewmodel ="clr-namespace:Kafein.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <viewmodel:BilllManagementViewModel x:Key="BillManagementViewModel"/>
+    </UserControl.Resources>
     <Grid>
-
+        <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                 ItemsSource="{Binding ListBill, Source={StaticResource BillManagementViewModel}}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <local:GeneralBill/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
     </Grid>
 </UserControl>

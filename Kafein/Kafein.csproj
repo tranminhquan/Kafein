@@ -86,7 +86,15 @@
     </ApplicationDefinition>
     <Compile Include="Database\IDatabase.cs" />
     <Compile Include="Database\SQLDatabase.cs" />
+    <Compile Include="Model\BaseList.cs" />
+    <Compile Include="Model\BillModel.cs" />
+    <Compile Include="Model\DetailBillModel.cs" />
+    <Compile Include="Model\List\ListBillModel.cs" />
+    <Compile Include="Model\ProductModel.cs" />
+    <Compile Include="Model\UnitModel.cs" />
     <Compile Include="Utilities\Debug.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\BilllManagementViewModel.cs" />
     <Compile Include="ViewModel\DragAndDropViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -152,7 +160,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
+    <Folder Include="ViewModel\SalesNPay\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

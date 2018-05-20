@@ -20,22 +20,26 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!--Title-->
-            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-                
+            <!--Title Desk number-->
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource PrimaryHueMidBrush}">
+                <TextBlock TextAlignment="Center" Padding="10,10,10,10" 
+                           Style="{DynamicResource MaterialDesignTitleTextBlock}" 
+                           Foreground="White" Text = "{Binding DeskNo}"/>
             </Border>
 
             <!--Time-->
-            <materialDesign:PackIcon Grid.Row="1" Grid.Column="0" Kind="Timer" VerticalAlignment="Stretch"  Margin="10,14,10,14" Padding="0,0,0,0" Width="20" Height="20"/>
-            <TextBlock Grid.Row="1" Grid.Column="1" Margin="8,16,10.4,16" Grid.ColumnSpan="2">
-                <TextBlock.Text >Time</TextBlock.Text>
-            </TextBlock>
+            <materialDesign:PackIcon Grid.Row="1" Grid.Column="0" 
+                                     Kind="Timer" VerticalAlignment="Stretch"  
+                                     Margin="10,14,10,14" Padding="0,0,0,0" Width="20" Height="20"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="8,16,10.4,16" Grid.ColumnSpan="2"
+                       Text="{Binding OrderTime}"/>
 
             <!--Price-->
-            <materialDesign:PackIcon Grid.Row="2" Grid.Column="0" Kind="CurrencyUsd" VerticalAlignment="Stretch"  Margin="10,14,10,14" Padding="0,0,0,0" Width="20" Height="20"/>
-            <TextBlock Grid.Row="2" Grid.Column="1" Margin="8,16,10.4,16" Grid.ColumnSpan="2">
-                <TextBlock.Text >Price</TextBlock.Text>
-            </TextBlock>
+            <materialDesign:PackIcon Grid.Row="2" Grid.Column="0" 
+                                     Kind="CurrencyUsd" VerticalAlignment="Stretch" 
+                                     Margin="10,14,10,14" Padding="0,0,0,0" Width="20" Height="20"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="8,16,10.4,16" Grid.ColumnSpan="2"
+                       Text="{Binding Price}"/>
 
             <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid>
@@ -47,15 +51,19 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
+                    <!--Detail button-->
                     <Button Grid.Row="0" Grid.Column="0"
                     Padding="16,4" Margin="5,5,5,5"
-                    Style="{StaticResource GhostButton}">
+                    Style="{StaticResource GhostButton}"
+                    Command="{Binding DetailCommand}">
                         CHI TIẾT
                     </Button>
 
+                    <!--Checkout button-->
                     <Button Grid.Row="0" Grid.Column="1" 
                             Padding="16,4" Margin="5,5,5,5" 
-                            Style="{StaticResource ConfirmButton}">
+                            Style="{StaticResource ConfirmButton}"
+                            Command="{Binding CheckOutCommand}">
                         THANH TOÁN
                     </Button>
                 </Grid>
