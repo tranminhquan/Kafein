@@ -91,6 +91,7 @@
     <Compile Include="Model\DetailBillModel.cs" />
     <Compile Include="Model\List\ListBillModel.cs" />
     <Compile Include="Model\ProductModel.cs" />
+    <Compile Include="Model\ProductTypeModel.cs" />
     <Compile Include="Model\UnitModel.cs" />
     <Compile Include="Utilities\Debug.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />

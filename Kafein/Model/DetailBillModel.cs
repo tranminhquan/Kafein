@@ -22,7 +22,7 @@ namespace Kafein.Model
         public DetailBillModel(string id, string billid, string productid, int quantity, double price)
         {
             ID = id;
-            billid = BillID;
+            BillID = billid;
             ProductID = productid;
             Quantity = quantity;
             Price = price;
