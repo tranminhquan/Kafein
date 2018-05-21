@@ -14,16 +14,17 @@
     <Grid>
         <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                  ItemsSource="{Binding ListBill, Source={StaticResource BillManagementViewModel}}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <local:GeneralBill/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <local:GeneralBill/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+       
     </Grid>
 </UserControl>

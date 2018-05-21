@@ -12,18 +12,23 @@ namespace Kafein.Model
         public string Name { get; set; }
         public string UnitID { get; set; }
         public double Price { get; set; }
+        public string ImageSource { get; set; }
 
         public ProductModel()
         {
 
         }
 
-        public ProductModel(string id, string name, string unitid, double price)
+        public ProductModel(string id, string name, string unitid, double price, string imgsrc)
         {
             ID = id;
             Name = name;
             UnitID = unitid;
             Price = price;
+            if (imgsrc == null)
+                ImageSource = Environment.CurrentDirectory + "/drink_images/default.png";
+            else
+                ImageSource = imgsrc;
         }
     }
 }

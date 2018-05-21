@@ -86,20 +86,29 @@
     </ApplicationDefinition>
     <Compile Include="Database\IDatabase.cs" />
     <Compile Include="Database\SQLDatabase.cs" />
-    <Compile Include="Model\BaseList.cs" />
+    <Compile Include="Model\List\BaseList.cs" />
     <Compile Include="Model\BillModel.cs" />
     <Compile Include="Model\DetailBillModel.cs" />
     <Compile Include="Model\List\ListBillModel.cs" />
+    <Compile Include="Model\List\ListProductModel.cs" />
     <Compile Include="Model\ProductModel.cs" />
     <Compile Include="Model\UnitModel.cs" />
     <Compile Include="Utilities\Debug.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\BilllManagementViewModel.cs" />
     <Compile Include="ViewModel\DragAndDropViewModel.cs" />
+    <Compile Include="ViewModel\ListProductViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ProductTypeViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\Product\ProductItem.xaml.cs">
+      <DependentUpon>ProductItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SalesNPay\BillManagement.xaml.cs">
       <DependentUpon>BillManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SalesNPay\DetailBillManagement.xaml.cs">
+      <DependentUpon>DetailBillManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SalesNPay\GeneralBill.xaml.cs">
       <DependentUpon>GeneralBill.xaml</DependentUpon>
@@ -119,7 +128,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Product\ProductItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\SalesNPay\BillManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SalesNPay\DetailBillManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
