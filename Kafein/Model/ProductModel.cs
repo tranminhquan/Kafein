@@ -10,6 +10,7 @@ namespace Kafein.Model
     {
         public string ID { get; set; }
         public string Name { get; set; }
+        public string TypeID { get; set; }
         public string UnitID { get; set; }
         public double Price { get; set; }
         public string ImageSource { get; set; }
@@ -19,10 +20,11 @@ namespace Kafein.Model
 
         }
 
-        public ProductModel(string id, string name, string unitid, double price, string imgsrc)
+        public ProductModel(string id, string name, string typeid, string unitid, double price, string picturepath)
         {
             ID = id;
             Name = name;
+            TypeID = typeid;
             UnitID = unitid;
             Price = price;
             if (imgsrc == null)
