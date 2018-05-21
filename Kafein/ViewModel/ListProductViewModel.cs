@@ -16,12 +16,12 @@ namespace Kafein.ViewModel
         {
             listProductModel = new ListProductModel();
 
-            ListProduct.Add(new ProductModel("1", "Cà phê", "Ly", 15000, null));
-            ListProduct.Add(new ProductModel("1", "Cà phê sữa", "Ly", 2000, null));
-            ListProduct.Add(new ProductModel("1", "Sinh tố", "Ly", 35000, null));
-            ListProduct.Add(new ProductModel("1", "Sting", "Chai", 12000, null));
-            ListProduct.Add(new ProductModel("1", "Cà phê", "Ly", 15000, null));
-            ListProduct.Add(new ProductModel("1", "Cà phê", "Ly", 15000, null));
+            ListProduct.Add(new ProductModel("1", "Cà phê", "Ly", "Unit", 15000, null));
+            ListProduct.Add(new ProductModel("1", "Cà phê sữa", "Ly", "Unit", 2000, null));
+            ListProduct.Add(new ProductModel("1", "Sinh tố", "Ly", "Unit", 35000, null));
+            ListProduct.Add(new ProductModel("1", "Sting", "Chai", "Unit", 12000, null));
+            ListProduct.Add(new ProductModel("1", "Cà phê", "Ly", "Unit", 15000, null));
+            ListProduct.Add(new ProductModel("1", "Cà phê", "Ly", "Unit", 15000, null));
         }
 
         // getter and setter
