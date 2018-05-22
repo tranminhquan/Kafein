@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Kafein.Database
 {
-    public class SQLDatabase
+    public class SQLDatabase: IDatabase
     {
         private SqlConnection connection;
 
@@ -79,6 +79,23 @@ namespace Kafein.Database
                     connection.Close();
                 }
             }
+        }
+
+        public void Test()
+        {
+            String query = "SELECT * FROM TEST WHERE Unit = 'Ly'";
+            connection.Open();
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Debug.LogOutput(reader.GetString(0) + "|\t\t" + reader.GetString(1) + "|\t\t" + reader.GetString(2) + "|\t" + reader.GetSqlMoney(3));
+                    }
+                }
+            }
+            connection.Close();
         }
     }
 }

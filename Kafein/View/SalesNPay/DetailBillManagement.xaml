@@ -11,6 +11,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <viewmodel:ListProductViewModel x:Key="ListProductViewModel"/>
+        <viewmodel:ProductTypeViewModel x:Key="ProductTypeViewModel"/>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -32,11 +33,13 @@
             </Grid.ColumnDefinitions>
             
             <!--Product type filter-->
-            <ComboBox Grid.Column="1" Margin="5,5,5,5" ItemsSource="{Binding ListTypeContent}">
-                <ComboBoxItem>
-                    <TextBlock Style="{DynamicResource MaterialDesignBody1TextBlock}" Margin="10,0,0,0" Text="{Binding TypeContent}"/>
-                </ComboBoxItem>
-            </ComboBox>
+            <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
+                           TextAlignment="Center" Margin="5,5,5,5"
+                           Foreground="White" Padding="5,8,5,5">
+                Lọc theo
+            </TextBlock>
+            <ComboBox Grid.Column="1" Margin="5,5,5,5" ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
+                      DisplayMemberPath="Name"/>
         </Grid>
         
         <!--List product-->
