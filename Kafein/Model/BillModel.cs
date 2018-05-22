@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Kafein.Database;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +38,31 @@ namespace Kafein.Model.SalesNPay
             CustomerName = customername;
             Date = date;
             Price = price;
+        }
+
+        public static string GenerateID()
+        {
+            IDatabase sqldb = new SQLDatabase();
+            SqlDataReader reader = sqldb.ExcuteReader("SELECT Max(SoHoaDon) FROM HOADON");
+            while (reader.Read())
+            {
+                string currentID = reader.GetString(0);
+                string prefix = currentID.Substring(0, 2);
+                int date = Convert.ToInt16(currentID.Substring(2, 6));
+                int no = Convert.ToInt16(currentID.Substring(8, 3));
+
+                string currentDateStr = DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2);
+                int currDate = Convert.ToInt16(currentDateStr);
+
+                if (currDate == date)
+                {
+                    no++;
+                    return prefix + date + no;
+                }
+                return prefix + currentDateStr + "001";
+            }
+
+            return "HD" + DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2) + "001";
         }
     }
 }

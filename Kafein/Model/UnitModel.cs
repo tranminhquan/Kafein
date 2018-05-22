@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Kafein.Database;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +22,35 @@ namespace Kafein.Model
         {
             ID = id;
             Name = name;
+        }
+
+
+        // static method
+        public static UnitModel GetModelFromID(string id)
+        {
+            IDatabase sqldb = new SQLDatabase();
+            SqlDataReader reader = sqldb.ExcuteReader("SELECT * FROM DONVITINH WHERE MaDonViTinh='" + id + "'");
+            while(reader.Read())
+            {
+                return new UnitModel(reader.GetString(0), reader.GetString(1));
+            }
+            return null;
+        }
+
+        public static string GenerateID()
+        {
+            IDatabase sqldb = new SQLDatabase();
+            SqlDataReader reader = sqldb.ExcuteReader("SELECT Max(MaDonViTinh) FROM DONVITINH");
+            while(reader.Read())
+            {
+                string currentID = reader.GetString(0);
+                string prefix = currentID.Substring(0, 3);
+                int no = Convert.ToInt16(currentID.Substring(2, 1));
+                no++;
+                return prefix + (no.ToString());
+            }
+
+            return "DVT1";
         }
     }
 }

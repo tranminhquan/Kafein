@@ -97,5 +97,19 @@ namespace Kafein.Database
             }
             connection.Close();
         }
+
+        //public T GetModelFromField(string tableName, string fieldName, string fieldValue)
+        //{        
+        //    SqlDataReader reader = this.ExcuteReader("SELECT * FROM " + tableName + " WHERE " + fieldName + "='" + fieldValue + "'");
+        //    object[] constrParams = new object[reader.FieldCount];
+        //    while (reader.Read())
+        //    {
+        //        for(int i=0; i<reader.FieldCount; i++)
+        //        {
+        //            constrParams[i] = reader.GetS
+        //        }
+        //    }
+        //    return (T)Activator.CreateInstance(typeof(T), new object[] { weight });
+        //}
     }
 }

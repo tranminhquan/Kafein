@@ -12,7 +12,12 @@
         <viewmodel:BilllManagementViewModel x:Key="BillManagementViewModel"/>
     </UserControl.Resources>
     <Grid>
-        <ListBox ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <Button Command="{Binding CreateBillCommand, Source={StaticResource BillManagementViewModel}}">CREATE</Button>
+        <ListBox Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                  ItemsSource="{Binding ListBill, Source={StaticResource BillManagementViewModel}}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>

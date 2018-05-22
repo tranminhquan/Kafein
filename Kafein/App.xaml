@@ -33,6 +33,33 @@
                 <Setter Property="FontWeight" Value="Normal" />
             </Style>
 
+            <Style x:Key="WarningButton" BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                   TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="#d11141" />
+                <Setter Property="BorderBrush" Value="#d11141" />
+                <Setter Property="Foreground" Value="{StaticResource PrimaryHueMidForegroundBrush}" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="FontWeight" Value="Normal" />
+            </Style>
+
+            <Style x:Key="GreenButton" BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                   TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="#00b159" />
+                <Setter Property="BorderBrush" Value="#00b159" />
+                <Setter Property="Foreground" Value="{StaticResource PrimaryHueMidForegroundBrush}" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="FontWeight" Value="Normal" />
+            </Style>
+
+            <Style x:Key="InfoButton" BasedOn="{StaticResource MaterialDesignRaisedButton}"
+                   TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="#00aedb" />
+                <Setter Property="BorderBrush" Value="#00aedb" />
+                <Setter Property="Foreground" Value="{StaticResource PrimaryHueMidForegroundBrush}" />
+                <Setter Property="FontSize" Value="10" />
+                <Setter Property="FontWeight" Value="Normal" />
+            </Style>
+            
             <Style x:Key="ConfirmButton" BasedOn="{StaticResource MaterialDesignRaisedButton}"
                    TargetType="{x:Type Button}">
                 <Setter Property="Background" Value="#ffc146" />

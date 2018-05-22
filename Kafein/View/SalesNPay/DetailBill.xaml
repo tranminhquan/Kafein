@@ -10,11 +10,13 @@
     <UserControl.Resources>
         <viewmodel:DetailBillViewModel x:Key="DetailBillViewModel"/>
     </UserControl.Resources>
-    <materialDesign:Card Width="300" Height="Auto">
+    <materialDesign:Card Width="350" Height="450">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="300"/>
+                <RowDefinition Height="250"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <!--Desk number-->
@@ -65,8 +67,55 @@
                            VerticalAlignment="Center"
                            Margin="0,0,0,0" Foreground="{StaticResource PrimaryBrush}" Text="{Binding SumPrice, Source={StaticResource DetailBillViewModel}}"/>
             </StackPanel>
+            
+            <!--Button-->
+            <Border Grid.Row="3" Background="Transparent">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Create bill button-->
+                    <Button Grid.Column="0" Style="{StaticResource InfoButton}"
+                            Margin="5,5,5,5" Height="45">
+                        <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">TẠO</TextBlock>
+                    </Button>
+
+                    <!--Check out button-->
+                    <Button Grid.Column="1" Style="{StaticResource GreenButton}"
+                            Margin="5,5,5,5" Height="45">
+                        <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">THANH TOÁN</TextBlock>
+                    </Button>
+
+                    <!--Print bill-->
+                    <Button Grid.Column="2" Style="{StaticResource GhostButton}"
+                            Margin="5,5,5,5" Height="45"
+                            Content="{materialDesign:PackIcon Kind=Printer, Size=40}"/>
+                </Grid>
+            </Border>
+
+            <Border Grid.Row="4" Background="Transparent">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Cancel button-->
+                    <Button Grid.Column="0" Style="{StaticResource GhostButton}"
+                            Margin="5,5,5,5" Height="45">
+                        <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">THOÁT</TextBlock>
+                    </Button>
+
+                    <!--remove bill button-->
+                    <Button Grid.Column="1" Style="{StaticResource WarningButton}"
+                            Margin="5,5,5,5" Height="45">
+                        <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">XÓA HÓA ĐƠN</TextBlock>
+                    </Button>
+                </Grid>
+            </Border>
         </Grid>
-
-
     </materialDesign:Card>
 </UserControl>

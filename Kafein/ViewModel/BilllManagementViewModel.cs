@@ -1,5 +1,6 @@
 ﻿using Kafein.Model.List;
 using Kafein.Model.SalesNPay;
+using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -28,6 +29,13 @@ namespace Kafein.ViewModel
             ListBill.Add(new BillModel("4", 15, "Minh Quan", DateTime.Now, 25000));
             ListBill.Add(new BillModel("4", 27, "Minh Quan", DateTime.Now, 25000));
             ListBill.Add(new BillModel("4", 14, "Minh Quan", DateTime.Now, 25000));
+
+            CreateBillCommand = new DelegateCommand(CreateBill);
+        }
+
+        public BilllManagementViewModel(Action<object> navigate): this()
+        {
+            this.navigate = navigate;
         }
 
         // getter and setter
@@ -35,6 +43,20 @@ namespace Kafein.ViewModel
         {
             get { return listBillModel.List; }
             set { listBillModel.List = value; NotifyChanged("ListBill"); }
+        }
+
+        public DelegateCommand CreateBillCommand { get; set; }
+
+
+        public void CreateBill()
+        {
+            ListProductViewModel listProductViewModel = new ListProductViewModel();
+
+        }
+
+        public void Navigate()
+        {
+            navigate.Invoke("ListProductViewModel");
         }
     }
 }

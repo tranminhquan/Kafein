@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Kafein.Model;
+using Kafein.Model.List;
 
 namespace Kafein.ViewModel
 {
@@ -15,11 +16,19 @@ namespace Kafein.ViewModel
         private UnitModel unitModel;
         private DetailBillModel detailBillModel;
 
+
         public DetailBillItemViewModel(): base()
         {
             productModel = new ProductModel();
             unitModel = new UnitModel();
             detailBillModel = new DetailBillModel();
+        }
+
+        public DetailBillItemViewModel(ProductModel product, UnitModel unit, DetailBillModel detail)
+        {
+            productModel = product;
+            unitModel = unit;
+            detailBillModel = detail;
         }
 
         // ONLY FOR TESTING

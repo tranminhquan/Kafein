@@ -4,10 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Kafein"
+        xmlns:view="clr-namespace:Kafein.View"
+        xmlns:viewmodel="clr-namespace:Kafein.ViewModel"
         xmlns:sales="clr-namespace:Kafein.View.SalesNPay"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <viewmodel:MainViewModel x:Key="MainViewModel"/>
+
+        <DataTemplate DataType="{x:Type viewmodel:BilllManagementViewModel}">
+            <sales:BillManagement/>
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
-        <sales:DetailBillManagement/>
+        <ContentControl x:Name="Pages" Content="{Binding SelectedViewModel, Source={StaticResource MainViewModel}}"/>
     </Grid>
 </Window>
