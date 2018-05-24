@@ -14,7 +14,6 @@ namespace Kafein.Model.SalesNPay
         // from database
         public string ID { get; set; }
         public int DeskNo { get; set; }
-        public string CustomerName { get; set; }
         public DateTime Date { get; set; }
         public double Price { get; set; }
 
@@ -32,11 +31,10 @@ namespace Kafein.Model.SalesNPay
 
         }
 
-        public BillModel(string id, int deskno, string customername, DateTime date, double price)
+        public BillModel(string id, int deskno, DateTime date, double price)
         {
             ID = id;
             DeskNo = deskno;
-            CustomerName = customername;
             Date = date;
             Price = price;
         }

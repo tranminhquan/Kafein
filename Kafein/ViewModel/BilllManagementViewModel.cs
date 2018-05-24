@@ -19,16 +19,16 @@ namespace Kafein.ViewModel
             listBillModel = ListBillModel.GetInstace();
 
             //test
-            ListBill.Add(new BillModel("1", 2, "Minh Quan", DateTime.Now, 125000));
-            ListBill.Add(new BillModel("2", 12, "Minh Quan", DateTime.Now, 5000));
-            ListBill.Add(new BillModel("3", 22, "Minh Quan", DateTime.Now, 75000));
-            ListBill.Add(new BillModel("4", 1, "Minh Quan", DateTime.Now, 25000));
-            ListBill.Add(new BillModel("4", 7, "Minh Quan", DateTime.Now, 25000));
-            ListBill.Add(new BillModel("4", 20, "Minh Quan", DateTime.Now, 25000));
-            ListBill.Add(new BillModel("4", 9, "Minh Quan", DateTime.Now, 25000));
-            ListBill.Add(new BillModel("4", 15, "Minh Quan", DateTime.Now, 25000));
-            ListBill.Add(new BillModel("4", 27, "Minh Quan", DateTime.Now, 25000));
-            ListBill.Add(new BillModel("4", 14, "Minh Quan", DateTime.Now, 25000));
+            ListBill.Add(new BillModel("1", 2, DateTime.Now, 125000));
+            ListBill.Add(new BillModel("2", 12, DateTime.Now, 5000));
+            ListBill.Add(new BillModel("3", 22, DateTime.Now, 75000));
+            ListBill.Add(new BillModel("4", 1, DateTime.Now, 25000));
+            ListBill.Add(new BillModel("4", 7, DateTime.Now, 25000));
+            ListBill.Add(new BillModel("4", 20, DateTime.Now, 25000));
+            ListBill.Add(new BillModel("4", 9, DateTime.Now, 25000));
+            ListBill.Add(new BillModel("4", 15, DateTime.Now, 25000));
+            ListBill.Add(new BillModel("4", 27, DateTime.Now, 25000));
+            ListBill.Add(new BillModel("4", 14, DateTime.Now, 25000));
 
             CreateBillCommand = new DelegateCommand(CreateBill);
         }
