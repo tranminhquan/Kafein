@@ -15,6 +15,10 @@
         <DataTemplate DataType="{x:Type viewmodel:BilllManagementViewModel}">
             <sales:BillManagement/>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewmodel:ListProductViewModel}">
+            <sales:DetailBillManagement/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <ContentControl x:Name="Pages" Content="{Binding SelectedViewModel, Source={StaticResource MainViewModel}}"/>

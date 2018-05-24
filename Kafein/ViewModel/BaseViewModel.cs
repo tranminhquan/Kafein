@@ -11,7 +11,7 @@ namespace Kafein.ViewModel
     public class BaseViewModel: INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        protected Action<object> navigate;
+        protected Action<object, object[]> navigate;
 
         public void NotifyChanged(string propertyName)
         {

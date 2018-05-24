@@ -1,4 +1,3 @@
-using GalaSoft.MvvmLight;
 using System.ComponentModel;
 
 namespace Kafein.ViewModel
@@ -8,7 +7,7 @@ namespace Kafein.ViewModel
         private object selectedViewModel;
         public MainViewModel()
         {
-            SelectedViewModel = new BilllManagementViewModel(ViewModelNavigator);
+            SelectedViewModel = new BilllManagementViewModel(ViewModelNavigator, null);
         }
 
         // getter and setter
@@ -18,12 +17,12 @@ namespace Kafein.ViewModel
             set { selectedViewModel = value; NotifyChanged("SelectedViewModel"); }
         }
 
-        public void ViewModelNavigator(object obj)
+        public void ViewModelNavigator(object obj, object[] parameters)
         {
             if (obj.ToString() == "BillManagementViewModel")
-                SelectedViewModel = new BilllManagementViewModel(ViewModelNavigator);
-            //if (obj.ToString() == "ListProductViewModel")
-            //    SelectedViewModel = new ListProductViewModel(ViewModelNavigator);
+                SelectedViewModel = new BilllManagementViewModel(ViewModelNavigator, parameters);
+            if (obj.ToString() == "ListProductViewModel")
+                SelectedViewModel = new ListProductViewModel(ViewModelNavigator, parameters);
         }
     }
 }

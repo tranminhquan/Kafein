@@ -23,5 +23,8 @@ namespace Kafein.Database
         /// <param name="query"></param>
         /// <returns></returns>
         SqlDataReader ExcuteReader(string query);
+
+        void Open();
+        void Close();
     }
 }

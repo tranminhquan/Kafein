@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,26 +44,39 @@ namespace Kafein.Model.SalesNPay
         public static string GenerateID()
         {
             IDatabase sqldb = new SQLDatabase();
+            sqldb.Open();
             SqlDataReader reader = sqldb.ExcuteReader("SELECT Max(SoHoaDon) FROM HOADON");
+            
             while (reader.Read())
             {
-                string currentID = reader.GetString(0);
-                string prefix = currentID.Substring(0, 2);
-                int date = Convert.ToInt16(currentID.Substring(2, 6));
-                int no = Convert.ToInt16(currentID.Substring(8, 3));
-
-                string currentDateStr = DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2);
-                int currDate = Convert.ToInt16(currentDateStr);
-
-                if (currDate == date)
+                try
                 {
-                    no++;
-                    return prefix + date + no;
-                }
-                return prefix + currentDateStr + "001";
-            }
+                    string currentID = reader.GetString(0);
+                    string prefix = currentID.Substring(0, 2);
+                    int date = Convert.ToInt16(currentID.Substring(2, 6));
+                    int no = Convert.ToInt16(currentID.Substring(8, 3));
 
-            return "HD" + DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2) + "001";
+                    string currentDateStr = DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2);
+                    int currDate = Convert.ToInt16(currentDateStr);
+
+                    if (currDate == date)
+                    {
+                        no++;
+                        sqldb.Close();
+                        return prefix + date + no;
+                    }
+                    sqldb.Close();
+                    return prefix + currentDateStr + "001";
+                }
+                catch (SqlNullValueException e)
+                {
+                    sqldb.Close();
+                    return "HD" + DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2) + "001";
+                }
+            }
+            return null;
+            //sqldb.Close();
+            //return "HD" + DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2) + "001";
         }
     }
 }

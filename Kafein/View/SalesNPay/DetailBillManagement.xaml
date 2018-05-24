@@ -11,8 +11,8 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="900">
     <UserControl.Resources>
-        <viewmodel:ListProductViewModel x:Key="ListProductViewModel"/>
-        <viewmodel:ProductTypeViewModel x:Key="ProductTypeViewModel"/>
+        <!--<viewmodel:ListProductViewModel x:Key="ListProductViewModel"/>
+        <viewmodel:ProductTypeViewModel x:Key="ProductTypeViewModel"/>-->
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -39,15 +39,16 @@
                            Foreground="White" Padding="5,8,5,5">
                 Lọc theo
             </TextBlock>
-            <ComboBox Grid.Column="1" Margin="5,5,5,5" ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
-                      DisplayMemberPath="Name"/>
+            <!--<ComboBox Grid.Column="1" Margin="5,5,5,5" ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
+                      DisplayMemberPath="Name"/>-->
         </Grid>
         
         <!--List product-->
         <ListBox Grid.Row="1" Grid.Column="0"
                  x:Name="lbProduct"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                 ItemsSource="{Binding ListProduct, Source={StaticResource ListProductViewModel}}">
+                 ItemsSource="{Binding ListProduct}"
+                 SelectedIndex="{Binding SelectedIndex}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <productview:ProductItem/>
@@ -61,7 +62,7 @@
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction
-                        Command="{Binding ProductSelectionChangeCommand, Source={StaticResource ListProductViewModel}}"
+                        Command="{Binding ProductSelectionChangeCommand}"
                         CommandParameter="{Binding SelectedItem, ElementName=lbProduct}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
@@ -89,7 +90,7 @@
                     </StackPanel>
 
                     <!--List product selected-->
-                    <ListBox Grid.Row="1" ItemsSource="{Binding ListDetailBill, Source={StaticResource ListProductViewModel}}">
+                    <ListBox Grid.Row="1" ItemsSource="{Binding ListDetailBill}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -124,7 +125,7 @@
                         </TextBlock>
                         <TextBlock Style="{DynamicResource MaterialDesignDisplay1TextBlock}" TextAlignment="Center" 
                            VerticalAlignment="Center"
-                           Margin="0,0,0,0" Foreground="{StaticResource PrimaryBrush}" Text="{Binding SumPrice, Source={StaticResource ListProductViewModel}}"/>
+                           Margin="0,0,0,0" Foreground="{StaticResource PrimaryBrush}" Text="{Binding SumPrice}"/>
                     </StackPanel>
 
                     <!--Button-->

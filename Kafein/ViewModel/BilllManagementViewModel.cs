@@ -16,7 +16,7 @@ namespace Kafein.ViewModel
 
         public BilllManagementViewModel(): base()
         {
-            listBillModel = new ListBillModel();
+            listBillModel = ListBillModel.GetInstace();
 
             //test
             ListBill.Add(new BillModel("1", 2, "Minh Quan", DateTime.Now, 125000));
@@ -33,7 +33,7 @@ namespace Kafein.ViewModel
             CreateBillCommand = new DelegateCommand(CreateBill);
         }
 
-        public BilllManagementViewModel(Action<object> navigate): this()
+        public BilllManagementViewModel(Action<object, object[]> navigate, object[] parameters): this()
         {
             this.navigate = navigate;
         }
@@ -50,13 +50,7 @@ namespace Kafein.ViewModel
 
         public void CreateBill()
         {
-            ListProductViewModel listProductViewModel = new ListProductViewModel();
-
-        }
-
-        public void Navigate()
-        {
-            navigate.Invoke("ListProductViewModel");
+            navigate.Invoke("ListProductViewModel", null);  
         }
     }
 }

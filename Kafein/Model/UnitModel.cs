@@ -29,28 +29,33 @@ namespace Kafein.Model
         public static UnitModel GetModelFromID(string id)
         {
             IDatabase sqldb = new SQLDatabase();
+            sqldb.Open();
             SqlDataReader reader = sqldb.ExcuteReader("SELECT * FROM DONVITINH WHERE MaDonViTinh='" + id + "'");
             while(reader.Read())
             {
-                return new UnitModel(reader.GetString(0), reader.GetString(1));
+                UnitModel unit = new UnitModel(reader.GetString(0), reader.GetString(1));
+                sqldb.Close();
+                return unit;
             }
+            sqldb.Close();
             return null;
         }
 
-        public static string GenerateID()
-        {
-            IDatabase sqldb = new SQLDatabase();
-            SqlDataReader reader = sqldb.ExcuteReader("SELECT Max(MaDonViTinh) FROM DONVITINH");
-            while(reader.Read())
-            {
-                string currentID = reader.GetString(0);
-                string prefix = currentID.Substring(0, 3);
-                int no = Convert.ToInt16(currentID.Substring(2, 1));
-                no++;
-                return prefix + (no.ToString());
-            }
+        //public static string GenerateID()
+        //{
+        //    IDatabase sqldb = new SQLDatabase();
+        //    sqldb.Open();
+        //    SqlDataReader reader = sqldb.ExcuteReader("SELECT Max(MaDonViTinh) FROM DONVITINH");
+        //    while(reader.Read())
+        //    {
+        //        string currentID = reader.GetString(0);
+        //        string prefix = currentID.Substring(0, 3);
+        //        int no = Convert.ToInt16(currentID.Substring(2, 1));
+        //        no++;
+        //        return prefix + (no.ToString());
+        //    }
 
-            return "DVT1";
-        }
+        //    return "DVT1";
+        //}
     }
 }

@@ -37,9 +37,18 @@ namespace Kafein.Database
             }
         }
 
-        public void ExcuteNonQuery(string query)
+        public void Open()
         {
             connection.Open();
+        }
+
+        public void Close()
+        {
+            connection.Close();
+        }
+
+        public void ExcuteNonQuery(string query)
+        {
             using (SqlCommand command = new SqlCommand(query, connection))
             {
                 try
@@ -50,35 +59,30 @@ namespace Kafein.Database
                 {
                     Debug.Log("SQL Exception when excute non query >> " + e);
                 }
-                finally
-                {
-                    connection.Close();
-                }
             }
         }
 
         public SqlDataReader ExcuteReader(string query)
         {
-            connection.Open();
-            using (SqlCommand command = new SqlCommand(query, connection))
-            {
-                try
-                {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        return reader;
-                    }
-                }
-                catch (SqlException e)
-                {
-                    Debug.Log("SQL Exception when excute reader >> " + e);
-                    return null;
-                }
-                finally
-                {
-                    connection.Close();
-                }
-            }
+            //using (SqlCommand command = new SqlCommand(query, connection))
+            //{
+            //    try
+            //    {
+            //        using (SqlDataReader reader = command.ExecuteReader())
+            //        {
+            //            return reader;
+            //        }
+            //    }
+            //    catch (SqlException e)
+            //    {
+            //        Debug.Log("SQL Exception when excute reader >> " + e);
+            //        return null;
+            //    }
+            //}
+
+            SqlCommand command = new SqlCommand(query, connection);
+            SqlDataReader reader = command.ExecuteReader();
+            return reader;
         }
 
         public void Test()

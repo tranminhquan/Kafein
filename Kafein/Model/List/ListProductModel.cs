@@ -8,9 +8,17 @@ namespace Kafein.Model.List
 {
     public class ListProductModel: BaseList<ProductModel>
     {
+        private static ListProductModel instance = null;
         public ListProductModel(): base()
         {
 
+        }
+
+        public static ListProductModel GetInstance()
+        {
+            if (instance == null)
+                instance = new ListProductModel();
+            return instance;
         }
     }
 }
