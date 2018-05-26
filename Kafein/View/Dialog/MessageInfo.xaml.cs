@@ -32,7 +32,9 @@ namespace Kafein.View.Dialog
 
         private void btnConfirm_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            foreach (Window window in Application.Current.Windows)
+                if (window.Title == "MessageInfo")
+                    window.Close();
         }
     }
 }
