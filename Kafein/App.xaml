@@ -87,6 +87,10 @@
                 </Style.Triggers>
             </Style>
 
+            <Style x:Key="TxtBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}"
+                   TargetType="{x:Type TextBox}">
+                <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}" />
+            </Style>
 
 
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:Kafein.ViewModel" />

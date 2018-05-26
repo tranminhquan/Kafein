@@ -8,9 +8,6 @@
              xmlns:viewmodel ="clr-namespace:Kafein.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <viewmodel:BilllManagementViewModel x:Key="BillManagementViewModel"/>
-    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -18,7 +15,7 @@
         </Grid.ColumnDefinitions>
         <Button Command="{Binding CreateBillCommand}">CREATE</Button>
         <ListBox Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                 ItemsSource="{Binding ListBill, Source={StaticResource BillManagementViewModel}}">
+                 ItemsSource="{Binding ListBill}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <local:GeneralBill/>

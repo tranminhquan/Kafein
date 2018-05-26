@@ -1,6 +1,9 @@
 ﻿using Kafein.Database;
+using Kafein.Utilities;
+using Prism.Commands;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
 using System.Linq;
@@ -18,6 +21,7 @@ namespace Kafein.Model
         public string UnitID { get; set; }
         public int Quantity { get; set; }
         public double Price { get; set; }
+        
 
         // read-only property
         public string ProductName
@@ -45,8 +49,27 @@ namespace Kafein.Model
             Price = price;
         }
 
-        public static string GenerateID()
+        public static string GenerateID(ObservableCollection<dynamic> listDetail)
         {
+            string offID = null;
+            string currentDateStr = DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2);
+            int currDate = Convert.ToInt32(currentDateStr);
+            if (listDetail.Count > 0)
+            {
+                string maxid = listDetail[0].ID;
+                foreach (DetailBillModel bill in listDetail)
+                {
+                    string id = bill.ID;
+                    int compare = String.Compare(maxid, id);
+                    int date = Convert.ToInt32(id.Substring(2, 6));
+                    if (compare == -1 && (currDate == date))
+                    {
+                        maxid = id;
+                    }
+                }
+                offID = maxid.Substring(0, 2) + maxid.Substring(2, 6) + (Convert.ToInt32(maxid.Substring(8, 3)) + 1).ToString("000");
+            }
+
             IDatabase sqldb = new SQLDatabase();
             sqldb.Open();
             SqlDataReader reader = sqldb.ExcuteReader("SELECT Max(MaCTHoaDon) FROM CHITIETHOADON");
@@ -56,20 +79,25 @@ namespace Kafein.Model
                 {
                     string currentID = reader.GetString(0);
                     string prefix = currentID.Substring(0, 2);
-                    int date = Convert.ToInt16(currentID.Substring(2, 6));
-                    int no = Convert.ToInt16(currentID.Substring(8, 3));
-
-                    string currentDateStr = DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2);
-                    int currDate = Convert.ToInt16(currentDateStr);
+                    int date = Convert.ToInt32(currentID.Substring(2, 6));
+                    int no = Convert.ToInt32(currentID.Substring(8, 3));
 
                     if (currDate == date)
                     {
                         no++;
                         sqldb.Close();
-                        return prefix + date + no;
+                        string tempid = prefix + date + no.ToString("000");
+                        if (String.Compare(tempid, offID) == -1)
+                            return offID;
+                        else
+                            return tempid;
                     }
                     sqldb.Close();
-                    return prefix + currentDateStr + "001";
+                    string tid = prefix + currentDateStr + "001";
+                    if (String.Compare(tid, offID) == -1)
+                        return offID;
+                    else
+                        return tid;
                 }
                 catch (SqlNullValueException e)
                 {
@@ -79,6 +107,21 @@ namespace Kafein.Model
             }
 
             return "CT" + DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2) + "001";
+        }
+
+        public static void SaveToDatabase(DetailBillModel detail)
+        {
+            IDatabase sqldb = new SQLDatabase();
+            try
+            {
+                sqldb.Open();
+                sqldb.ExcuteNonQuery("INSERT INTO CHITIETHOADON VALUES('" + detail.ID + "', '" + detail.BillID + "', '" + detail.ProductID + "', " + detail.Quantity + ", " + detail.Price + ")");
+                sqldb.Close();
+            }
+            catch (SqlException e)
+            {
+                Debug.LogOutput(e.ToString());
+            }
         }
     }
 }

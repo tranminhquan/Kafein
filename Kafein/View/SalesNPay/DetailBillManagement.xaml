@@ -10,20 +10,23 @@
              xmlns:viewmodel="clr-namespace:Kafein.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="900">
-    <UserControl.Resources>
-        <!--<viewmodel:ListProductViewModel x:Key="ListProductViewModel"/>
-        <viewmodel:ProductTypeViewModel x:Key="ProductTypeViewModel"/>-->
-    </UserControl.Resources>
+    <UserControl.InputBindings>
+        <KeyBinding Key="F1" Command="{Binding ShortcutKeysCommand}" CommandParameter="F1"/>
+        <KeyBinding Key="F2" Command="{Binding ShortcutKeysCommand}" CommandParameter="F2"/>
+        <KeyBinding Key="F3" Command="{Binding ShortcutKeysCommand}" CommandParameter="F3"/>
+        <KeyBinding Key="Esc" Command="{Binding ShortcutKeysCommand}" CommandParameter="ESC"/>
+        <KeyBinding Key="Delete" Command="{Binding ShortcutKeysCommand}" CommandParameter="DELETE"/>
+    </UserControl.InputBindings>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="350"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
+
         <!--Filter-->
         <Grid>
             <Grid.ColumnDefinitions>
@@ -32,7 +35,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
-            
+
             <!--Product type filter-->
             <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
                            TextAlignment="Center" Margin="5,5,5,5"
@@ -42,7 +45,7 @@
             <!--<ComboBox Grid.Column="1" Margin="5,5,5,5" ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
                       DisplayMemberPath="Name"/>-->
         </Grid>
-        
+
         <!--List product-->
         <ListBox Grid.Row="1" Grid.Column="0"
                  x:Name="lbProduct"
@@ -67,9 +70,9 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListBox>
-        
+
         <!--Detail bill-->
-        <Border Grid.Row="1" Grid.Column="1">
+        <Border Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch">
             <materialDesign:Card Width="350" Height="450">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -80,17 +83,22 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!--Desk number-->
-                    <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource AccentBrush}">
-                        <TextBlock TextAlignment="Center" Padding="10,10,10,10" 
+                    <!--<StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource AccentBrush}">-->
+                        <!--<TextBlock TextAlignment="Center" Padding="10,10,10,10" 
                            Style="{DynamicResource MaterialDesignTitleTextBlock}" 
                            Foreground="White" Margin="0,0,0,0" Width="133">
                     Số bàn
-                        </TextBlock>
-                        <TextBox Margin="10,10,10,10.4" Width="107" Text="{Binding InputDeskNo}"></TextBox>
-                    </StackPanel>
+                        </TextBlock>-->
+                        
+                    <!--</StackPanel>-->
+
+                    <TextBox Grid.Row="0" TextAlignment="Center"
+                            Margin="10" Width="120" Text="{Binding InputDeskNo}" HorizontalAlignment="Center"
+                            materialDesign:HintAssist.Hint="Nhập số bàn" Foreground="{StaticResource PrimaryBrush}"
+                            FontSize="20"/>
 
                     <!--List product selected-->
-                    <ListBox Grid.Row="1" ItemsSource="{Binding ListDetailBill}">
+                    <ListBox x:Name="DetailBillList" Grid.Row="1" ItemsSource="{Binding ListDetailBill}">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -102,7 +110,8 @@
                                         <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Button Content="{materialDesign:PackIcon Kind=Delete}" Style="{StaticResource GhostButton}"/>
+                                    <Button Content="{materialDesign:PackIcon Kind=Delete}" Style="{StaticResource GhostButton}"
+                                            Command="{Binding RemoveItemCommand}" CommandParameter="{Binding SelectedItem, ElementName=DetailBillList}"/>
                                     <TextBlock Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" 
                                        Padding="10,10,10,10" Text="{Binding ProductName}"/>
                                     <TextBlock Grid.Column="2" Style="{DynamicResource MaterialDesignBody2TextBlock}" 
@@ -134,25 +143,25 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0.7*"/>
                             </Grid.ColumnDefinitions>
 
                             <!--Create bill button-->
-                            <Button Grid.Column="0" Style="{StaticResource InfoButton}"
-                            Margin="5,5,5,5" Height="45">
-                                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">TẠO</TextBlock>
+                            <Button Grid.Column="0" Style="{StaticResource InfoButton}" Command="{Binding CreateBillCommand}"
+                            Margin="5,5,2,5" Height="45">
+                                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">TẠO (F1)</TextBlock>
                             </Button>
 
                             <!--Check out button-->
-                            <Button Grid.Column="1" Style="{StaticResource GreenButton}"
-                            Margin="5,5,5,5" Height="45">
-                                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">THANH TOÁN</TextBlock>
+                            <Button Grid.Column="1" Style="{StaticResource GreenButton}" Command="{Binding CheckoutBillCommand}"
+                            Margin="5,5,2,5" Height="45">
+                                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">THANH TOÁN (F2)</TextBlock>
                             </Button>
 
                             <!--Print bill-->
-                            <Button Grid.Column="2" Style="{StaticResource GhostButton}"
+                            <Button Grid.Column="2" Style="{StaticResource GhostButton}" Command="{Binding PrintBillCommand}"
                             Margin="5,5,5,5" Height="45"
-                            Content="{materialDesign:PackIcon Kind=Printer, Size=40}"/>
+                            Content="{materialDesign:PackIcon Kind=Printer, Size=25}"/>
                         </Grid>
                     </Border>
 
@@ -164,15 +173,15 @@
                             </Grid.ColumnDefinitions>
 
                             <!--Cancel button-->
-                            <Button Grid.Column="0" Style="{StaticResource GhostButton}"
+                            <Button Grid.Column="0" Style="{StaticResource GhostButton}" Command="{Binding CancelCommand}"
                             Margin="5,5,5,5" Height="45">
-                                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">THOÁT</TextBlock>
+                                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">THOÁT (ESC)</TextBlock>
                             </Button>
 
                             <!--remove bill button-->
-                            <Button Grid.Column="1" Style="{StaticResource WarningButton}"
+                            <Button Grid.Column="1" Style="{StaticResource WarningButton}" Command="{Binding ClearBillCommand}"
                             Margin="5,5,5,5" Height="45">
-                                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">XÓA HÓA ĐƠN</TextBlock>
+                                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">XÓA HÓA ĐƠN (DEL)</TextBlock>
                             </Button>
                         </Grid>
                     </Border>

@@ -2,6 +2,7 @@
 using Kafein.Model.List;
 using Kafein.Model.SalesNPay;
 using Kafein.Utilities;
+using Kafein.View.Dialog;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Kafein.ViewModel
 {
@@ -16,28 +18,24 @@ namespace Kafein.ViewModel
     {
         private ListProductModel listProductModel;
         private BillModel newBill;
-        private ObservableCollection<DetailBillItemViewModel> listDetailBill;
+        private ListDetailBillModel listDetailBill;
         public ListProductViewModel(): base()
         {
             listProductModel = ListProductModel.GetInstance();
-            //test
-            ListProduct.Add(new ProductModel("MH001", "Cà phê", "LMH1", "DVT1", 15000, null));
-            ListProduct.Add(new ProductModel("MH002", "Cà phê sữa", "LMH1", "DVT1", 2000, null));
-            ListProduct.Add(new ProductModel("MH003", "Sinh tố bơ", "LMH2", "DVT1", 35000, null));
-            ListProduct.Add(new ProductModel("MH004", "Sting", "LMH3", "DVT3", 12000, null));
-            ListProduct.Add(new ProductModel("MH005", "Redbull", "LMH3", "DVT2", 15000, null));
-            ListProduct.Add(new ProductModel("MH006", "Pepsi", "LMH3", "DVT2", 8000, null));
+            listProductModel.LoadAllProduct();
 
-            listDetailBill = new ObservableCollection<DetailBillItemViewModel>();
-            //test
-            //ListDetailBill.Add(new DetailBillItemViewModel("Cà phê đá", "Ly", 2, 30000));
-            //ListDetailBill.Add(new DetailBillItemViewModel("Cà phê sữa đá", "Ly", 1, 20000));
-            //ListDetailBill.Add(new DetailBillItemViewModel("Sinh tố bơ", "Ly", 1, 30000));
-            //ListDetailBill.Add(new DetailBillItemViewModel("Sinh tố dâu", "Ly", 1, 25000));
-            //ListDetailBill.Add(new DetailBillItemViewModel("Sting", "Chai", 2, 20000));
+
+            listDetailBill = new ListDetailBillModel();
 
             // command init
             ProductSelectionChangeCommand = new DelegateCommand<ProductModel>(SelectedProductChange);
+            ShortcutKeysCommand = new DelegateCommand<string>(HandleShortcutKeys);
+            CreateBillCommand = new DelegateCommand(CreateBill);
+            CheckoutBillCommand = new DelegateCommand(CheckoutBill);
+            PrintBillCommand = new DelegateCommand(PrintBill);
+            ClearBillCommand = new DelegateCommand(ClearBill);
+            CancelCommand = new DelegateCommand(Cancel);
+            RemoveItemCommand = new DelegateCommand<DetailBillItemViewModel>(RemoveItem);
 
 
             // =============> !!!! [WARNING] DO NOT DELETE THIS CODE !!!! <==============
@@ -54,22 +52,31 @@ namespace Kafein.ViewModel
             if (parameters == null)
             {
                 newBill = new BillModel();
-                newBill.ID = BillModel.GenerateID();
+                newBill.ID = BillModel.GenerateID(ListBillModel.GetInstace().List);
             }
         }
 
         // getter and setter
+        public DelegateCommand<string> ShortcutKeysCommand { get; set; }
         public DelegateCommand<ProductModel> ProductSelectionChangeCommand { get; set; }
+        public DelegateCommand CreateBillCommand { get; set; }
+        public DelegateCommand CheckoutBillCommand { get; set; }
+        public DelegateCommand PrintBillCommand { get; set; }
+        public DelegateCommand ClearBillCommand { get; set; }
+        public DelegateCommand CancelCommand { get; set; }
+        public DelegateCommand<DetailBillItemViewModel> RemoveItemCommand { get; set; }
         public ObservableCollection<DetailBillItemViewModel> ListDetailBill
         {
-            get { return listDetailBill; }
-            set { listDetailBill = value; NotifyChanged("ListDeta"); }
+            get { return listDetailBill.List; }
+            set { listDetailBill.List = value; NotifyChanged("ListDetailBill"); }
         }
         public ObservableCollection<ProductModel> ListProduct
         {
             get { return listProductModel.List; }
             set { listProductModel.List = value; NotifyChanged("ListProduct"); }
         }
+
+        public int InputDeskNo { get; set; }
 
         public int SelectedIndex { get; set; }
 
@@ -94,7 +101,7 @@ namespace Kafein.ViewModel
             Debug.LogOutput(product.Name);
 
             //Check if product was chosen, then update quantity
-            foreach(DetailBillItemViewModel item in listDetailBill)
+            foreach(DetailBillItemViewModel item in ListDetailBill)
             {
                 if (item.ProductName.Equals(product.Name))
                 {
@@ -110,7 +117,7 @@ namespace Kafein.ViewModel
             UnitModel unit = UnitModel.GetModelFromID(product.UnitID);
 
             // Generate id for detaill bill
-            DetailBillModel detail = new DetailBillModel(DetailBillModel.GenerateID(), newBill.ID, product.ID, unit.ID, 1, product.Price);
+            DetailBillModel detail = new DetailBillModel(DetailBillModel.GenerateID(listDetailBill.ListDetail), newBill.ID, product.ID, unit.ID, 1, product.Price);
             listDetailBill.Add(new DetailBillItemViewModel(product, unit, detail));
 
             NotifyDetaillBillProperty();
@@ -121,6 +128,90 @@ namespace Kafein.ViewModel
             SelectedIndex = -1;
             NotifyChanged("SelectedIndex");
             NotifyChanged("SumPrice");
+        }
+
+        private void HandleShortcutKeys(string key)
+        {   
+            switch(key)
+            {
+                case "F1":
+                    CreateBill();
+                    ListBillModel.GetInstace().Add(newBill);
+                    navigate.Invoke("BillManagementViewModel", null);
+                    break;
+                case "F2":
+                    CheckoutBill();
+                    break;
+                case "F3":
+                    PrintBill();
+                    break;
+                case "ESC":
+                    Cancel();
+                    break;
+                case "DELETE":
+                    ClearBill();
+                    break;
+            }
+            
+        }
+
+        private void CreateBill()
+        {
+            // check if list detail is null
+            if (ListDetailBill.Count == 0)
+            {
+                MessageBox.Show("Hóa đơn chưa chọn món", "Nhắc nhở", MessageBoxButton.OK);
+                return;
+            }
+            
+            // update property for general bill
+            newBill.Date = DateTime.Now;
+            newBill.DeskNo = InputDeskNo;
+            newBill.Price = SumPrice;                   
+        }
+
+        private void CheckoutBill()
+        {
+            // create bill first
+            CreateBill();
+
+            // save to database
+            SaveToDatabase();
+
+        }
+
+        private void PrintBill()
+        {
+            // print
+        }
+
+        private void ClearBill()
+        {
+            ListDetailBill.Clear();
+            NotifyChanged("SumPrice");
+        }
+
+        private void Cancel()
+        {
+            navigate.Invoke("BillManagementViewModel", null);
+        }
+
+        private void RemoveItem(DetailBillItemViewModel item)
+        {
+            ListDetailBill.Remove(item);
+        }
+
+        private void SaveToDatabase()
+        {
+            // save bill
+            BillModel.SaveToDatabase(newBill);
+
+            // save detail bill
+            foreach(DetailBillItemViewModel item in ListDetailBill)
+            {
+                DetailBillModel.SaveToDatabase(item.DetailBillModel);
+            }
+            
         }
     }
 }

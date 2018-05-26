@@ -101,11 +101,21 @@
     <Compile Include="ViewModel\BilllManagementViewModel.cs" />
     <Compile Include="ViewModel\DetailBillItemViewModel.cs" />
     <Compile Include="ViewModel\DetailBillViewModel.cs" />
+    <Compile Include="ViewModel\Dialog\CheckoutDialogViewModel.cs" />
     <Compile Include="ViewModel\DragAndDropViewModel.cs" />
     <Compile Include="ViewModel\ListProductViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ProductTypeViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\Dialog\CheckoutDialog.xaml.cs">
+      <DependentUpon>CheckoutDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\MessageDialog.xaml.cs">
+      <DependentUpon>MessageDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Dialog\MessageInfo.xaml.cs">
+      <DependentUpon>MessageInfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Product\ProductItem.xaml.cs">
       <DependentUpon>ProductItem.xaml</DependentUpon>
     </Compile>
@@ -136,6 +146,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\Dialog\CheckoutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\MessageDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Dialog\MessageInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Product\ProductItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

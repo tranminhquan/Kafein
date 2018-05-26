@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Kafein.Model;
 using Kafein.Model.List;
+using Kafein.Utilities;
+using Prism.Commands;
 
 namespace Kafein.ViewModel
 {
@@ -22,6 +24,7 @@ namespace Kafein.ViewModel
             productModel = new ProductModel();
             unitModel = new UnitModel();
             detailBillModel = new DetailBillModel();
+            RemoveItemCommand = new DelegateCommand<DetailBillItemViewModel>(RemoveItem);
         }
 
         public DetailBillItemViewModel(ProductModel product, UnitModel unit, DetailBillModel detail)
@@ -41,6 +44,11 @@ namespace Kafein.ViewModel
         }
 
         // getter and setter need for detail bill view
+        public DetailBillModel DetailBillModel
+        {
+            get { return detailBillModel; }
+            set { detailBillModel = value; NotifyChanged("DetailBillModel"); }
+        }
         public string ProductName
         {
             get { return productModel.Name; }
@@ -64,6 +72,13 @@ namespace Kafein.ViewModel
         {
             get { return detailBillModel.Price; }
             set { detailBillModel.Price = value; NotifyChanged("Price"); }
+        }
+
+        public DelegateCommand<DetailBillItemViewModel> RemoveItemCommand { get; set; }
+
+        private void RemoveItem(DetailBillItemViewModel item)
+        {
+            Debug.LogOutput("Remove item command " + item.ProductName);
         }
     }
 }
