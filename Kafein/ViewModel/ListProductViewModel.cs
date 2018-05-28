@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Kafein.ViewModel
 {
@@ -21,11 +22,10 @@ namespace Kafein.ViewModel
         private ListDetailBillModel listDetailBill;
         public ListProductViewModel(): base()
         {
+
             listProductModel = ListProductModel.GetInstance();
             listProductModel.LoadAllProduct();
-
-
-            listDetailBill = new ListDetailBillModel();
+            listDetailBill = ListDetailBillModel.GetInstance();
 
             // command init
             ProductSelectionChangeCommand = new DelegateCommand<ProductModel>(SelectedProductChange);
@@ -35,7 +35,7 @@ namespace Kafein.ViewModel
             PrintBillCommand = new DelegateCommand(PrintBill);
             ClearBillCommand = new DelegateCommand(ClearBill);
             CancelCommand = new DelegateCommand(Cancel);
-            RemoveItemCommand = new DelegateCommand<DetailBillItemViewModel>(RemoveItem);
+            DetailSelectionChangeCommand = new DelegateCommand<DetailBillItemViewModel>(SelectedDetailChange);
 
 
             // =============> !!!! [WARNING] DO NOT DELETE THIS CODE !!!! <==============
@@ -64,7 +64,7 @@ namespace Kafein.ViewModel
         public DelegateCommand PrintBillCommand { get; set; }
         public DelegateCommand ClearBillCommand { get; set; }
         public DelegateCommand CancelCommand { get; set; }
-        public DelegateCommand<DetailBillItemViewModel> RemoveItemCommand { get; set; }
+        public DelegateCommand<DetailBillItemViewModel> DetailSelectionChangeCommand { get; set; }
         public ObservableCollection<DetailBillItemViewModel> ListDetailBill
         {
             get { return listDetailBill.List; }
@@ -79,6 +79,8 @@ namespace Kafein.ViewModel
         public int InputDeskNo { get; set; }
 
         public int SelectedIndex { get; set; }
+
+        public int SelectedIndexDetail { get; set; }
 
         public double SumPrice
         {
@@ -98,29 +100,53 @@ namespace Kafein.ViewModel
             if (SelectedIndex == -1)
                 return;
 
-            Debug.LogOutput(product.Name);
-
-            //Check if product was chosen, then update quantity
-            foreach(DetailBillItemViewModel item in ListDetailBill)
+            if (Mouse.LeftButton == MouseButtonState.Pressed)
             {
-                if (item.ProductName.Equals(product.Name))
+
+                //Check if product was chosen, then update quantity
+                foreach (DetailBillItemViewModel item in ListDetailBill)
                 {
-                    //update quantity
-                    item.Quantity++;
-                    NotifyDetaillBillProperty();
-                    return;
+                    if (item.ProductName.Equals(product.Name))
+                    {
+                        //update quantity
+                        item.Quantity++;
+                        NotifyDetaillBillProperty();
+                        return;
+                    }
+                }
+
+                //Otherwise, create the bill
+                // model related
+                UnitModel unit = UnitModel.GetModelFromID(product.UnitID);
+
+                // Generate id for detaill bill
+                DetailBillModel detail = new DetailBillModel(DetailBillModel.GenerateID(listDetailBill.ListDetail), newBill.ID, product.ID, unit.ID, 1, product.Price);
+                listDetailBill.Add(new DetailBillItemViewModel(product, unit, detail));
+
+                NotifyDetaillBillProperty();
+            }
+            
+            if (Mouse.RightButton == MouseButtonState.Pressed)
+            {
+                //Check if product was chosen, then update quantity
+                foreach (DetailBillItemViewModel item in ListDetailBill)
+                {
+                    if (item.ProductName.Equals(product.Name))
+                    {
+                        //update quantity
+                        item.Quantity--;
+                        if (item.Quantity == 0)
+                            RemoveItem(item);
+                        NotifyDetaillBillProperty();
+                        return;
+                    }
                 }
             }
+        }
 
-            //Otherwise, create the bill
-            // model related
-            UnitModel unit = UnitModel.GetModelFromID(product.UnitID);
-
-            // Generate id for detaill bill
-            DetailBillModel detail = new DetailBillModel(DetailBillModel.GenerateID(listDetailBill.ListDetail), newBill.ID, product.ID, unit.ID, 1, product.Price);
-            listDetailBill.Add(new DetailBillItemViewModel(product, unit, detail));
-
-            NotifyDetaillBillProperty();
+        private void SelectedDetailChange(DetailBillItemViewModel item)
+        {
+            RemoveItem(item);
         }
 
         private void NotifyDetaillBillProperty()

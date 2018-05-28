@@ -10,6 +10,11 @@
              xmlns:viewmodel="clr-namespace:Kafein.ViewModel"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="900">
+
+    <UserControl.Resources>
+        <viewmodel:ProductTypeViewModel x:Key="ProductTypeViewModel"/>
+    </UserControl.Resources>
+    
     <UserControl.InputBindings>
         <KeyBinding Key="F1" Command="{Binding ShortcutKeysCommand}" CommandParameter="F1"/>
         <KeyBinding Key="F2" Command="{Binding ShortcutKeysCommand}" CommandParameter="F2"/>
@@ -17,7 +22,8 @@
         <KeyBinding Key="Esc" Command="{Binding ShortcutKeysCommand}" CommandParameter="ESC"/>
         <KeyBinding Key="Delete" Command="{Binding ShortcutKeysCommand}" CommandParameter="DELETE"/>
     </UserControl.InputBindings>
-    <Grid>
+
+     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="350"/>
@@ -37,13 +43,25 @@
             </Grid.ColumnDefinitions>
 
             <!--Product type filter-->
-            <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
-                           TextAlignment="Center" Margin="5,5,5,5"
-                           Foreground="White" Padding="5,8,5,5">
+            <TextBlock Grid.Column="0"
+                       Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
+                       VerticalAlignment="Center" HorizontalAlignment="Center" 
+                       Margin="5,5,5,5"
+                       Foreground="{StaticResource PrimaryBrush}" Padding="5,8,5,5">
                 Lọc theo
             </TextBlock>
-            <!--<ComboBox Grid.Column="1" Margin="5,5,5,5" ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
-                      DisplayMemberPath="Name"/>-->
+            <ComboBox x:Name="cbProductType" SelectedItem="{Binding SelectedType, Source={StaticResource ProductTypeViewModel}}"
+                      Grid.Column="1" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center"
+                      ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
+                      Width="150" HorizontalContentAlignment="Center"
+                      DisplayMemberPath="Name" Foreground="{StaticResource PrimaryBrush}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding TypeSelectionChangeCommand, Source={StaticResource ProductTypeViewModel}}"
+                                               CommandParameter="{Binding SelectedItem, ElementName=cbProductType}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
         </Grid>
 
         <!--List product-->
@@ -73,6 +91,7 @@
 
         <!--Detail bill-->
         <Border Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch">
+            
             <materialDesign:Card Width="350" Height="450">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -83,14 +102,14 @@
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <!--Desk number-->
-                    <!--<StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource AccentBrush}">-->
-                        <!--<TextBlock TextAlignment="Center" Padding="10,10,10,10" 
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource AccentBrush}">
+                        <TextBlock TextAlignment="Center" Padding="10,10,10,10" 
                            Style="{DynamicResource MaterialDesignTitleTextBlock}" 
                            Foreground="White" Margin="0,0,0,0" Width="133">
-                    Số bàn
-                        </TextBlock>-->
+                    <!--Số bàn-->
+                        </TextBlock>
                         
-                    <!--</StackPanel>-->
+                    </StackPanel>
 
                     <TextBox Grid.Row="0" TextAlignment="Center"
                             Margin="10" Width="120" Text="{Binding InputDeskNo}" HorizontalAlignment="Center"
@@ -103,26 +122,34 @@
                             <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Button Content="{materialDesign:PackIcon Kind=Delete}" Style="{StaticResource GhostButton}"
-                                            Command="{Binding RemoveItemCommand}" CommandParameter="{Binding SelectedItem, ElementName=DetailBillList}"/>
-                                    <TextBlock Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" 
+                                    <!--<Button Content="{materialDesign:PackIcon Kind=Delete}" Style="{StaticResource GhostButton}"
+                                            Command="{Binding Path=DataContext.RemoveItemCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" 
+                                            CommandParameter="{Binding SelectedItem, ElementName=DetailBillList}"/>-->
+                                    <!--<materialDesign:PackIcon Grid.Column="0" Kind="Delete"/>-->
+                                    <TextBlock Grid.Column="0" Style="{DynamicResource MaterialDesignBody2TextBlock}" 
                                        Padding="10,10,10,10" Text="{Binding ProductName}"/>
-                                    <TextBlock Grid.Column="2" Style="{DynamicResource MaterialDesignBody2TextBlock}" 
-                                       Padding="10,10,10,10" Text="{Binding UnitName}"/>
                                     <TextBlock Grid.Column="3" Style="{DynamicResource MaterialDesignBody2TextBlock}" 
-                                       Padding="10,10,10,10" Text="{Binding Quantity}"/>
+                                       Padding="20,10,10,10" Text="{Binding UnitName}"/>
                                     <TextBlock Grid.Column="4" Style="{DynamicResource MaterialDesignBody2TextBlock}" 
+                                       Padding="10,10,10,10" Text="{Binding Quantity}"/>
+                                    <TextBlock Grid.Column="5" Style="{DynamicResource MaterialDesignBody2TextBlock}" 
                                        Padding="50,10,10,10" Text="{Binding Price}"/>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding DetailSelectionChangeCommand}"
+                                                       CommandParameter="{Binding SelectedItem, ElementName=DetailBillList}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
                     </ListBox>
 
                     <!--Price sum-->

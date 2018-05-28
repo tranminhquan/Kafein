@@ -13,28 +13,29 @@ namespace Kafein.ViewModel
 {
     class DetailBillViewModel: BaseViewModel
     {
-        private ObservableCollection<DetailBillItemViewModel> listDetailBill;
+        private ListDetailBillModel listDetailBill;
 
         public DetailBillViewModel(): base()
         {
             // list item in detail bill
-            listDetailBill = new ObservableCollection<DetailBillItemViewModel>();
-            //test
-            ListDetailBill.Add(new DetailBillItemViewModel("Cà phê đá", "Ly", 2, 30000));
-            ListDetailBill.Add(new DetailBillItemViewModel("Cà phê sữa đá", "Ly", 1, 20000));
-            ListDetailBill.Add(new DetailBillItemViewModel("Sinh tố bơ", "Ly", 1, 30000));
-            ListDetailBill.Add(new DetailBillItemViewModel("Sinh tố dâu", "Ly", 1, 25000));
-            ListDetailBill.Add(new DetailBillItemViewModel("Sting", "Chai", 2, 20000));
+            listDetailBill = ListDetailBillModel.GetInstance();
+            ProductSelectionChangeCommand = new DelegateCommand<ProductModel>(SelectedProductChange);
 
-            
+            // =============> !!!! [WARNING] DO NOT DELETE THIS CODE !!!! <==============
+            SelectedIndex = 0;
+            SelectedIndex = -1;
+            NotifyChanged("SelectedIndex");
+            // ==================================> <======================================
         }
 
 
         // getter and setter
+        public int SelectedIndex { get; set; }
+        public DelegateCommand<ProductModel> ProductSelectionChangeCommand { get; set; }
         public ObservableCollection<DetailBillItemViewModel> ListDetailBill
         {
-            get { return listDetailBill; }
-            set { listDetailBill = value; NotifyChanged("ListDeta"); }
+            get { return listDetailBill.List; }
+            set { listDetailBill.List = value; NotifyChanged("ListDetailBill"); }
         }
 
         public double SumPrice
@@ -48,6 +49,41 @@ namespace Kafein.ViewModel
                 }
                 return sum;
             }
+        }
+
+        private void SelectedProductChange(ProductModel product)
+        {
+            if (SelectedIndex == -1)
+                return;
+
+            Debug.LogOutput(product.Name);
+
+            //Check if product was chosen, then update quantity
+            foreach (DetailBillItemViewModel item in ListDetailBill)
+            {
+                if (item.ProductName.Equals(product.Name))
+                {
+                    //update quantity
+                    item.Quantity++;
+                    NotifyDetaillBillProperty();
+                    return;
+                }
+            }
+
+            //Otherwise, create the bill
+            // model related
+            UnitModel unit = UnitModel.GetModelFromID(product.UnitID);
+
+            // Generate id for detaill bill
+            //DetailBillModel detail = new DetailBillModel(DetailBillModel.GenerateID(listDetailBill.ListDetail), newBill.ID, product.ID, unit.ID, 1, product.Price);
+            //listDetailBill.Add(new DetailBillItemViewModel(product, unit, detail));
+
+            NotifyDetaillBillProperty();
+        }
+
+        private void NotifyDetaillBillProperty()
+        {
+            throw new NotImplementedException();
         }
     }
 }

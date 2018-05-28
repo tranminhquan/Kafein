@@ -1,5 +1,6 @@
 ﻿using Kafein.Model;
 using Kafein.Model.List;
+using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,28 +16,28 @@ namespace Kafein.ViewModel
 
         public ProductTypeViewModel()
         {
-            listProductTypeModel = new ListProductTypeModel();
-
-            //test
-            ListProductType.Add(new ProductTypeModel("1", "Nước giải khát"));
-            ListProductType.Add(new ProductTypeModel("2", "Cà phê"));
-            ListProductType.Add(new ProductTypeModel("3", "Sinh tố"));
+            listProductTypeModel = new ListProductTypeModel();         
+            listProductTypeModel.LoadAllProductType();
+            listProductTypeModel.List.Add(new ProductTypeModel("LMH0", "Tất Cả"));
+            SelectedType = listProductTypeModel.List[listProductTypeModel.List.Count - 1];
+            NotifyChanged("SelectedType");
+            TypeSelectionChangeCommand = new DelegateCommand<ProductTypeModel>(ProductTypeChange);
         }
-
-        //public ObservableCollection<string> ListTypeName
-        //{
-        //    get
-        //    {
-        //        //IEnumerable<string> obsCollection = (IEnumerable<string>)listProductTypeModel.ListName;
-        //        //return new ObservableCollection<string>(obsCollection);
-        //        return new ObservableCollection<string>() { "1", "2", "3" };
-        //    }
-        //}
 
         public ObservableCollection<ProductTypeModel> ListProductType
         {
             get { return listProductTypeModel.List; }
             set { listProductTypeModel.List = value; NotifyChanged("ListProductType"); }
+        }
+        public ProductTypeModel SelectedType { get; set; }
+        public DelegateCommand<ProductTypeModel> TypeSelectionChangeCommand { get; set; }
+
+        private void ProductTypeChange(ProductTypeModel item)
+        {
+            if (item.ID == "LMH0")
+                ListProductModel.GetInstance().LoadAllProduct();
+            else
+                ListProductModel.GetInstance().LoadProductFromType(item.ID);
         }
     }
 }
