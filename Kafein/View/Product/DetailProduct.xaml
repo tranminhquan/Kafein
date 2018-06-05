@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="Kafein.View.Product.DetailProduct"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             
+             xmlns:local="clr-namespace:Kafein.View.Product"
+             mc:Ignorable="d">
+    <materialDesign:Card Width="350" Height="500">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="1.5*"/>
+
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!--Image-->
+            <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="4">
+                <Image HorizontalAlignment="Center"
+                   VerticalAlignment="Center" Margin="5" Width="100" Source="{Binding Image}"/>
+            </Border>
+            
+            
+            
+            <!--Name-->
+            <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource MaterialDesignHeadlineTextBlock}" HorizontalAlignment="Left"
+                       VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="{Binding Name}" TextWrapping="Wrap"/>
+
+            <!--Type-->
+            <materialDesign:PackIcon Grid.Row="1" Grid.Column="1" Kind="Filter" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                     Width="30" Height="30" Foreground="{StaticResource PrimaryBrush}"/>
+            <TextBlock Grid.Row="1" Grid.Column="2" Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
+                       VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="{Binding Type}" TextWrapping="Wrap"/>
+
+            <!--Unit-->
+            <materialDesign:PackIcon Grid.Row="2" Grid.Column="1" Kind="Metronome" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                     Width="30" Height="30" Foreground="{StaticResource PrimaryBrush}"/>
+            <TextBlock Grid.Row="2" Grid.Column="2" Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
+                       VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="{Binding Unit}" TextWrapping="Wrap"/>
+            
+            <!--Price-->
+            <materialDesign:PackIcon Grid.Row="3" Grid.Column="1" Kind="CurrencyUsd" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                     Width="30" Height="30" Foreground="{StaticResource PrimaryBrush}"/>
+            <TextBlock Grid.Row="3" Grid.Column="2" Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
+                       VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="{Binding Price}" TextWrapping="Wrap"/>
+            
+            <!--Frequency-->
+            <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
+                <lvc:Gauge Uses360Mode="True" From="0" To="{Binding MaxSaleProduct}" Value="{Binding SaleProduct}"
+                           Margin="40,40,40,20" GaugeBackground="{StaticResource PrimaryBrush}"
+                           GaugeActiveFill="{StaticResource AccentBrush}"/>
+            </Border>
+            
+           
+        </Grid>
+    </materialDesign:Card>
+</UserControl>

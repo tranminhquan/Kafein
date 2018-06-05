@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="Kafein.View.Product.ProductManagement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Kafein.View.Product"
+             xmlns:viewmodel="clr-namespace:Kafein.ViewModel"
+             xmlns:productview="clr-namespace:Kafein.View.Product"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <viewmodel:ProductTypeViewModel x:Key="ProductTypeViewModel"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="350"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--Filter-->
+        <Grid Background="{StaticResource PrimaryBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Add product-->
+            <Button Grid.Column="0" Style="{StaticResource GhostButton}" Content="{materialDesign:PackIcon Kind=Plus,Size=20}"
+                    Foreground="White" Margin="8" BorderBrush="White" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Command="{Binding AddProductCommand}"/>
+            
+            <!--Search-->
+            <materialDesign:PackIcon Kind="SearchWeb"
+                        Grid.Column="1"
+                       VerticalAlignment="Center" HorizontalAlignment="Right" 
+                       Margin="5,5,5,5" Width="30" Height="30"
+                       Foreground="White" Padding="5,8,5,5"/>
+
+            <TextBox Grid.Column="2" Style="{StaticResource TxtBox}" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                     Foreground="White" Text="{Binding InputProduct}" BorderBrush="White"/>
+
+            <!--Product type filter-->
+            <materialDesign:PackIcon Kind="Filter"
+                        Grid.Column="3"
+                       VerticalAlignment="Center" HorizontalAlignment="Right" 
+                       Margin="5,5,5,5" Width="30" Height="30"
+                       Foreground="White" Padding="5,8,5,5"/>
+            
+            <ComboBox x:Name="cbProductType" SelectedItem="{Binding SelectedType, Source={StaticResource ProductTypeViewModel}}"
+                      Grid.Column="4" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Left"
+                      ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
+                      Width="150" HorizontalContentAlignment="Center"
+                      DisplayMemberPath="Name" Foreground="White"
+                      BorderBrush="White">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding TypeSelectionChangeCommand, Source={StaticResource ProductTypeViewModel}}"
+                                               CommandParameter="{Binding SelectedItem, ElementName=cbProductType}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+        </Grid>
+
+        <!--List product-->
+        <ListBox Grid.Row="1" Grid.Column="0"
+                 x:Name="lbProduct"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                 ItemsSource="{Binding ListProduct}"
+                 SelectedItem="{Binding SelectedProduct}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <productview:ProductItem/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction
+                        Command="{Binding ProductSelectionChangeCommand}"
+                        CommandParameter="{Binding SelectedItem, ElementName=lbProduct}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListBox>
+        
+        <!--Detail product-->
+        <local:DetailProduct Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+    </Grid>
+</UserControl>

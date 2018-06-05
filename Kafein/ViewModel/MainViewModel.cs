@@ -7,7 +7,8 @@ namespace Kafein.ViewModel
         private object selectedViewModel;
         public MainViewModel()
         {
-            SelectedViewModel = new BilllManagementViewModel(ViewModelNavigator, null);
+            //SelectedViewModel = new BilllManagementViewModel(ViewModelNavigator, null);
+            SelectedViewModel = new ProductManagementViewModel(ViewModelNavigator, null);
         }
 
         // getter and setter
@@ -23,6 +24,8 @@ namespace Kafein.ViewModel
                 SelectedViewModel = new BilllManagementViewModel(ViewModelNavigator, parameters);
             if (obj.ToString() == "ListProductViewModel")
                 SelectedViewModel = new ListProductViewModel(ViewModelNavigator, parameters);
+            if (obj.ToString() == "ProductManagementViewModel")
+                SelectedViewModel = new ProductManagementViewModel(ViewModelNavigator, parameters);
         }
     }
 }

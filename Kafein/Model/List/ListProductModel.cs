@@ -1,4 +1,5 @@
 ﻿using Kafein.Database;
+using Kafein.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -40,9 +41,12 @@ namespace Kafein.Model.List
                     double price = reader.GetSqlMoney(4).ToDouble();
                     string image;
                     if (reader.IsDBNull(5))
-                        image = null;
+                        image = Environment.CurrentDirectory + "drink_default.png";
                     else
+                    {
                         image = reader.GetString(5);
+                        Debug.LogOutput(image);
+                    }
 
                     ProductModel product = new ProductModel(id, name, typeid, unitid, price, image);
                     this.List.Add(product);
@@ -71,9 +75,12 @@ namespace Kafein.Model.List
                     double price = reader.GetSqlMoney(4).ToDouble();
                     string image;
                     if (reader.IsDBNull(5))
-                        image = null;
+                        image = Environment.CurrentDirectory + "drink_default.png";
                     else
+                    {
                         image = reader.GetString(5);
+                        Debug.LogOutput(image);
+                    }
 
                     ProductModel product = new ProductModel(id, name, typeid, unitid, price, image);
                     this.List.Add(product);

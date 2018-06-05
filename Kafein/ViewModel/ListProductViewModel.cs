@@ -36,6 +36,7 @@ namespace Kafein.ViewModel
             ClearBillCommand = new DelegateCommand(ClearBill);
             CancelCommand = new DelegateCommand(Cancel);
             DetailSelectionChangeCommand = new DelegateCommand<DetailBillItemViewModel>(SelectedDetailChange);
+            RemoveItemCommand = new DelegateCommand<DetailBillItemViewModel>(RemoveDetailItem);
 
 
             // =============> !!!! [WARNING] DO NOT DELETE THIS CODE !!!! <==============
@@ -65,6 +66,7 @@ namespace Kafein.ViewModel
         public DelegateCommand ClearBillCommand { get; set; }
         public DelegateCommand CancelCommand { get; set; }
         public DelegateCommand<DetailBillItemViewModel> DetailSelectionChangeCommand { get; set; }
+        public DelegateCommand<DetailBillItemViewModel> RemoveItemCommand { get; set; }
         public ObservableCollection<DetailBillItemViewModel> ListDetailBill
         {
             get { return listDetailBill.List; }
@@ -146,7 +148,7 @@ namespace Kafein.ViewModel
 
         private void SelectedDetailChange(DetailBillItemViewModel item)
         {
-            RemoveItem(item);
+            //RemoveItem(item);
         }
 
         private void NotifyDetaillBillProperty()
@@ -238,6 +240,12 @@ namespace Kafein.ViewModel
                 DetailBillModel.SaveToDatabase(item.DetailBillModel);
             }
             
+        }
+
+        private void RemoveDetailItem(DetailBillItemViewModel item)
+        {
+            ListDetailBill.Remove(item);
+            NotifyDetaillBillProperty();
         }
     }
 }
