@@ -45,8 +45,15 @@
                        Margin="5,5,5,5" Width="30" Height="30"
                        Foreground="White" Padding="5,8,5,5"/>
 
-            <TextBox Grid.Column="2" Style="{StaticResource TxtBox}" VerticalAlignment="Center" HorizontalAlignment="Stretch"
-                     Foreground="White" Text="{Binding InputProduct}" BorderBrush="White"/>
+            <TextBox x:Name="txtSearch" Grid.Column="2" Style="{StaticResource TxtBox}" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                     Foreground="White" Text="{Binding InputProduct}" BorderBrush="White">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding SearchTextChangeCommand}"
+                                               CommandParameter="{Binding ElementName=txtSearch}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </TextBox>
 
             <!--Product type filter-->
             <materialDesign:PackIcon Kind="Filter"

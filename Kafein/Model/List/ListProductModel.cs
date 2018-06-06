@@ -2,6 +2,7 @@
 using Kafein.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,26 @@ namespace Kafein.Model.List
             return instance;
         }
 
+        public ObservableCollection<object> ListName
+        {
+            get { return this.GetCollectionOfField("Name"); }
+        }
+
+        public ObservableCollection<object> ListTypeID
+        {
+            get { return this.GetCollectionOfField("TypeID"); }
+        }
+
+        public ObservableCollection<object> ListUnitID
+        {
+            get { return this.GetCollectionOfField("UnitID"); }
+        }
+
+        public ObservableCollection<object> ListPrice
+        {
+            get { return this.GetCollectionOfField("Price"); }
+        }
+
         public void LoadAllProduct()
         {
             this.List.Clear();
@@ -41,7 +62,7 @@ namespace Kafein.Model.List
                     double price = reader.GetSqlMoney(4).ToDouble();
                     string image;
                     if (reader.IsDBNull(5))
-                        image = Environment.CurrentDirectory + "drink_default.png";
+                        image = Environment.CurrentDirectory + "\\drink_default.png";
                     else
                     {
                         image = reader.GetString(5);
@@ -75,7 +96,7 @@ namespace Kafein.Model.List
                     double price = reader.GetSqlMoney(4).ToDouble();
                     string image;
                     if (reader.IsDBNull(5))
-                        image = Environment.CurrentDirectory + "drink_default.png";
+                        image = Environment.CurrentDirectory + "\\drink_default.png";
                     else
                     {
                         image = reader.GetString(5);

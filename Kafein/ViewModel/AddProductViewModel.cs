@@ -1,4 +1,5 @@
-﻿using Kafein.Model.List;
+﻿using Kafein.Model;
+using Kafein.Model.List;
 using Microsoft.Win32;
 using Prism.Commands;
 using System;
@@ -35,10 +36,12 @@ namespace Kafein.ViewModel
         {
             get { return listProductTypeModel.ListName; }
         }
+        public int SelectedIndexType { get; set; }
         public ObservableCollection<object> ListUnit
         {
             get { return listUnitModel.ListName; }
         }
+        public int SelectedIndexUnit { get; set; }
         public DelegateCommand CancelCommand { get; set; }
         public DelegateCommand AddProductCommand { get; set; }
         public DelegateCommand AddImageCommand { get; set; }
@@ -57,9 +60,11 @@ namespace Kafein.ViewModel
                 return;
             if (Price == 0)
                 return;
-            
 
             //add to database
+            ProductModel product = new ProductModel(ProductModel.GenerateID(), Name, listProductTypeModel.List[SelectedIndexType].ID,
+                                                    listUnitModel.List[SelectedIndexUnit].ID, Price, Image);
+            product.SaveToDatabase();
 
             Cancel();
         }
@@ -67,10 +72,12 @@ namespace Kafein.ViewModel
         private void ShowOpenDialog()
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Image files (*.png)|*.png|All files (*.*)|*.*";
+            dialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
             dialog.Title = "Please select an image";
-
-          
+            if (dialog.ShowDialog() == true)
+            {
+                Image = dialog.FileName;
+            }
         }
     }
 }

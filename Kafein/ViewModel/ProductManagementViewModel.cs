@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Kafein.ViewModel
 {
@@ -25,6 +26,7 @@ namespace Kafein.ViewModel
             NotifyProductChange();
 
             ProductSelectionChangeCommand = new DelegateCommand<ProductModel>(ProductChange);
+            SearchTextChangeCommand = new DelegateCommand<TextBox>(OnSearchTextChange);
             AddProductCommand = new DelegateCommand(ShowAddProductDialog);
         }
 
@@ -43,6 +45,7 @@ namespace Kafein.ViewModel
         public ProductModel SelectedProduct { get; set; }
 
         public DelegateCommand<ProductModel> ProductSelectionChangeCommand { get; set; }
+        public DelegateCommand<TextBox> SearchTextChangeCommand { get; set; }
         public DelegateCommand AddProductCommand { get; set; }
 
         private void ProductChange(ProductModel product)
@@ -59,6 +62,7 @@ namespace Kafein.ViewModel
             NotifyChanged("Image");
             NotifyChanged("MaxSaleProduct");
             NotifyChanged("SaleProduct");
+            NotifyChanged("Popular");
         }
 
         public string Name
@@ -96,10 +100,27 @@ namespace Kafein.ViewModel
             get { return ListDetailBillModel.GetSumDetailBillFromProduct(SelectedProduct.ID); }
         }
 
+        public string Popular
+        {
+            get
+            {
+                double p = Convert.ToDouble(SaleProduct) / Convert.ToDouble(MaxSaleProduct);
+                return (Math.Round(p, 2)*100).ToString() + "%";
+            }
+        }
+
         private void ShowAddProductDialog()
         {
             (new AddProductDialog()).ShowDialog();
+
+            //reload list product
+            listProductModel.LoadAllProduct();
         }
 
+        private void OnSearchTextChange(TextBox textBox)
+        {
+            //var matchingvalues = listProductModel.List
+            //    .Where(textBox.Text => listProductModel.ListName.Contains(textBox.Text));
+        }
     }
 }
