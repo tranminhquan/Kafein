@@ -119,6 +119,9 @@
     <Compile Include="View\Dialog\CheckoutDialog.xaml.cs">
       <DependentUpon>CheckoutDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Dialog\ConfirmDialog.xaml.cs">
+      <DependentUpon>ConfirmDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Dialog\MessageDialog.xaml.cs">
       <DependentUpon>MessageDialog.xaml</DependentUpon>
     </Compile>
@@ -136,6 +139,9 @@
     </Compile>
     <Compile Include="View\Product\ProductManagement.xaml.cs">
       <DependentUpon>ProductManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Product\SearchFilterDialog.xaml.cs">
+      <DependentUpon>SearchFilterDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SalesNPay\BillManagement.xaml.cs">
       <DependentUpon>BillManagement.xaml</DependentUpon>
@@ -168,6 +174,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Dialog\ConfirmDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Dialog\MessageDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -189,6 +199,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Product\ProductManagement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Product\SearchFilterDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

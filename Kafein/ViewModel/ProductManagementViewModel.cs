@@ -1,6 +1,7 @@
 ﻿using Kafein.Model;
 using Kafein.Model.List;
 using Kafein.Utilities;
+using Kafein.View.Dialog;
 using Kafein.View.Product;
 using Prism.Commands;
 using System;
@@ -17,6 +18,8 @@ namespace Kafein.ViewModel
     {
         private ListProductModel listProductModel;
         private ObservableCollection<ProductModel> bufferList;
+        private string fieldSearch = null;
+        private string sortSearch = null;
 
         public ProductManagementViewModel(): base()
         {
@@ -28,10 +31,14 @@ namespace Kafein.ViewModel
             SelectedProduct = ListProduct[0];
             NotifyProductChange();
 
+            fieldSearch = "Name";
+
             ProductSelectionChangeCommand = new DelegateCommand<ProductModel>(ProductChange);
             SearchTextChangeCommand = new DelegateCommand<TextBox>(OnSearchTextChange);
             AddProductCommand = new DelegateCommand(ShowAddProductDialog);
             UpdateProductCommand = new DelegateCommand(UpdateProduct);
+            RemoveProductCommand = new DelegateCommand(RemoveProduct);
+            OpenSearchFilterCommand = new DelegateCommand(ShowSearchFilterDialog);
         }
 
         public ProductManagementViewModel(Action<object, object[]> navigate, object[] parameters): this()
@@ -52,6 +59,8 @@ namespace Kafein.ViewModel
         public DelegateCommand<TextBox> SearchTextChangeCommand { get; set; }
         public DelegateCommand AddProductCommand { get; set; }
         public DelegateCommand UpdateProductCommand { get; set; }
+        public DelegateCommand RemoveProductCommand { get; set; }
+        public DelegateCommand OpenSearchFilterCommand { get; set; }
 
         private void ProductChange(ProductModel product)
         {
@@ -132,10 +141,60 @@ namespace Kafein.ViewModel
                 return;
             }
 
-            var listMatch = from product in bufferList
-                            where product.Name.ToLower().Contains(textBox.Text.ToLower())
-                            select new ProductModel(product);
+            IEnumerable<ProductModel> listMatch = null;
+            if (fieldSearch == "Name")
+            {
+                 listMatch = from product in bufferList
+                             where product.Name.ToLower().Contains(textBox.Text.ToLower())
+                             select new ProductModel(product);
+            }
+            if (fieldSearch == "Price" && textBox.Text.Length >= 3)
+            {
 
+                if (textBox.Text.Contains(">="))
+                {
+                    double compare = Convert.ToDouble(textBox.Text.Remove(0, 2));
+                    listMatch = from product in bufferList
+                                where product.Price >= compare
+                                select new ProductModel(product);
+                }
+                else if (textBox.Text.Contains("<="))
+                {
+                    double compare = Convert.ToDouble(textBox.Text.Remove(0, 2));
+                    listMatch = from product in bufferList
+                                where product.Price <= compare
+                                select new ProductModel(product);
+                }
+                else if (textBox.Text.Contains(">"))
+                {
+                    double compare = Convert.ToDouble(textBox.Text.Remove(0, 1));
+                    listMatch = from product in bufferList
+                                where product.Price > compare
+                                select new ProductModel(product);
+                } 
+                else if (textBox.Text.Contains("<"))
+                {
+                    double compare = Convert.ToDouble(textBox.Text.Remove(0, 1));
+                    listMatch = from product in bufferList
+                                where product.Price < compare
+                                select new ProductModel(product);
+                }              
+                else
+                {
+                    double compare;
+                    if (textBox.Text.Contains("="))
+                        compare = Convert.ToDouble(textBox.Text.Remove(0, 1));
+                    else
+                        compare = Convert.ToDouble(textBox.Text);
+
+                    listMatch = from product in bufferList
+                                where product.Price == compare
+                                select new ProductModel(product);
+                }
+            }
+
+            if (listMatch == null)
+                return;
             ListProduct.Clear();
             ListProduct = new ObservableCollection<ProductModel>(listMatch);
         }
@@ -145,6 +204,27 @@ namespace Kafein.ViewModel
             (new AddProductDialog(SelectedProduct)).ShowDialog();
             listProductModel.LoadAllProduct();
             bufferList = listProductModel.List;
+        }
+
+        private void RemoveProduct()
+        {
+            ConfirmDialog confirmDialog = 
+                new ConfirmDialog("CẢNH BÁO", "Mặt hàng này sẽ không tồn tại trong hệ thống nếu tiếp tục. Xác nhận xóa mặt hàng?",
+                 (Action)delegate
+                 {
+                     ProductModel.RemoveFromDatabase(SelectedProduct.ID);
+                 });
+            confirmDialog.ShowDialog();
+            listProductModel.LoadAllProduct();
+            bufferList = listProductModel.List;
+        }
+
+        private void ShowSearchFilterDialog()
+        {
+            SearchFilterDialog searchFilterDialog = new SearchFilterDialog();
+            searchFilterDialog.ShowDialog();
+            fieldSearch = searchFilterDialog.Field;
+            sortSearch = searchFilterDialog.Sort;
         }
     }
 }

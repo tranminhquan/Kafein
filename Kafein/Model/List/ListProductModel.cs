@@ -55,6 +55,9 @@ namespace Kafein.Model.List
             {
                 try
                 {
+                    if (!reader.IsDBNull(6))
+                        continue;
+
                     string id = reader.GetString(0);
                     string name = reader.GetString(1);
                     string typeid = reader.GetString(2);

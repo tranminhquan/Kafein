@@ -1,0 +1,50 @@
+﻿<Window x:Class="Kafein.View.Product.SearchFilterDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kafein.View.Product"
+        WindowStyle="None"
+        mc:Ignorable="d"
+        Title="SearchFilterDialog" Height="280" Width="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{StaticResource PrimaryBrush}">
+            <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" Foreground="White" Text="TÌM KIẾM NÂNG CAO"/>
+        </Border>
+
+        <TextBlock Grid.Row="1" Style="{DynamicResource MaterialDesignSubheadingTextBlock}" HorizontalAlignment="Center" Margin="0,10,0,5"
+                       VerticalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" FontStyle="Italic" Text="Tìm theo"/>
+        <Separator Grid.Row="2" Margin="20,5,20,5" Foreground="{StaticResource PrimaryBrush}"/>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Margin="10">
+            <RadioButton x:Name="rbName" GroupName="Field" Content="Tên mặt hàng" Margin="5" IsChecked="True" Checked="rbName_Checked"/>
+            <RadioButton x:Name="rbPrice" GroupName="Field" Content="Giá" Margin="5" Checked="rbPrice_Checked"/>
+        </StackPanel>
+
+        <TextBlock Grid.Row="4" Style="{DynamicResource MaterialDesignSubheadingTextBlock}" HorizontalAlignment="Center" Margin="0,10,0,5"
+                       VerticalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" FontStyle="Italic" Text="Sắp xếp"/>
+        <Separator Grid.Row="5" Margin="20,5,20,5" Foreground="{StaticResource PrimaryBrush}"/>
+        <StackPanel Grid.Row="6" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Margin="10">
+            <RadioButton x:Name="rbASC" GroupName="Sort" Content="Tăng dần" Margin="10,5,10,5" Checked="rbASC_Checked"/>
+            <RadioButton x:Name="rbDESC" GroupName="Sort" Content="Giảm dần" Margin="10,5,10,5" Checked="rbDESC_Checked"/>
+        </StackPanel>
+        <StackPanel Grid.Row="7" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="btnCancel" Style="{StaticResource GhostButton}" Content="HỦY" Width="100" Margin="5" Click="btnCancel_Click"/>
+            <Button x:Name="btnConfirm" Style="{StaticResource RaisedButton}" Content="THIẾT LẬP" Width="100" Margin="5" Click="btnConfirm_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

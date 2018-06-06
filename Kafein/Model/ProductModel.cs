@@ -100,7 +100,7 @@ namespace Kafein.Model
             try
             {
                 sqldb.Open();
-                sqldb.ExcuteNonQuery("DELETE FROM MATHANG WHERE MaMatHang = '" + productID + "'");
+                sqldb.ExcuteNonQuery("UPDATE MATHANG SET GhiChu='REMOVED' WHERE MaMatHang='" + productID + "'");
             }
             catch (SqlException e)
             {

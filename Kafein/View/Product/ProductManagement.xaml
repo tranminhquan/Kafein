@@ -37,7 +37,7 @@
             <Button Grid.Column="0" Style="{StaticResource GhostButton}" Content="{materialDesign:PackIcon Kind=Plus,Size=20}"
                     Foreground="White" Margin="8" BorderBrush="White" VerticalAlignment="Center" HorizontalAlignment="Center"
                     Command="{Binding AddProductCommand}"/>
-            
+
             <!--Search-->
             <materialDesign:PackIcon Kind="SearchWeb"
                         Grid.Column="1"
@@ -45,15 +45,24 @@
                        Margin="5,5,5,5" Width="30" Height="30"
                        Foreground="White" Padding="5,8,5,5"/>
 
-            <TextBox Grid.Column="2" x:Name="txtSearch" Style="{StaticResource TxtBox}" VerticalAlignment="Center" HorizontalAlignment="Stretch"
-                     Foreground="White" Text="{Binding InputProduct}" BorderBrush="White" Margin="0,6" Width="112">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="TextChanged">
-                        <i:InvokeCommandAction Command="{Binding SearchTextChangeCommand}"
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <TextBox x:Name="txtSearch" Style="{StaticResource TxtBox}" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                     Foreground="White" Text="{Binding InputProduct}" BorderBrush="White" Margin="5" Width="103">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding SearchTextChangeCommand}"
                                                CommandParameter="{Binding ElementName=txtSearch}"/>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </TextBox>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+
+                <Button Style="{StaticResource GhostButton}" Margin="5"
+                        Content="{materialDesign:PackIcon Kind=Settings, Size=25}"
+                        Foreground="White"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        Command="{Binding OpenSearchFilterCommand}"/>
+            </StackPanel>
+
 
 
 
@@ -73,7 +82,7 @@
                        VerticalAlignment="Center" HorizontalAlignment="Right" 
                        Margin="5,5,5,5" Width="30" Height="30"
                        Foreground="White" Padding="5,8,5,5"/>
-            
+
             <ComboBox x:Name="cbProductType" SelectedItem="{Binding SelectedType, Source={StaticResource ProductTypeViewModel}}"
                       Grid.Column="4" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Left"
                       ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
@@ -114,13 +123,15 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListBox>
-        
+
         <!--Detail product-->
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
             <local:DetailProduct HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
             <Button Style="{StaticResource RaisedButton}" Content="CẬP NHẬT MẶT HÀNG"
                     Command="{Binding UpdateProductCommand}"/>
+            <Button Style="{StaticResource WarningButton}" Content="XÓA MẶT HÀNG"
+                    Command="{Binding RemoveProductCommand}"/>
         </StackPanel>
-        
+
     </Grid>
 </UserControl>
