@@ -45,8 +45,8 @@
                        Margin="5,5,5,5" Width="30" Height="30"
                        Foreground="White" Padding="5,8,5,5"/>
 
-            <TextBox x:Name="txtSearch" Grid.Column="2" Style="{StaticResource TxtBox}" VerticalAlignment="Center" HorizontalAlignment="Stretch"
-                     Foreground="White" Text="{Binding InputProduct}" BorderBrush="White">
+            <TextBox Grid.Column="2" x:Name="txtSearch" Style="{StaticResource TxtBox}" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                     Foreground="White" Text="{Binding InputProduct}" BorderBrush="White" Margin="0,6" Width="112">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="TextChanged">
                         <i:InvokeCommandAction Command="{Binding SearchTextChangeCommand}"
@@ -54,6 +54,18 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </TextBox>
+
+
+
+            <!--<ComboBox IsEditable="True" x:Name="txtSearch" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                     Foreground="White" Text="{Binding InputProduct}" BorderBrush="White">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="TextInput">
+                        <i:InvokeCommandAction Command="{Binding SearchTextChangeCommand}"
+                                               CommandParameter="{Binding ElementName=txtSearch}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>-->
 
             <!--Product type filter-->
             <materialDesign:PackIcon Kind="Filter"

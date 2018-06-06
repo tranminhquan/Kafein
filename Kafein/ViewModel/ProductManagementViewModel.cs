@@ -23,7 +23,8 @@ namespace Kafein.ViewModel
             listProductModel = ListProductModel.GetInstance();
             listProductModel.LoadAllProduct();
             bufferList = new ObservableCollection<ProductModel>(listProductModel.List);
-            
+
+            SelectedProduct = new ProductModel();
             SelectedProduct = ListProduct[0];
             NotifyProductChange();
 

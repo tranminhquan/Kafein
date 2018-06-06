@@ -43,7 +43,7 @@ namespace Kafein.Model
             if (imgsrc == null)
                 ImageSource = Environment.CurrentDirectory + "\\drink_default.png";
             else
-                ImageSource = imgsrc;
+                ImageSource = Environment.CurrentDirectory + imgsrc;
         }
 
         public static string GenerateID()

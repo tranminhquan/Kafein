@@ -16,6 +16,7 @@ namespace Kafein.ViewModel
     {
         private ListProductTypeModel listProductTypeModel;
         private ListUnitModel listUnitModel;
+        private string relativePath = null;
         public AddProductViewModel(): base()
         {
             listProductTypeModel = new ListProductTypeModel();
@@ -63,7 +64,7 @@ namespace Kafein.ViewModel
 
             //add to database
             ProductModel product = new ProductModel(ProductModel.GenerateID(), Name, listProductTypeModel.List[SelectedIndexType].ID,
-                                                    listUnitModel.List[SelectedIndexUnit].ID, Price, Image);
+                                                    listUnitModel.List[SelectedIndexUnit].ID, Price, relativePath);
             product.SaveToDatabase();
 
             Cancel();
@@ -76,7 +77,11 @@ namespace Kafein.ViewModel
             dialog.Title = "Please select an image";
             if (dialog.ShowDialog() == true)
             {
-                Image = dialog.FileName;
+                // copy to relative storage
+                relativePath = "\\drink_images\\" + dialog.SafeFileName;
+                System.IO.File.Copy(dialog.FileName, Environment.CurrentDirectory + relativePath);
+                Image = Environment.CurrentDirectory + relativePath;
+                NotifyChanged("Image");
             }
         }
     }
