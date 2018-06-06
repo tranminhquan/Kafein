@@ -31,6 +31,7 @@ namespace Kafein.ViewModel
             ProductSelectionChangeCommand = new DelegateCommand<ProductModel>(ProductChange);
             SearchTextChangeCommand = new DelegateCommand<TextBox>(OnSearchTextChange);
             AddProductCommand = new DelegateCommand(ShowAddProductDialog);
+            UpdateProductCommand = new DelegateCommand(UpdateProduct);
         }
 
         public ProductManagementViewModel(Action<object, object[]> navigate, object[] parameters): this()
@@ -50,6 +51,7 @@ namespace Kafein.ViewModel
         public DelegateCommand<ProductModel> ProductSelectionChangeCommand { get; set; }
         public DelegateCommand<TextBox> SearchTextChangeCommand { get; set; }
         public DelegateCommand AddProductCommand { get; set; }
+        public DelegateCommand UpdateProductCommand { get; set; }
 
         private void ProductChange(ProductModel product)
         {
@@ -136,6 +138,13 @@ namespace Kafein.ViewModel
 
             ListProduct.Clear();
             ListProduct = new ObservableCollection<ProductModel>(listMatch);
+        }
+
+        private void UpdateProduct()
+        {
+            (new AddProductDialog(SelectedProduct)).ShowDialog();
+            listProductModel.LoadAllProduct();
+            bufferList = listProductModel.List;
         }
     }
 }

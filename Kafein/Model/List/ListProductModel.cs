@@ -96,7 +96,7 @@ namespace Kafein.Model.List
                     double price = reader.GetSqlMoney(4).ToDouble();
                     string image;
                     if (reader.IsDBNull(5))
-                        image = Environment.CurrentDirectory + "\\drink_default.png";
+                        image = null;
                     else
                     {
                         image = reader.GetString(5);

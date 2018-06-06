@@ -76,6 +76,42 @@ namespace Kafein.Model
             return null;
         }
 
+        public static void UpdateDatabase(ProductModel product)
+        {
+            IDatabase sqldb = new SQLDatabase();
+            try
+            {
+                sqldb.Open();
+                sqldb.ExcuteNonQuery("UPDATE MATHANG SET TenMatHang = N'" + product.Name + "', MaLoaiMatHang='" + product.TypeID + "', MaDonViTinh='" + product.UnitID+"', TriGia=" + product.Price + ", HinhAnh='" + product.ImageSource + "' WHERE MaMatHang='" + product.ID+"'");
+            }
+            catch (SqlException e)
+            {
+                Debug.LogOutput("SqlException in ProductModel >> " + e.ToString());
+            }
+            finally
+            {
+                sqldb.Close();
+            }
+        }
+
+        public static void RemoveFromDatabase(string productID)
+        {
+            IDatabase sqldb = new SQLDatabase();
+            try
+            {
+                sqldb.Open();
+                sqldb.ExcuteNonQuery("DELETE FROM MATHANG WHERE MaMatHang = '" + productID + "'");
+            }
+            catch (SqlException e)
+            {
+                Debug.LogOutput("SqlException in ProductModel >> " + e.ToString());
+            }
+            finally
+            {
+                sqldb.Close();
+            }
+        }
+
         public void SaveToDatabase()
         {
             IDatabase sqldb = new SQLDatabase();

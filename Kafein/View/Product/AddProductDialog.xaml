@@ -28,8 +28,8 @@
         
         <!--Title-->
         <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource PrimaryBrush}">
-            <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}" HorizontalAlignment="Center"
-                       VerticalAlignment="Center" Foreground="White" Text="THÊM MỚI MẶT HÀNG"/>
+            <TextBlock x:Name="tbTitle" Style="{DynamicResource MaterialDesignHeadlineTextBlock}" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" Foreground="White"/>
         </Border>
         
         <!--Image-->
@@ -71,7 +71,7 @@
         <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
             <Button Style="{StaticResource GhostButton}" Content="THOÁT" HorizontalAlignment="Center" FontSize="20"
                     Margin="10" Width="150" Height="40" Command="{Binding CancelCommand}"/>
-            <Button Style="{StaticResource RaisedButton}" Content="THÊM MỚI" HorizontalAlignment="Center" FontSize="20"
+            <Button x:Name="btnConfirm" Style="{StaticResource RaisedButton}" HorizontalAlignment="Center" FontSize="20"
                     Margin="10" Width="150" Height="40" Command="{Binding AddProductCommand}"/>
         </StackPanel>
 

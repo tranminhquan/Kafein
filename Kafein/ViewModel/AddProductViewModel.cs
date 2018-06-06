@@ -16,6 +16,7 @@ namespace Kafein.ViewModel
     {
         private ListProductTypeModel listProductTypeModel;
         private ListUnitModel listUnitModel;
+        private ProductModel updateProduct;
         private string relativePath = null;
         public AddProductViewModel(): base()
         {
@@ -33,6 +34,30 @@ namespace Kafein.ViewModel
         public string Name { get; set; }
         public double Price { get; set; }
         public string Image { get; set; }
+        public ProductModel UpdateProduct
+        {
+            get { return updateProduct; }
+            set
+            {
+                updateProduct = value;
+                Name = value.Name;
+                Price = value.Price;
+                Image = value.ImageSource;
+                if (Image.Contains(Environment.CurrentDirectory))
+                    relativePath = Image.Remove(0, Environment.CurrentDirectory.Length);
+                else
+                    relativePath = Image;
+                SelectedIndexType = listProductTypeModel.GetIndexByValue("ID", value.TypeID);
+                SelectedIndexUnit = listUnitModel.GetIndexByValue("ID", value.UnitID);
+
+                NotifyChanged("UpdateProduct");
+                NotifyChanged("Name");
+                NotifyChanged("Price");
+                NotifyChanged("Image");
+                NotifyChanged("SelectedIndexType");
+                NotifyChanged("SelectedIndexUnit");
+            }
+        }
         public ObservableCollection<object> ListType
         {
             get { return listProductTypeModel.ListName; }
@@ -55,17 +80,29 @@ namespace Kafein.ViewModel
         }
 
         private void AddProduct()
-        {
+        {         
             //check null
             if (Name.Trim().Length == 0)
                 return;
             if (Price == 0)
                 return;
 
-            //add to database
-            ProductModel product = new ProductModel(ProductModel.GenerateID(), Name, listProductTypeModel.List[SelectedIndexType].ID,
+            // create mode
+            if (updateProduct == null)
+            {
+                //add to database
+                ProductModel product = new ProductModel(ProductModel.GenerateID(), Name, listProductTypeModel.List[SelectedIndexType].ID,
                                                     listUnitModel.List[SelectedIndexUnit].ID, Price, relativePath);
-            product.SaveToDatabase();
+                product.SaveToDatabase();
+            }
+            else //update mode
+            {
+                
+                ProductModel product = new ProductModel(updateProduct.ID, Name, listProductTypeModel.List[SelectedIndexType].ID,
+                                                    listUnitModel.List[SelectedIndexUnit].ID, Price, relativePath);
+                product.ImageSource = relativePath;
+                ProductModel.UpdateDatabase(product);
+            }
 
             Cancel();
         }

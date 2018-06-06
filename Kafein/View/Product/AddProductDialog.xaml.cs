@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Kafein.Model;
+using Kafein.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,16 @@ namespace Kafein.View.Product
         public AddProductDialog()
         {
             InitializeComponent();
+            tbTitle.Text = "THÊM MỚI MẶT HÀNG";
+            btnConfirm.Content = "THÊM MẶT HÀNG";
+        }
+
+        public AddProductDialog(ProductModel product)
+        {
+            InitializeComponent();
+            tbTitle.Text = "CẬP NHẬT MẶT HÀNG";
+            btnConfirm.Content = "CẬP NHẬT";
+            ((AddProductViewModel)DataContext).UpdateProduct = product;
         }
     }
 }

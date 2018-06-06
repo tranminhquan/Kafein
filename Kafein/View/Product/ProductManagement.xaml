@@ -9,7 +9,7 @@
              xmlns:viewmodel="clr-namespace:Kafein.ViewModel"
              xmlns:productview="clr-namespace:Kafein.View.Product"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="600" d:DesignWidth="1000">
     <UserControl.Resources>
         <viewmodel:ProductTypeViewModel x:Key="ProductTypeViewModel"/>
     </UserControl.Resources>
@@ -93,6 +93,7 @@
         <ListBox Grid.Row="1" Grid.Column="0"
                  x:Name="lbProduct"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
                  ItemsSource="{Binding ListProduct}"
                  SelectedItem="{Binding SelectedProduct}">
             <ListBox.ItemTemplate>
@@ -115,6 +116,11 @@
         </ListBox>
         
         <!--Detail product-->
-        <local:DetailProduct Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+            <local:DetailProduct HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <Button Style="{StaticResource RaisedButton}" Content="CẬP NHẬT MẶT HÀNG"
+                    Command="{Binding UpdateProductCommand}"/>
+        </StackPanel>
+        
     </Grid>
 </UserControl>
