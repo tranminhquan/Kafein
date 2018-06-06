@@ -23,6 +23,16 @@ namespace Kafein.Model
 
         }
 
+        public ProductModel(ProductModel product)
+        {
+            ID = product.ID;
+            Name = product.Name;
+            TypeID = product.TypeID;
+            UnitID = product.UnitID;
+            Price = product.Price;
+            ImageSource = product.ImageSource;
+        }
+
         public ProductModel(string id, string name, string typeid, string unitid, double price, string imgsrc)
         {
             ID = id;

@@ -16,11 +16,13 @@ namespace Kafein.ViewModel
     public class ProductManagementViewModel: BaseViewModel
     {
         private ListProductModel listProductModel;
+        private ObservableCollection<ProductModel> bufferList;
 
         public ProductManagementViewModel(): base()
         {
             listProductModel = ListProductModel.GetInstance();
             listProductModel.LoadAllProduct();
+            bufferList = new ObservableCollection<ProductModel>(listProductModel.List);
             
             SelectedProduct = ListProduct[0];
             NotifyProductChange();
@@ -105,7 +107,7 @@ namespace Kafein.ViewModel
             get
             {
                 double p = Convert.ToDouble(SaleProduct) / Convert.ToDouble(MaxSaleProduct);
-                return (Math.Round(p, 2)*100).ToString() + "%";
+                return (Math.Round(p, 2) * 100).ToString() + "%";
             }
         }
 
@@ -115,12 +117,24 @@ namespace Kafein.ViewModel
 
             //reload list product
             listProductModel.LoadAllProduct();
+            bufferList = listProductModel.List;
         }
 
         private void OnSearchTextChange(TextBox textBox)
         {
-            //var matchingvalues = listProductModel.List
-            //    .Where(textBox.Text => listProductModel.ListName.Contains(textBox.Text));
+            if (textBox.Text.Length == 0)
+            {
+                listProductModel.LoadAllProduct();
+                NotifyProductChange();
+                return;
+            }
+
+            var listMatch = from product in bufferList
+                            where product.Name.ToLower().Contains(textBox.Text.ToLower())
+                            select new ProductModel(product);
+
+            ListProduct.Clear();
+            ListProduct = new ObservableCollection<ProductModel>(listMatch);
         }
     }
 }

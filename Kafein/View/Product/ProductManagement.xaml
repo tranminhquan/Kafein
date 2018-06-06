@@ -65,7 +65,7 @@
             <ComboBox x:Name="cbProductType" SelectedItem="{Binding SelectedType, Source={StaticResource ProductTypeViewModel}}"
                       Grid.Column="4" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Left"
                       ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
-                      Width="150" HorizontalContentAlignment="Center"
+                      Width="100" HorizontalContentAlignment="Center"
                       DisplayMemberPath="Name" Foreground="White"
                       BorderBrush="White">
                 <i:Interaction.Triggers>
