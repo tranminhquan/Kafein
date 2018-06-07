@@ -92,7 +92,7 @@ namespace Kafein.ViewModel
                 double sum = 0;
                 foreach (DetailBillItemViewModel item in ListDetailBill)
                 {
-                    sum += (item.Quantity * item.Price);
+                    sum += item.Price;
                 }
                 return sum;
             }

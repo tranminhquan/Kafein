@@ -212,14 +212,13 @@
             <!--  Items  -->
             <mah:HamburgerMenu.ItemsSource>
                 <mah:HamburgerMenuItemCollection>
-
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=CurrencyUsd}" Label="Hoá đơn">
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=CurrencyUsd}" Label="Bán hàng và Thanh toán">
                         <mah:HamburgerMenuIconItem.Tag>
-                            <viewmodel:ListProductViewModel />
+                            <ContentControl Content="{Binding SelectedViewModel, Source={StaticResource MainViewModel}}"/>
                         </mah:HamburgerMenuIconItem.Tag>
                     </mah:HamburgerMenuIconItem>
 
-                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=ArrowDownBoldBox}" Label="Mặt hàng">
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=FoodForkDrink}" Label="Mặt hàng">
                         <mah:HamburgerMenuIconItem.Tag>
                             <viewmodel:ProductManagementViewModel />
                         </mah:HamburgerMenuIconItem.Tag>
