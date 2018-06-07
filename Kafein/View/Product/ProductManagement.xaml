@@ -101,11 +101,12 @@
         <Border Grid.Row="0" Grid.Column="1" Background="{StaticResource PrimaryBrush}"/>
 
         <!--List product-->
-        <ListBox Grid.Row="1" Grid.Column="0"
-                 x:Name="lbProduct"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 ItemsSource="{Binding ListProduct}"
-                 SelectedItem="{Binding SelectedProduct}">
+
+        <ListBox Grid.Column="0" Grid.Row="1"
+                x:Name="lbProduct"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ItemsSource="{Binding ListProduct}"
+                SelectedItem="{Binding SelectedProduct}">
 
             <ListBox.Template>
                 <ControlTemplate>
@@ -128,11 +129,15 @@
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction
-                        Command="{Binding ProductSelectionChangeCommand}"
-                        CommandParameter="{Binding SelectedItem, ElementName=lbProduct}"/>
+                            Command="{Binding ProductSelectionChangeCommand}"
+                            CommandParameter="{Binding SelectedItem, ElementName=lbProduct}"/>
                 </i:EventTrigger>
             </i:Interaction.Triggers>
         </ListBox>
+
+        <!--List product-->
+
+        <!--List product-->
 
         <!--Detail product-->
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
