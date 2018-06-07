@@ -128,9 +128,9 @@
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
             <local:DetailProduct HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             <Button Style="{StaticResource RaisedButton}" Content="CẬP NHẬT MẶT HÀNG"
-                    Command="{Binding UpdateProductCommand}"/>
+                    Command="{Binding UpdateProductCommand}" Height="50" FontSize="12"/>
             <Button Style="{StaticResource WarningButton}" Content="XÓA MẶT HÀNG"
-                    Command="{Binding RemoveProductCommand}"/>
+                    Command="{Binding RemoveProductCommand}" Height="50" FontSize="12"/>
         </StackPanel>
 
     </Grid>
