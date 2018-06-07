@@ -7,11 +7,19 @@ using Prism.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
+using Font = System.Drawing.Font;
+using FontStyle = System.Windows.FontStyle;
+using MessageBox = System.Windows.MessageBox;
+using PrintDialog = System.Windows.Controls.PrintDialog;
 
 namespace Kafein.ViewModel
 {
@@ -211,6 +219,22 @@ namespace Kafein.ViewModel
         private void PrintBill()
         {
             // print
+            try
+            {
+                PrintDialog printDialog = new PrintDialog();
+                PrintDocument printDocument = new PrintDocument();
+
+                printDocument.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(_CreateReceipt); //add an event handler that will do the printing
+
+                if (printDialog.ShowDialog() == true)
+                {
+                    printDocument.Print();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         private void ClearBill()
@@ -246,6 +270,55 @@ namespace Kafein.ViewModel
         {
             ListDetailBill.Remove(item);
             NotifyDetaillBillProperty();
+        }
+
+        private void _CreateReceipt(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            Graphics graphic = e.Graphics;
+            Font font = new Font("Courier New", 6);
+            float FontHeight = font.GetHeight();
+            int startX = 10;
+            int startY = 10;
+            int offset = 90;
+
+            graphic.DrawString("CÀ PHÊ TRI ÂN".PadLeft(17), new Font("Courier New", 10, System.Drawing.FontStyle.Bold), new SolidBrush(Color.Black), startX, startY);
+
+            graphic.DrawString("252 Sông Lu, xã Trung An".PadLeft(25), font, new SolidBrush(Color.Black), startX + 22, startY + 15);
+            graphic.DrawString("huyện Củ Chi, TP.HCM".PadLeft(27), font, new SolidBrush(Color.Black), startX, startY + 25);
+
+            graphic.DrawString("HÓA ĐƠN BÀN SỐ".PadLeft(16), new Font("Courier New", 10, System.Drawing.FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + 40);
+            graphic.DrawString(InputDeskNo.ToString(), new Font("Courier New", 10, System.Drawing.FontStyle.Bold), new SolidBrush(Color.Black), startX + 150, startY + 40);
+
+            graphic.DrawString("GIỜ BẮT ĐẦU".PadLeft(8), font, new SolidBrush(Color.Black), startX, startY + 65);
+            graphic.DrawString(DateTime.Now.ToString(), font, new SolidBrush(Color.Black), startX + 70, startY + 65);
+
+            string top = "Tên Mặt Hàng".PadRight(17) + "ĐVT".PadRight(7) + "SL".PadRight(6)  + "TT";
+            graphic.DrawString(top, font, new SolidBrush(Color.Black), startX, startY + offset);
+            offset = offset + (int)FontHeight; //make the spacing consistent
+            graphic.DrawString("------------------------------------", font, new SolidBrush(Color.Black), startX, startY + offset);
+            offset = offset + (int)FontHeight + 5; //make the spacing consistent
+
+            //Check if product was chosen, then update quantity
+            foreach (DetailBillItemViewModel item in ListDetailBill)
+            {
+                graphic.DrawString(item.ProductName, font, new SolidBrush(Color.Black), startX, startY + offset);
+                graphic.DrawString(item.UnitName, font, new SolidBrush(Color.Black), startX + 90, startY + offset);
+                graphic.DrawString(item.Quantity.ToString(), font, new SolidBrush(Color.Black), startX + 125, startY + offset);
+                graphic.DrawString((item.Price * item.Quantity).ToString(), font, new SolidBrush(Color.Black), startX + 148, startY + offset);
+                offset = offset + (int)FontHeight + 5; //make the spacing consistent  
+            }
+
+            //offset = offset + 20; //make some room so that the total stands out.          
+
+            offset = offset + (int)FontHeight + 5; //make the spacing consistent              
+            graphic.DrawString("TỔNG CỘNG", new Font("Courier New", 8, System.Drawing.FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset - 10);
+            graphic.DrawString(SumPrice.ToString(), font, new SolidBrush(Color.Black), startX + 80, startY + offset - 10);
+
+            offset = offset + (int)FontHeight + 5; //make the spacing consistent              
+            graphic.DrawString("XIN CHÂN THÀNH CẢM ƠN QUÝ KHÁCH!".PadLeft(10), font, new SolidBrush(Color.Black), startX, startY + offset);
+
+            offset = offset + (int)FontHeight + 5; //make the spacing consistent              
+            graphic.DrawString("HẸN GẶP LẠI!".PadLeft(23), font, new SolidBrush(Color.Black), startX, startY + offset);
         }
     }
 }

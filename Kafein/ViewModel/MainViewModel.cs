@@ -7,8 +7,8 @@ namespace Kafein.ViewModel
         private object selectedViewModel;
         public MainViewModel()
         {
-            //SelectedViewModel = new BilllManagementViewModel(ViewModelNavigator, null);
-            SelectedViewModel = new ProductManagementViewModel(ViewModelNavigator, null);
+            SelectedViewModel = new BilllManagementViewModel(ViewModelNavigator, null);
+            //SelectedViewModel = new ProductManagementViewModel(ViewModelNavigator, null);
         }
 
         // getter and setter
