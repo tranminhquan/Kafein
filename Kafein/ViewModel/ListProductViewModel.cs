@@ -56,6 +56,11 @@ namespace Kafein.ViewModel
                 newBill = new BillModel();
                 newBill.ID = BillModel.GenerateID(ListBillModel.GetInstace().List);
             }
+            else
+            {
+                newBill = (BillModel)parameters[0];
+                listDetailBill = (ListDetailBillModel)parameters[1];
+            }
         }
 
         // getter and setter
@@ -164,9 +169,7 @@ namespace Kafein.ViewModel
             switch(key)
             {
                 case "F1":
-                    CreateBill();
-                    ListBillModel.GetInstace().Add(newBill);
-                    navigate.Invoke("BillManagementViewModel", null);
+                    CreateBill();                  
                     break;
                 case "F2":
                     CheckoutBill();
@@ -186,6 +189,13 @@ namespace Kafein.ViewModel
 
         private void CreateBill()
         {
+            InitBill();
+            ListGeneralBillModel.GetInstance().List.Add(new GeneralBillModel(newBill, listDetailBill));
+            navigate.Invoke("BillManagementViewModel", null);
+        }
+
+        private void InitBill()
+        {
             // check if list detail is null
             if (ListDetailBill.Count == 0)
             {
@@ -202,7 +212,7 @@ namespace Kafein.ViewModel
         private void CheckoutBill()
         {
             // create bill first
-            CreateBill();
+            InitBill();
 
             (new CheckoutDialog(navigate, newBill, ListDetailBill)).ShowDialog();
 

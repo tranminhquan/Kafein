@@ -107,11 +107,13 @@
     </ApplicationDefinition>
     <Compile Include="Database\IDatabase.cs" />
     <Compile Include="Database\SQLDatabase.cs" />
+    <Compile Include="Model\GeneralBillModel.cs" />
     <Compile Include="Model\List\BaseList.cs" />
     <Compile Include="Model\BillModel.cs" />
     <Compile Include="Model\DetailBillModel.cs" />
     <Compile Include="Model\List\ListBillModel.cs" />
     <Compile Include="Model\List\ListDetailBillModel.cs" />
+    <Compile Include="Model\List\ListGeneralBillModel.cs" />
     <Compile Include="Model\List\ListProductModel.cs" />
     <Compile Include="Model\List\ListProductTypeModel.cs" />
     <Compile Include="Model\List\ListUnitModel.cs" />

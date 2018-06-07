@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace Kafein.Model.List
 {
-    class ListDetailBillModel: BaseList<DetailBillItemViewModel>
+    public class ListDetailBillModel: BaseList<DetailBillItemViewModel>
     {
-        private static ListDetailBillModel instance = null;
+        //private static ListDetailBillModel instance = null;
         
         public ListDetailBillModel(): base()
         {

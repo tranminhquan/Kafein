@@ -1,4 +1,5 @@
-﻿using Kafein.Model.List;
+﻿using Kafein.Model;
+using Kafein.Model.List;
 using Kafein.Model.SalesNPay;
 using Kafein.Utilities;
 using Prism.Commands;
@@ -13,11 +14,11 @@ namespace Kafein.ViewModel
 {
     public class BilllManagementViewModel: BaseViewModel
     {
-        private ListBillModel listBillModel;
+        private ListGeneralBillModel listGeneralBillModel;
 
         public BilllManagementViewModel(): base()
         {
-            listBillModel = ListBillModel.GetInstace();
+            listGeneralBillModel = ListGeneralBillModel.GetInstance();
 
             ////test
             //ListBill.Add(new BillModel("1", 2, DateTime.Now, 125000));
@@ -31,6 +32,15 @@ namespace Kafein.ViewModel
             //ListBill.Add(new BillModel("4", 27, DateTime.Now, 25000));
             //ListBill.Add(new BillModel("4", 14, DateTime.Now, 25000));
 
+            //listGeneralBillModel.Add(new GeneralBillModel(new BillModel("1", 2, DateTime.Now, 125000), new ListDetailBillModel()));
+            //listGeneralBillModel.Add(new GeneralBillModel(new BillModel("2", 3, DateTime.Now, 12000), new ListDetailBillModel()));
+            //listGeneralBillModel.Add(new GeneralBillModel(new BillModel("3", 4, DateTime.Now, 25000), new ListDetailBillModel()));
+            //listGeneralBillModel.Add(new GeneralBillModel(new BillModel("4", 5, DateTime.Now, 15000), new ListDetailBillModel()));
+            //listGeneralBillModel.Add(new GeneralBillModel(new BillModel("5", 6, DateTime.Now, 5000), new ListDetailBillModel()));
+            //listGeneralBillModel.Add(new GeneralBillModel(new BillModel("6", 7, DateTime.Now, 15000), new ListDetailBillModel()));
+            //listGeneralBillModel.Add(new GeneralBillModel(new BillModel("7", 8, DateTime.Now, 25000), new ListDetailBillModel()));
+
+
             CreateBillCommand = new DelegateCommand(CreateBill);
         }
 
@@ -40,10 +50,10 @@ namespace Kafein.ViewModel
         }
 
         // getter and setter
-        public ObservableCollection<BillModel> ListBill
+        public ObservableCollection<GeneralBillModel> ListBill
         {
-            get { return listBillModel.List; }
-            set { listBillModel.List = value; NotifyChanged("ListBill"); }
+            get { return listGeneralBillModel.List; }
+            set { listGeneralBillModel.List = value; NotifyChanged("ListBill"); }
         }
 
         public DelegateCommand CreateBillCommand { get; set; }
