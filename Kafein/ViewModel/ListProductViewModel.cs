@@ -69,6 +69,7 @@ namespace Kafein.ViewModel
             {
                 index = (int)parameters[0];
                 newBill = (BillModel)ListGeneralBillModel.GetInstance().List[index].Bill;
+                InputDeskNo = newBill.DeskNo;
                 listDetailBill = (ListDetailBillModel)ListGeneralBillModel.GetInstance().List[index].ListDetailBill;
             }
         }
@@ -261,6 +262,7 @@ namespace Kafein.ViewModel
         private void Cancel()
         {
             navigate.Invoke("BillManagementViewModel", null);
+            ListGeneralBillModel.GetInstance().NotifyListChange();
         }
 
         private void RemoveItem(DetailBillItemViewModel item)
