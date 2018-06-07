@@ -41,10 +41,10 @@
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
             <materialDesgin:PackIcon Kind="CurrencyUsd" Foreground="{StaticResource PrimaryBrush}" Width="50" Height="50"/>
             <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}" HorizontalAlignment="Center"
-                     VerticalAlignment="Center" Foreground="{StaticResource AccentBrush}" Text="{Binding SumPrice}"
+                     VerticalAlignment="Center" Foreground="{StaticResource AccentBrush}" Text="{Binding SumPrice, StringFormat=C0, ConverterCulture=vi-VN}"
                        Margin="5"/>
-            <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}" HorizontalAlignment="Center"
-                     VerticalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" Text="vnđ"/>
+            <!--<TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}" HorizontalAlignment="Center"
+                     VerticalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" Text="vnđ"/>-->
         </StackPanel>
 
         <Separator Grid.Row="3" Margin="50,5,50,5"/>
@@ -64,7 +64,7 @@
                      VerticalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" Text="Tiền thối:"
                        Margin="5"/>
             <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Center"
-                     VerticalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" Text="{Binding Change}"
+                     VerticalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" Text="{Binding Change, StringFormat=C0, ConverterCulture=vi-VN}"
                        Margin="5"/>
         </StackPanel>
 
