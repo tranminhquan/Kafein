@@ -174,7 +174,7 @@
                         <TextBlock Style="{DynamicResource MaterialDesignDisplay1TextBlock}" TextAlignment="Center" 
                                    VerticalAlignment="Center"
                                    Margin="0,0,0,0" Foreground="{StaticResource PrimaryBrush}"
-                                   Text="{Binding SumPrice, StringFormat=C, ConverterCulture=vi-VN}"/>
+                                   Text="{Binding SumPrice, StringFormat=C0, ConverterCulture=vi-VN}"/>
                     </StackPanel>
 
                     <!--Button-->
