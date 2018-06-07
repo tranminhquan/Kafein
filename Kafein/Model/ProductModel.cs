@@ -118,7 +118,7 @@ namespace Kafein.Model
             try
             {
                 sqldb.Open();
-                sqldb.ExcuteNonQuery("INSERT INTO MATHANG VALUES('" + ID + "', N'" + Name + "', '" + TypeID + "', '" + UnitID + "', " + Price + ", '" + ImageSource + "')");
+                sqldb.ExcuteNonQuery("INSERT INTO MATHANG VALUES('" + ID + "', N'" + Name + "', '" + TypeID + "', '" + UnitID + "', " + Price + ", '" + ImageSource + "', NULL)");
             }
             catch (SqlException e)
             {

@@ -199,23 +199,23 @@ namespace Kafein.ViewModel.Dialog
                 offset = offset + (int)FontHeight + 5; //make the spacing consistent  
             }
 
-            //offset = offset + 20; //make some room so that the total stands out.          
+            graphic.DrawString("------------------------------------", font, new SolidBrush(Color.Black), startX, startY + offset);
 
             offset = offset + (int)FontHeight + 5; //make the spacing consistent              
-            graphic.DrawString("TỔNG CỘNG", new Font("Courier New", 8, System.Drawing.FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset - 10);
-            graphic.DrawString(SumPrice.ToString(), font, new SolidBrush(Color.Black), startX + 80, startY + offset - 10);
+            graphic.DrawString("TỔNG CỘNG", new Font("Courier New", 8, System.Drawing.FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset);
+            graphic.DrawString(SumPrice.ToString(), font, new SolidBrush(Color.Black), startX + 80, startY + offset);
 
-            graphic.DrawString("Tiền nhận", font, new SolidBrush(Color.Black), startX, startY + offset + 5);
-            graphic.DrawString(MoneyReceived.ToString(), font, new SolidBrush(Color.Black), startX + 80, startY + offset + 5);
+            graphic.DrawString("Tiền nhận", font, new SolidBrush(Color.Black), startX, startY + offset + 15);
+            graphic.DrawString(MoneyReceived.ToString(), font, new SolidBrush(Color.Black), startX + 80, startY + offset + 15);
 
-            graphic.DrawString("Tiền thối", font, new SolidBrush(Color.Black), startX, startY + offset + 15);
-            graphic.DrawString(Change.ToString(), font, new SolidBrush(Color.Black), startX + 80, startY + offset + 15);
-
-            offset = offset + (int)FontHeight + 5; //make the spacing consistent              
-            graphic.DrawString("XIN CHÂN THÀNH CẢM ƠN QUÝ KHÁCH!".PadLeft(12), font, new SolidBrush(Color.Black), startX, startY + offset + 30);
+            graphic.DrawString("Tiền thối", font, new SolidBrush(Color.Black), startX, startY + offset + 25);
+            graphic.DrawString(Change.ToString(), font, new SolidBrush(Color.Black), startX + 80, startY + offset + 25);
 
             offset = offset + (int)FontHeight + 5; //make the spacing consistent              
-            graphic.DrawString("HẸN GẶP LẠI!".PadLeft(23), font, new SolidBrush(Color.Black), startX, startY + offset + 35);
+            graphic.DrawString("XIN CHÂN THÀNH CẢM ƠN QUÝ KHÁCH!".PadLeft(12), font, new SolidBrush(Color.Black), startX, startY + offset + 35);
+
+            offset = offset + (int)FontHeight + 5; //make the spacing consistent              
+            graphic.DrawString("HẸN GẶP LẠI!".PadLeft(23), font, new SolidBrush(Color.Black), startX, startY + offset + 40);
         }
     }
 }
