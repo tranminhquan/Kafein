@@ -50,7 +50,13 @@ namespace Kafein.ViewModel
         public ObservableCollection<ProductModel> ListProduct
         {
             get { return listProductModel.List; }
-            set { listProductModel.List = value; NotifyChanged("ListProduct"); }
+            set
+            {
+                listProductModel.List = value;
+                SelectedProduct = ListProduct[0];
+                NotifyChanged("ListProduct");
+                NotifyProductChange();
+            }
         }
 
         public ProductModel SelectedProduct { get; set; }
@@ -77,6 +83,7 @@ namespace Kafein.ViewModel
             NotifyChanged("MaxSaleProduct");
             NotifyChanged("SaleProduct");
             NotifyChanged("Popular");
+            NotifyChanged("SelectedProduct");
         }
 
         public string Name

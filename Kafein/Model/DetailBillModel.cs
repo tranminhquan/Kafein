@@ -72,7 +72,8 @@ namespace Kafein.Model
 
             IDatabase sqldb = new SQLDatabase();
             sqldb.Open();
-            SqlDataReader reader = sqldb.ExcuteReader("SELECT Max(MaCTHoaDon) FROM CHITIETHOADON");
+            string month = DateTime.Now.Month.ToString("00");
+            SqlDataReader reader = sqldb.ExcuteReader("SELECT Max(MaCTHoaDon) FROM CHITIETHOADON WHERE SUBSTRING(MaCTHoaDon, 5, 2)='" + month +"'");
             while (reader.Read())
             {
                 try
@@ -86,7 +87,7 @@ namespace Kafein.Model
                     {
                         no++;
                         sqldb.Close();
-                        string tempid = prefix + date + no.ToString("000");
+                        string tempid = prefix + date.ToString("000000") + no.ToString("000");
                         if (String.Compare(tempid, offID) == -1)
                             return offID;
                         else

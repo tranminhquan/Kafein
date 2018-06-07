@@ -25,7 +25,8 @@ namespace Kafein.ViewModel
 
             listProductModel = ListProductModel.GetInstance();
             listProductModel.LoadAllProduct();
-            listDetailBill = ListDetailBillModel.GetInstance();
+            //listDetailBill = ListDetailBillModel.GetInstance();
+            listDetailBill = new ListDetailBillModel();
 
             // command init
             ProductSelectionChangeCommand = new DelegateCommand<ProductModel>(SelectedProductChange);
@@ -203,8 +204,10 @@ namespace Kafein.ViewModel
             // create bill first
             CreateBill();
 
+            (new CheckoutDialog(navigate, newBill, ListDetailBill)).ShowDialog();
+
             // save to database
-            SaveToDatabase();
+            //SaveToDatabase();
 
         }
 

@@ -18,7 +18,8 @@ namespace Kafein.ViewModel
         public DetailBillViewModel(): base()
         {
             // list item in detail bill
-            listDetailBill = ListDetailBillModel.GetInstance();
+            //listDetailBill = ListDetailBillModel.GetInstance();
+            listDetailBill = new ListDetailBillModel();
             ProductSelectionChangeCommand = new DelegateCommand<ProductModel>(SelectedProductChange);
 
             // =============> !!!! [WARNING] DO NOT DELETE THIS CODE !!!! <==============

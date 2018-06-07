@@ -34,15 +34,6 @@ namespace Kafein.ViewModel
             detailBillModel = detail;
         }
 
-        // ONLY FOR TESTING
-        public DetailBillItemViewModel(string productName, string unitName, int quantity, double price): this()
-        {
-            ProductName = productName;
-            UnitName = unitName;
-            Quantity = quantity;
-            Price = price;
-        }
-
         // getter and setter need for detail bill view
         public DetailBillModel DetailBillModel
         {
@@ -65,13 +56,12 @@ namespace Kafein.ViewModel
         public int Quantity
         {
             get { return detailBillModel.Quantity; }
-            set { detailBillModel.Quantity = value; NotifyChanged("Quantity"); }
+            set { detailBillModel.Quantity = value; NotifyChanged("Quantity"); NotifyChanged("Price"); }
         }
 
         public double Price
         {
-            get { return detailBillModel.Price; }
-            set { detailBillModel.Price = value; NotifyChanged("Price"); }
+            get { return detailBillModel.Price * detailBillModel.Quantity; }
         }
 
         public DelegateCommand<DetailBillItemViewModel> RemoveItemCommand { get; set; }

@@ -9,7 +9,7 @@
              xmlns:productview ="clr-namespace:Kafein.View.Product"
              xmlns:viewmodel="clr-namespace:Kafein.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="900">
+             d:DesignHeight="550" d:DesignWidth="900">
 
     <UserControl.Resources>
         <viewmodel:ProductTypeViewModel x:Key="ProductTypeViewModel"/>
@@ -92,7 +92,7 @@
         <!--Detail bill-->
         <Border Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch">
             
-            <materialDesign:Card Width="350" Height="450">
+            <materialDesign:Card Width="350" Height="Auto" VerticalAlignment="Stretch">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -111,10 +111,10 @@
                         
                     </StackPanel>
 
-                    <TextBox Grid.Row="0" TextAlignment="Center"
-                            Margin="10" Width="120" Text="{Binding InputDeskNo}" HorizontalAlignment="Center"
+                    <TextBox Grid.Row="0" TextAlignment="Center" Style="{StaticResource TxtBox}"
+                            Margin="10" Width="120" Text="{Binding InputDeskNo, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
                             materialDesign:HintAssist.Hint="Nhập số bàn" Foreground="{StaticResource PrimaryBrush}"
-                            FontSize="20"/>
+                            FontSize="20" HorizontalContentAlignment="Center"/>
 
                     <!--List product selected-->
                     <ListBox x:Name="DetailBillList" Grid.Row="1" ItemsSource="{Binding ListDetailBill}">

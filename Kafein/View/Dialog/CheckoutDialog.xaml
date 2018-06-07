@@ -7,6 +7,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:viewmodeldlg="clr-namespace:Kafein.ViewModel.Dialog"
         xmlns:materialDesgin="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStyle="None"
         mc:Ignorable="d"
         Title="CheckoutDialog" Height="350" Width="600">
     <Window.DataContext>
@@ -14,35 +15,80 @@
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
-           
-        </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
-                   VerticalAlignment="Center" HorizontalAlignment="Center"
-                   Foreground="{StaticResource PrimaryBrush}" Text="{Binding Title, Mode=OneWay}"/>
+        <Border Grid.Row="0" Grid.ColumnSpan="2" Background="{StaticResource PrimaryBrush}">
+            <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}" HorizontalAlignment="Center"
+                     VerticalAlignment="Center" Foreground="White" Text="THANH TOÁN"/>
+        </Border>
 
-        <!--Sum price-->
-        <TextBlock Grid.Row="1" Grid.Column="0" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}" HorizontalAlignment="Center"
+                     VerticalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" Text="BÀN SỐ"
+                       Margin="5"/>
+            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Center"
+                     VerticalAlignment="Center" Foreground="{StaticResource AccentBrush}" Text="{Binding DeskNo}"
+                       Margin="5"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <materialDesgin:PackIcon Kind="CurrencyUsd" Foreground="{StaticResource PrimaryBrush}" Width="50" Height="50"/>
+            <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}" HorizontalAlignment="Center"
+                     VerticalAlignment="Center" Foreground="{StaticResource AccentBrush}" Text="{Binding SumPrice}"
+                       Margin="5"/>
+            <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}" HorizontalAlignment="Center"
+                     VerticalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" Text="vnđ"/>
+        </StackPanel>
+
+        <Separator Grid.Row="3" Margin="50,5,50,5"/>
+
+        <TextBox x:Name="txtReceivedMoney" Grid.Row="4" Style="{StaticResource TxtBox}" Margin="150,10,150,10" HorizontalContentAlignment="Center"
+                 materialDesgin:HintAssist.Hint="Số tiền nhận" FontSize="20" Text="{Binding MoneyReceived}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="TextChanged">
+                    <i:InvokeCommandAction Command="{Binding TextChangeCommand}"
+                                           CommandParameter="{Binding ElementName=txtReceivedMoney}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+
+        <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}" HorizontalAlignment="Center"
+                     VerticalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" Text="Tiền thối:"
+                       Margin="5"/>
+            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Center"
+                     VerticalAlignment="Center" Foreground="{StaticResource PrimaryBrush}" Text="{Binding Change}"
+                       Margin="5"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="6"
+                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Orientation="Horizontal">
+            <Button Style="{StaticResource GhostButton}" Width="120" Margin="5,0,5,0" Command="{Binding CancelCommand}">HỦY (ESC)</Button>
+            <Button Style="{StaticResource ConfirmButton}" Width="170" Margin="5,0,5,0" Command="{Binding PrintAndCheckoutCommand}">THANH TOÁN + IN (F1)</Button>
+            <Button Style="{StaticResource RaisedButton}" Width="120" Margin="5,0,5,0" Command="{Binding CheckoutCommand}">THANH TOÁN (F2)</Button>
+        </StackPanel>
+        
+        <!--Sum price
+        <TextBlock Grid.Row="2" Grid.Column="0" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
                    VerticalAlignment="Center" HorizontalAlignment="Center"
                    Foreground="{StaticResource PrimaryBrush}" Text="Tổng tiền"/>
-        <TextBlock Grid.Row="1" Grid.Column="1" Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
+        <TextBlock Grid.Row="2" Grid.Column="1" Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
                    VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"
                    Foreground="{StaticResource PrimaryBrush}" Text="{Binding SumPrice, Mode=OneWay}"/>
 
-        <!--Money received-->
-        <TextBlock Grid.Row="2" Grid.Column="0" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+        --><!--Money received--><!--
+        <TextBlock Grid.Row="3" Grid.Column="0" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
                    VerticalAlignment="Center" HorizontalAlignment="Center"
                    Foreground="{StaticResource PrimaryBrush}" Text="Tiền nhận"/>
-        <TextBox x:Name="receivedMoney" Grid.Row="2" Grid.Column="1" Style="{StaticResource TxtBox}"
+        <TextBox x:Name="receivedMoney" Grid.Row="3" Grid.Column="1" Style="{StaticResource TxtBox}"
                    VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20"
                    Foreground="{StaticResource PrimaryBrush}" Text="{Binding MoneyReceived}"
                  Margin="20,0,0,0" Width="210">
@@ -54,20 +100,20 @@
             </i:Interaction.Triggers>
         </TextBox>
 
-        <!--Change-->
-        <TextBlock Grid.Row="3" Grid.Column="0" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
+        --><!--Change--><!--
+        <TextBlock Grid.Row="4" Grid.Column="0" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"
                    VerticalAlignment="Center" HorizontalAlignment="Center"
                    Foreground="{StaticResource PrimaryBrush}" Text="Tiền thối"/>
-        <TextBlock Grid.Row="3" Grid.Column="1" Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
+        <TextBlock Grid.Row="4" Grid.Column="1" Style="{DynamicResource MaterialDesignDisplay1TextBlock}"
                    VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,0"
                    Foreground="{StaticResource PrimaryBrush}" Text="{Binding Change, Mode=OneWay}"/>
-        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" 
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" 
                     HorizontalAlignment="Center" VerticalAlignment="Center"
                     Orientation="Horizontal">
-            <!--<Button Style="{StaticResource GhostButton}" Width="120" Margin="5,0,5,0">HỦY (ESC)</Button>-->
+            --><!--<Button Style="{StaticResource GhostButton}" Width="120" Margin="5,0,5,0">HỦY (ESC)</Button>--><!--
             <Button Style="{StaticResource ConfirmButton}" Width="170" Margin="5,0,5,0">THANH TOÁN + IN (F1)</Button>
             <Button Style="{StaticResource RaisedButton}" Width="120" Margin="5,0,5,0">THANH TOÁN (F2)</Button>
-        </StackPanel>
+        </StackPanel>-->
 
     </Grid>
 </Window>

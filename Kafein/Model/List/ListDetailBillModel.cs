@@ -20,12 +20,12 @@ namespace Kafein.Model.List
 
         }
 
-        public static ListDetailBillModel GetInstance()
-        {
-            if (instance == null)
-                instance = new ListDetailBillModel();
-            return instance;
-        }
+        //public static ListDetailBillModel GetInstance()
+        //{
+        //    if (instance == null)
+        //        instance = new ListDetailBillModel();
+        //    return instance;
+        //}
 
         public ObservableCollection<dynamic> ListDetail
         {
