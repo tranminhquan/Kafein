@@ -88,6 +88,7 @@
                       ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
                       Width="100" HorizontalContentAlignment="Center"
                       DisplayMemberPath="Name" Foreground="White"
+                      Style="{StaticResource MaterialDesignComboBox}"
                       BorderBrush="White">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
