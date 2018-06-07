@@ -54,7 +54,8 @@
                       Grid.Column="1" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center"
                       ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
                       Width="150" HorizontalContentAlignment="Center"
-                      DisplayMemberPath="Name" Foreground="White">
+                      DisplayMemberPath="Name" Foreground="White"
+                      Style="{StaticResource MaterialDesignComboBox}">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding TypeSelectionChangeCommand, Source={StaticResource ProductTypeViewModel}}"
