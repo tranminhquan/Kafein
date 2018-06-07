@@ -29,11 +29,12 @@ namespace Kafein.View.Dialog
             InitializeComponent();
         }
 
-        public CheckoutDialog(Action<object,object[]> navigate, BillModel bill, ObservableCollection<DetailBillItemViewModel> listDetailBill): this()
+        public CheckoutDialog(Action<object,object[]> navigate, BillModel bill, ObservableCollection<DetailBillItemViewModel> listDetailBill, int index): this()
         {
             ((CheckoutDialogViewModel)DataContext).Navigate = navigate;
             ((CheckoutDialogViewModel)DataContext).Bill = bill;
             ((CheckoutDialogViewModel)DataContext).ListDetailBill = listDetailBill;
+            ((CheckoutDialogViewModel)DataContext).Index = index;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Kafein.Model;
+using Kafein.Model.List;
 using Kafein.Model.SalesNPay;
 using Prism.Commands;
 using System;
@@ -32,6 +33,7 @@ namespace Kafein.ViewModel.Dialog
 
         // getter and setter
         public DelegateCommand<TextBox> TextChangeCommand { get; set; }
+        public int Index { get; set; }
         public BillModel Bill
         {
             get { return bill; }
@@ -99,6 +101,13 @@ namespace Kafein.ViewModel.Dialog
             foreach (DetailBillItemViewModel item in listDetailBill)
             {
                 DetailBillModel.SaveToDatabase(item.DetailBillModel);
+            }
+
+            // if it a awaiting bill
+            if (Index >= 0)
+            {
+                ListGeneralBillModel.GetInstance().List.Remove(ListGeneralBillModel.GetInstance().List[Index]);
+                ListGeneralBillModel.GetInstance().NotifyListChange();
             }
         }
 

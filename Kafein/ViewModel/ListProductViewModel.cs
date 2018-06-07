@@ -20,6 +20,7 @@ namespace Kafein.ViewModel
         private ListProductModel listProductModel;
         private BillModel newBill;
         private ListDetailBillModel listDetailBill;
+        int index = -1;
         public ListProductViewModel(): base()
         {
 
@@ -58,8 +59,9 @@ namespace Kafein.ViewModel
             }
             else
             {
-                newBill = (BillModel)parameters[0];
-                listDetailBill = (ListDetailBillModel)parameters[1];
+                index = (int)parameters[0];
+                newBill = (BillModel)ListGeneralBillModel.GetInstance().List[index].Bill;
+                listDetailBill = (ListDetailBillModel)ListGeneralBillModel.GetInstance().List[index].ListDetailBill;
             }
         }
 
@@ -214,7 +216,7 @@ namespace Kafein.ViewModel
             // create bill first
             InitBill();
 
-            (new CheckoutDialog(navigate, newBill, ListDetailBill)).ShowDialog();
+            (new CheckoutDialog(navigate, newBill, ListDetailBill, index)).ShowDialog();
 
             // save to database
             //SaveToDatabase();

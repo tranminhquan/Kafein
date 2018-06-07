@@ -15,8 +15,17 @@
         </Grid.ColumnDefinitions>
         <Button Command="{Binding CreateBillCommand}">CREATE</Button>
         <ListBox Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                 ItemsSource="{Binding ListBill}">
-                <ListBox.ItemTemplate>
+                 ItemsSource="{Binding ListBill}" SelectedIndex="{Binding SelectedIndexBill}">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Style.Triggers>
+                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                            <Setter Property="IsSelected" Value="True" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
                     <DataTemplate>
                         <local:GeneralBill/>
                     </DataTemplate>

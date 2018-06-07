@@ -2,6 +2,7 @@
 using Kafein.Model.List;
 using Kafein.Model.SalesNPay;
 using Kafein.Utilities;
+using Kafein.View.Dialog;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
@@ -42,6 +43,8 @@ namespace Kafein.ViewModel
 
 
             CreateBillCommand = new DelegateCommand(CreateBill);
+            DetailCommand = new DelegateCommand(ShowDetail);
+            CheckoutCommand = new DelegateCommand(ShowCheckoutDialog);
         }
 
         public BilllManagementViewModel(Action<object, object[]> navigate, object[] parameters): this()
@@ -56,12 +59,27 @@ namespace Kafein.ViewModel
             set { listGeneralBillModel.List = value; NotifyChanged("ListBill"); }
         }
 
+        public int SelectedIndexBill { get; set; }
+        
+
         public DelegateCommand CreateBillCommand { get; set; }
+        public DelegateCommand DetailCommand { get; set; }
+        public DelegateCommand CheckoutCommand { get; set; }
 
 
-        public void CreateBill()
+        private void CreateBill()
         {
             navigate.Invoke("ListProductViewModel", null);  
+        }
+
+        private void ShowDetail()
+        {
+            navigate.Invoke("ListProductViewModel", new object[] { SelectedIndexBill });
+        }
+
+        private void ShowCheckoutDialog()
+        {
+            (new CheckoutDialog(navigate, listGeneralBillModel.List[SelectedIndexBill].Bill, listGeneralBillModel.List[SelectedIndexBill].ListDetailBill.List, SelectedIndexBill)).ShowDialog();
         }
     }
 }

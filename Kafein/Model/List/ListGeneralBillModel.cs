@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Kafein.Model.List
 {
-    public class ListGeneralBillModel: BaseList<GeneralBillModel>
+    public class ListGeneralBillModel: BaseList<GeneralBillModel>, INotifyPropertyChanged
     {
         private static ListGeneralBillModel instance;
 
@@ -15,6 +16,8 @@ namespace Kafein.Model.List
 
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public static ListGeneralBillModel GetInstance()
         {
             if (instance == null)
@@ -22,6 +25,11 @@ namespace Kafein.Model.List
             return instance;
         }
 
+        public void NotifyListChange()
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs("List"));
+        }
        
 
     }
