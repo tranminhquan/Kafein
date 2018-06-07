@@ -39,7 +39,7 @@
 
             <!--Name-->
             <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource MaterialDesignHeadlineTextBlock}" HorizontalAlignment="Left"
-                       VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="{Binding Name}" TextWrapping="Wrap"/>
+                       VerticalAlignment="Center" Margin="15,5,5,5" Foreground="{StaticResource PrimaryBrush}" Text="{Binding Name}" TextWrapping="Wrap"/>
 
             <!--Type-->
             <materialDesign:PackIcon Grid.Row="1" Grid.Column="1" Kind="Filter" HorizontalAlignment="Center" VerticalAlignment="Center"
@@ -78,7 +78,7 @@
                 <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
                        VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="/" TextWrapping="Wrap"/>
                 <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
-                       VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="{Binding MaxSaleProd}" TextWrapping="Wrap"/>
+                       VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="{Binding MaxSaleProduct}" TextWrapping="Wrap"/>
             </StackPanel>
             <!--Frequency-->
             <Border Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3">

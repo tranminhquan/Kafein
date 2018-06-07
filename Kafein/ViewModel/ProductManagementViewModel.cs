@@ -53,7 +53,7 @@ namespace Kafein.ViewModel
             set
             {
                 listProductModel.List = value;
-                SelectedProduct = ListProduct[0];
+                //SelectedProduct = ListProduct[0];
                 NotifyChanged("ListProduct");
                 NotifyProductChange();
             }
@@ -153,9 +153,9 @@ namespace Kafein.ViewModel
             {
                  listMatch = from product in bufferList
                              where product.Name.ToLower().Contains(textBox.Text.ToLower())
-                             select new ProductModel(product);
+                             select new ProductModel(product);              
             }
-            if (fieldSearch == "Price" && textBox.Text.Length >= 3)
+            else if (fieldSearch == "Price" && textBox.Text.Length >= 3)
             {
 
                 if (textBox.Text.Contains(">="))
@@ -202,6 +202,19 @@ namespace Kafein.ViewModel
 
             if (listMatch == null)
                 return;
+
+            if (sortSearch != null)
+            {
+                if (sortSearch == "ASC")
+                {
+                    listMatch = listMatch.OrderBy(product => product.GetType().GetProperty(fieldSearch));
+                }
+                if (sortSearch == "DESC")
+                {
+                    listMatch = listMatch.OrderByDescending(product => product.GetType().GetProperty(fieldSearch));
+                }
+            }
+
             ListProduct.Clear();
             ListProduct = new ObservableCollection<ProductModel>(listMatch);
         }
