@@ -107,6 +107,8 @@
     </ApplicationDefinition>
     <Compile Include="Database\IDatabase.cs" />
     <Compile Include="Database\SQLDatabase.cs" />
+    <Compile Include="Domain\IsValidInput.cs" />
+    <Compile Include="Domain\NotEmptyValidationRule.cs" />
     <Compile Include="Model\List\BaseList.cs" />
     <Compile Include="Model\BillModel.cs" />
     <Compile Include="Model\DetailBillModel.cs" />
@@ -169,6 +171,15 @@
     </Compile>
     <Compile Include="View\SalesNPay\GeneralBill.xaml.cs">
       <DependentUpon>GeneralBill.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SignIn\SignInControl.xaml.cs">
+      <DependentUpon>SignInControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SignIn\SignInPage.xaml.cs">
+      <DependentUpon>SignInPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SignIn\SignUpControl.xaml.cs">
+      <DependentUpon>SignUpControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TestDragAndDrop.xaml.cs">
       <DependentUpon>TestDragAndDrop.xaml</DependentUpon>
@@ -236,6 +247,22 @@
     <Page Include="View\SalesNPay\GeneralBill.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SignIn\SignInControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\SignIn\SignInPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\SignIn\SignInWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\SignIn\SignUpControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\TestDragAndDrop.xaml">
       <SubType>Designer</SubType>
