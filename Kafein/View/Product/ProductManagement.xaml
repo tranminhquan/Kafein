@@ -46,7 +46,7 @@
                        Foreground="White" Padding="5,8,5,5"/>
 
             <StackPanel Grid.Column="2" Orientation="Horizontal">
-                <TextBox x:Name="txtSearch" Style="{StaticResource TxtBox}" VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                <TextBox x:Name="txtSearch" Style="{StaticResource TxtBox}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
                      Foreground="White" Text="{Binding InputProduct}" BorderBrush="White" Margin="5" Width="103">
                     <i:Interaction.Triggers>
                         <i:EventTrigger EventName="TextChanged">
@@ -84,7 +84,7 @@
                        Foreground="White" Padding="5,8,5,5"/>
 
             <ComboBox x:Name="cbProductType" SelectedItem="{Binding SelectedType, Source={StaticResource ProductTypeViewModel}}"
-                      Grid.Column="4" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Left"
+                      Grid.Column="4" Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Left"
                       ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
                       Width="100" HorizontalContentAlignment="Center"
                       DisplayMemberPath="Name" Foreground="White"
