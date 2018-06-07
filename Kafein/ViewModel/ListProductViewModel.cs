@@ -325,11 +325,11 @@ namespace Kafein.ViewModel
                 offset = offset + (int)FontHeight + 5; //make the spacing consistent  
             }
 
-            //offset = offset + 20; //make some room so that the total stands out.          
+            graphic.DrawString("------------------------------------", font, new SolidBrush(Color.Black), startX, startY + offset);
 
             offset = offset + (int)FontHeight + 5; //make the spacing consistent              
-            graphic.DrawString("TỔNG CỘNG", new Font("Courier New", 8, System.Drawing.FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset - 10);
-            graphic.DrawString(SumPrice.ToString(), font, new SolidBrush(Color.Black), startX + 80, startY + offset - 10);
+            graphic.DrawString("TỔNG CỘNG", new Font("Courier New", 8, System.Drawing.FontStyle.Bold), new SolidBrush(Color.Black), startX, startY + offset);
+            graphic.DrawString(SumPrice.ToString(), font, new SolidBrush(Color.Black), startX + 80, startY + offset);
 
             offset = offset + (int)FontHeight + 5; //make the spacing consistent              
             graphic.DrawString("XIN CHÂN THÀNH CẢM ƠN QUÝ KHÁCH!".PadLeft(10), font, new SolidBrush(Color.Black), startX, startY + offset);

@@ -110,7 +110,7 @@ namespace Kafein.ViewModel
         private void ShowOpenDialog()
         {
             OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "Image files (*.png;*.jpeg)|*.png;*.jpeg|All files (*.*)|*.*";
+            dialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg|All files (*.*)|*.*";
             dialog.Title = "Please select an image";
             if (dialog.ShowDialog() == true)
             {
