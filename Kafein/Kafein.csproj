@@ -171,6 +171,9 @@
     <Compile Include="View\SalesNPay\DetailBillManagement.xaml.cs">
       <DependentUpon>DetailBillManagement.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\SalesNPay\AddBill.xaml.cs">
+      <DependentUpon>AddBill.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\SalesNPay\GeneralBill.xaml.cs">
       <DependentUpon>GeneralBill.xaml</DependentUpon>
     </Compile>
@@ -236,6 +239,10 @@
     <Page Include="View\SalesNPay\DetailBillManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SalesNPay\AddBill.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\SalesNPay\GeneralBill.xaml">
       <SubType>Designer</SubType>

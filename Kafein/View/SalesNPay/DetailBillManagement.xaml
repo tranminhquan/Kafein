@@ -69,19 +69,28 @@
         <!--List product-->
         <ListBox Grid.Row="1" Grid.Column="0"
                  x:Name="lbProduct"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  ItemsSource="{Binding ListProduct}"
                  SelectedIndex="{Binding SelectedIndex}">
+
+            <ListBox.Template>
+                <ControlTemplate>
+                    <ItemsPresenter />
+                </ControlTemplate>
+            </ListBox.Template>
+
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <productview:ProductItem/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
+
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel Orientation="Horizontal" Margin="8"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
+
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction
