@@ -28,18 +28,18 @@
             </Border>
 
             <!--Time-->
-            <materialDesign:PackIcon Grid.Row="1" Grid.Column="0" 
+            <materialDesign:PackIcon Grid.Row="1" Grid.Column="0" Foreground="{StaticResource PrimaryBrush}"
                                      Kind="Timer" VerticalAlignment="Stretch"  
                                      Margin="10,14,10,14" Padding="0,0,0,0" Width="20" Height="20"/>
             <TextBlock Grid.Row="1" Grid.Column="1" Margin="8,16,10.4,16" Grid.ColumnSpan="2"
-                       Text="{Binding OrderTime}"/>
+                       Text="{Binding OrderTime}" Foreground="{StaticResource PrimaryBrush}"/>
 
             <!--Price-->
-            <materialDesign:PackIcon Grid.Row="2" Grid.Column="0" 
+            <materialDesign:PackIcon Grid.Row="2" Grid.Column="0" Foreground="{StaticResource PrimaryBrush}"
                                      Kind="CurrencyUsd" VerticalAlignment="Stretch" 
                                      Margin="10,14,10,14" Padding="0,0,0,0" Width="20" Height="20"/>
             <TextBlock Grid.Row="2" Grid.Column="1" Margin="8,16,10.4,16" Grid.ColumnSpan="2"
-                       Text="{Binding Price}"/>
+                       Text="{Binding Price}" Foreground="{StaticResource PrimaryBrush}"/>
 
             <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid>
@@ -55,7 +55,7 @@
                     <Button Grid.Row="0" Grid.Column="0"
                     Padding="16,4" Margin="5,5,5,5"
                     Style="{StaticResource GhostButton}"
-                    Command="{Binding DetailCommand}">
+                    Command="{Binding Path=DataContext.DetailCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
                         CHI TIẾT
                     </Button>
 
@@ -63,7 +63,7 @@
                     <Button Grid.Row="0" Grid.Column="1" 
                             Padding="16,4" Margin="5,5,5,5" 
                             Style="{StaticResource ConfirmButton}"
-                            Command="{Binding CheckOutCommand}">
+                            Command="{Binding Path=DataContext.CheckoutCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
                         THANH TOÁN
                     </Button>
                 </Grid>

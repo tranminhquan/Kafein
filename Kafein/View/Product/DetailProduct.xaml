@@ -18,8 +18,8 @@
                 <RowDefinition Height="1.5*"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="1.5*"/>
-                <RowDefinition Height="6*"/>
                 <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="6*"/>
 
             </Grid.RowDefinitions>
 
@@ -28,15 +28,15 @@
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
+
             <!--Image-->
             <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="4">
                 <Image HorizontalAlignment="Center"
                    VerticalAlignment="Center" Margin="5" Width="100" Source="{Binding Image}"/>
             </Border>
-            
-            
-            
+
+
+
             <!--Name-->
             <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Style="{DynamicResource MaterialDesignHeadlineTextBlock}" HorizontalAlignment="Left"
                        VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="{Binding Name}" TextWrapping="Wrap"/>
@@ -52,7 +52,7 @@
                                      Width="30" Height="30" Foreground="{StaticResource PrimaryBrush}"/>
             <TextBlock Grid.Row="2" Grid.Column="2" Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
                        VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="{Binding Unit}" TextWrapping="Wrap"/>
-            
+
             <!--Price-->
             <materialDesign:PackIcon Grid.Row="3" Grid.Column="1" Kind="CurrencyUsd" HorizontalAlignment="Center" VerticalAlignment="Center"
                                      Width="30" Height="30" Foreground="{StaticResource PrimaryBrush}"/>
@@ -60,24 +60,34 @@
                        VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="{Binding Price}" TextWrapping="Wrap"/>
 
             <Separator Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="50,0,50,0"/>
-            
+
             <!--Popular-->
             <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock Grid.Row="5" Grid.Column="2" Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
+                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
                        VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="Độ phổ biến: " TextWrapping="Wrap"/>
-                <TextBlock Grid.Row="5" Grid.Column="2" Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
+                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
                        VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="{Binding Popular}" TextWrapping="Wrap"/>
             </StackPanel>
-            
 
+
+            <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
+                       VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="Số lượng đã bán: " TextWrapping="Wrap"/>
+                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
+                       VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="{Binding SaleProduct}" TextWrapping="Wrap"/>
+                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
+                       VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="/" TextWrapping="Wrap"/>
+                <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
+                       VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="{Binding MaxSaleProd}" TextWrapping="Wrap"/>
+            </StackPanel>
             <!--Frequency-->
-            <Border Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3">
+            <Border Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3">
                 <lvc:Gauge Uses360Mode="True" From="0" To="{Binding MaxSaleProduct}" Value="{Binding SaleProduct}"
-                           Margin="40,40,40,20" GaugeBackground="{StaticResource PrimaryBrush}"
+                           Margin="40,0,40,20" GaugeBackground="{StaticResource PrimaryBrush}"
                            GaugeActiveFill="{StaticResource AccentBrush}"/>
             </Border>
-            
-           
+
+
         </Grid>
     </materialDesign:Card>
 </UserControl>

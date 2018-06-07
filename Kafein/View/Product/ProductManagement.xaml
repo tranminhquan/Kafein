@@ -126,7 +126,7 @@
 
         <!--Detail product-->
         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
-            <local:DetailProduct HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <local:DetailProduct HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
             <Button Style="{StaticResource RaisedButton}" Content="CẬP NHẬT MẶT HÀNG"
                     Command="{Binding UpdateProductCommand}"/>
             <Button Style="{StaticResource WarningButton}" Content="XÓA MẶT HÀNG"

@@ -1,8 +1,10 @@
 ﻿using Kafein.Model;
 using Kafein.Model.SalesNPay;
+using Kafein.ViewModel;
 using Kafein.ViewModel.Dialog;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,10 +29,12 @@ namespace Kafein.View.Dialog
             InitializeComponent();
         }
 
-        public CheckoutDialog(BillModel bill, DetailBillModel detail): this()
+        public CheckoutDialog(Action<object,object[]> navigate, BillModel bill, ObservableCollection<DetailBillItemViewModel> listDetailBill, int index): this()
         {
+            ((CheckoutDialogViewModel)DataContext).Navigate = navigate;
             ((CheckoutDialogViewModel)DataContext).Bill = bill;
-            ((CheckoutDialogViewModel)DataContext).DetailBill = detail;
+            ((CheckoutDialogViewModel)DataContext).ListDetailBill = listDetailBill;
+            ((CheckoutDialogViewModel)DataContext).Index = index;
         }
     }
 }

@@ -9,7 +9,7 @@
              xmlns:productview ="clr-namespace:Kafein.View.Product"
              xmlns:viewmodel="clr-namespace:Kafein.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="900">
+             d:DesignHeight="550" d:DesignWidth="900">
 
     <UserControl.Resources>
         <viewmodel:ProductTypeViewModel x:Key="ProductTypeViewModel"/>
@@ -19,14 +19,14 @@
         <KeyBinding Key="F1" Command="{Binding ShortcutKeysCommand}" CommandParameter="F1"/>
         <KeyBinding Key="F2" Command="{Binding ShortcutKeysCommand}" CommandParameter="F2"/>
         <KeyBinding Key="F3" Command="{Binding ShortcutKeysCommand}" CommandParameter="F3"/>
-        <KeyBinding Key="Esc" Command="{Binding ShortcutKeysCommand}" CommandParameter="ESC"/>
+        <KeyBinding Key="Escape" Command="{Binding ShortcutKeysCommand}" CommandParameter="ESC"/>
         <KeyBinding Key="Delete" Command="{Binding ShortcutKeysCommand}" CommandParameter="DELETE"/>
     </UserControl.InputBindings>
 
      <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
@@ -34,10 +34,10 @@
         </Grid.RowDefinitions>
 
         <!--Filter-->
-        <Grid>
+        <Grid Background="{StaticResource PrimaryBrush}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
@@ -47,14 +47,14 @@
                        Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
                        VerticalAlignment="Center" HorizontalAlignment="Center" 
                        Margin="5,5,5,5"
-                       Foreground="{StaticResource PrimaryBrush}" Padding="5,8,5,5">
+                       Foreground="White" Padding="5,8,5,5">
                 Lọc theo
             </TextBlock>
             <ComboBox x:Name="cbProductType" SelectedItem="{Binding SelectedType, Source={StaticResource ProductTypeViewModel}}"
                       Grid.Column="1" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center"
                       ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
                       Width="150" HorizontalContentAlignment="Center"
-                      DisplayMemberPath="Name" Foreground="{StaticResource PrimaryBrush}">
+                      DisplayMemberPath="Name" Foreground="White">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding TypeSelectionChangeCommand, Source={StaticResource ProductTypeViewModel}}"
@@ -63,6 +63,8 @@
                 </i:Interaction.Triggers>
             </ComboBox>
         </Grid>
+
+        <Border Grid.Row="0" Grid.Column="1" Background="{StaticResource PrimaryBrush}"/>
 
         <!--List product-->
         <ListBox Grid.Row="1" Grid.Column="0"
@@ -77,7 +79,7 @@
             </ListBox.ItemTemplate>
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"/>
+                    <WrapPanel Orientation="Horizontal" Margin="8"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <i:Interaction.Triggers>
@@ -92,7 +94,7 @@
         <!--Detail bill-->
         <Border Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch">
             
-            <materialDesign:Card Width="350" Height="450">
+            <materialDesign:Card Width="Auto" Height="Auto">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -111,10 +113,10 @@
                         
                     </StackPanel>
 
-                    <TextBox Grid.Row="0" TextAlignment="Center"
-                            Margin="10" Width="120" Text="{Binding InputDeskNo}" HorizontalAlignment="Center"
+                    <TextBox Grid.Row="0" TextAlignment="Center" Style="{StaticResource TxtBox}"
+                            Margin="10" Width="120" Text="{Binding InputDeskNo, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
                             materialDesign:HintAssist.Hint="Nhập số bàn" Foreground="{StaticResource PrimaryBrush}"
-                            FontSize="20"/>
+                            FontSize="20" HorizontalContentAlignment="Center"/>
 
                     <!--List product selected-->
                     <ListBox x:Name="DetailBillList" Grid.Row="1" ItemsSource="{Binding ListDetailBill}">
@@ -170,17 +172,18 @@
                     Tổng
                         </TextBlock>
                         <TextBlock Style="{DynamicResource MaterialDesignDisplay1TextBlock}" TextAlignment="Center" 
-                           VerticalAlignment="Center"
-                           Margin="0,0,0,0" Foreground="{StaticResource PrimaryBrush}" Text="{Binding SumPrice}"/>
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,0,0" Foreground="{StaticResource PrimaryBrush}"
+                                   Text="{Binding SumPrice, StringFormat=C, ConverterCulture=vi-VN}"/>
                     </StackPanel>
 
                     <!--Button-->
                     <Border Grid.Row="3" Background="Transparent">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="0.7*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
                             <!--Create bill button-->
