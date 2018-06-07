@@ -19,14 +19,14 @@
         <KeyBinding Key="F1" Command="{Binding ShortcutKeysCommand}" CommandParameter="F1"/>
         <KeyBinding Key="F2" Command="{Binding ShortcutKeysCommand}" CommandParameter="F2"/>
         <KeyBinding Key="F3" Command="{Binding ShortcutKeysCommand}" CommandParameter="F3"/>
-        <KeyBinding Key="Esc" Command="{Binding ShortcutKeysCommand}" CommandParameter="ESC"/>
+        <KeyBinding Key="Escape" Command="{Binding ShortcutKeysCommand}" CommandParameter="ESC"/>
         <KeyBinding Key="Delete" Command="{Binding ShortcutKeysCommand}" CommandParameter="DELETE"/>
     </UserControl.InputBindings>
 
      <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="70"/>
@@ -36,8 +36,8 @@
         <!--Filter-->
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
@@ -77,7 +77,7 @@
             </ListBox.ItemTemplate>
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"/>
+                    <WrapPanel Orientation="Horizontal" Margin="8"/>
                 </ItemsPanelTemplate>
             </ListBox.ItemsPanel>
             <i:Interaction.Triggers>
@@ -92,7 +92,7 @@
         <!--Detail bill-->
         <Border Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch">
             
-            <materialDesign:Card Width="350" Height="Auto" VerticalAlignment="Stretch">
+            <materialDesign:Card Width="Auto" Height="Auto">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -170,17 +170,18 @@
                     Tổng
                         </TextBlock>
                         <TextBlock Style="{DynamicResource MaterialDesignDisplay1TextBlock}" TextAlignment="Center" 
-                           VerticalAlignment="Center"
-                           Margin="0,0,0,0" Foreground="{StaticResource PrimaryBrush}" Text="{Binding SumPrice}"/>
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,0,0" Foreground="{StaticResource PrimaryBrush}"
+                                   Text="{Binding SumPrice, StringFormat=C, ConverterCulture=vi-VN}"/>
                     </StackPanel>
 
                     <!--Button-->
                     <Border Grid.Row="3" Background="Transparent">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="0.7*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
                             <!--Create bill button-->
