@@ -69,6 +69,7 @@ namespace Kafein.ViewModel
             {
                 index = (int)parameters[0];
                 newBill = (BillModel)ListGeneralBillModel.GetInstance().List[index].Bill;
+                InputDeskNo = newBill.DeskNo;
                 listDetailBill = (ListDetailBillModel)ListGeneralBillModel.GetInstance().List[index].ListDetailBill;
             }
         }
@@ -200,7 +201,13 @@ namespace Kafein.ViewModel
         private void CreateBill()
         {
             InitBill();
-            ListGeneralBillModel.GetInstance().List.Add(new GeneralBillModel(newBill, listDetailBill));
+            if (index >= 0)
+            {
+                ListGeneralBillModel.GetInstance().List[index].Bill = newBill;
+                ListGeneralBillModel.GetInstance().List[index].ListDetailBill = listDetailBill;
+            }
+            else
+                ListGeneralBillModel.GetInstance().List.Add(new GeneralBillModel(newBill, listDetailBill));
             navigate.Invoke("BillManagementViewModel", null);
         }
 
@@ -254,8 +261,19 @@ namespace Kafein.ViewModel
 
         private void ClearBill()
         {
-            ListDetailBill.Clear();
-            NotifyChanged("SumPrice");
+            (new ConfirmDialog("XÁC NHẬN", "Hóa đơn đang tạo hoặc đang chờ thanh toán. Xác nhận xóa?", (Action)delegate
+            {
+                ListDetailBill.Clear();
+                if (index >= 0)
+                {
+                    ListGeneralBillModel.GetInstance().List.Remove(ListGeneralBillModel.GetInstance().List[index]);
+                    ListGeneralBillModel.GetInstance().NotifyListChange();
+                }
+                InputDeskNo = 0;
+                NotifyChanged("InputDeskNo");
+                NotifyChanged("SumPrice");
+            })).ShowDialog();
+            
         }
 
         private void Cancel()

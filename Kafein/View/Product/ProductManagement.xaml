@@ -98,6 +98,8 @@
             </ComboBox>
         </Grid>
 
+        <Border Grid.Row="0" Grid.Column="1" Background="{StaticResource PrimaryBrush}"/>
+
         <!--List product-->
         <ListBox Grid.Row="1" Grid.Column="0"
                  x:Name="lbProduct"

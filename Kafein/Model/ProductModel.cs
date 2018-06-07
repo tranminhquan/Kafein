@@ -118,6 +118,8 @@ namespace Kafein.Model
             try
             {
                 sqldb.Open();
+                if (ImageSource.Contains(Environment.CurrentDirectory))
+                    ImageSource = ImageSource.Remove(0, Environment.CurrentDirectory.Length);
                 sqldb.ExcuteNonQuery("INSERT INTO MATHANG VALUES('" + ID + "', N'" + Name + "', '" + TypeID + "', '" + UnitID + "', " + Price + ", '" + ImageSource + "', NULL)");
             }
             catch (SqlException e)

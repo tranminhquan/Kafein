@@ -131,6 +131,7 @@ namespace Kafein.ViewModel.Dialog
         {
             SaveToDatabase();
             Print();
+            navigate.Invoke("BillManagementViewModel", null);
             Cancel();
         }
 

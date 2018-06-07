@@ -198,7 +198,7 @@
                             <!--Create bill button-->
                             <Button Grid.Column="0" Style="{StaticResource InfoButton}" Command="{Binding CreateBillCommand}"
                             Margin="5,5,2,5" Height="45">
-                                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">TẠO (F1)</TextBlock>
+                                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">LƯU (F1)</TextBlock>
                             </Button>
 
                             <!--Check out button-->

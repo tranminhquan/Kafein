@@ -9,12 +9,16 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="4*" />
-        </Grid.ColumnDefinitions>
-        <Button Command="{Binding CreateBillCommand}">CREATE</Button>
-        <ListBox Grid.Column="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Background="{StaticResource PrimaryBrush}">
+            <Button Grid.Row="0" Command="{Binding CreateBillCommand}" Margin="10" Width="200"
+                Content="THÊM HÓA ĐƠN" HorizontalAlignment="Center"/>
+        </Border>
+        
+        <ListBox Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                  ItemsSource="{Binding ListBill}" SelectedIndex="{Binding SelectedIndexBill}">
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
