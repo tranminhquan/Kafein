@@ -34,7 +34,7 @@
         </Grid.RowDefinitions>
 
         <!--Filter-->
-        <Grid>
+        <Grid Background="{StaticResource PrimaryBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
@@ -47,14 +47,14 @@
                        Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
                        VerticalAlignment="Center" HorizontalAlignment="Center" 
                        Margin="5,5,5,5"
-                       Foreground="{StaticResource PrimaryBrush}" Padding="5,8,5,5">
+                       Foreground="White" Padding="5,8,5,5">
                 Lọc theo
             </TextBlock>
             <ComboBox x:Name="cbProductType" SelectedItem="{Binding SelectedType, Source={StaticResource ProductTypeViewModel}}"
                       Grid.Column="1" Margin="5,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center"
                       ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
                       Width="150" HorizontalContentAlignment="Center"
-                      DisplayMemberPath="Name" Foreground="{StaticResource PrimaryBrush}">
+                      DisplayMemberPath="Name" Foreground="White">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding TypeSelectionChangeCommand, Source={StaticResource ProductTypeViewModel}}"
@@ -63,6 +63,8 @@
                 </i:Interaction.Triggers>
             </ComboBox>
         </Grid>
+
+        <Border Grid.Row="0" Grid.Column="1" Background="{StaticResource PrimaryBrush}"/>
 
         <!--List product-->
         <ListBox Grid.Row="1" Grid.Column="0"
