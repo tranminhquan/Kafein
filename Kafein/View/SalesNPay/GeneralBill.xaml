@@ -30,16 +30,18 @@
             <!--Time-->
             <materialDesign:PackIcon Grid.Row="1" Grid.Column="0" Foreground="{StaticResource PrimaryBrush}"
                                      Kind="Timer" VerticalAlignment="Stretch"  
-                                     Margin="10,14,10,14" Padding="0,0,0,0" Width="20" Height="20"/>
+                                     Margin="10,14,10,14" Padding="0,0,0,0" Width="30" Height="30"/>
             <TextBlock Grid.Row="1" Grid.Column="1" Margin="8,16,10.4,16" Grid.ColumnSpan="2"
-                       Text="{Binding OrderTime}" Foreground="{StaticResource PrimaryBrush}"/>
+                       Text="{Binding OrderTime}" Foreground="{StaticResource PrimaryBrush}"
+                       Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
 
             <!--Price-->
             <materialDesign:PackIcon Grid.Row="2" Grid.Column="0" Foreground="{StaticResource PrimaryBrush}"
                                      Kind="CurrencyUsd" VerticalAlignment="Stretch" 
-                                     Margin="10,14,10,14" Padding="0,0,0,0" Width="20" Height="20"/>
+                                     Margin="10,14,10,14" Padding="0,0,0,0" Width="30" Height="30"/>
             <TextBlock Grid.Row="2" Grid.Column="1" Margin="8,16,10.4,16" Grid.ColumnSpan="2"
-                       Text="{Binding Price}" Foreground="{StaticResource PrimaryBrush}"/>
+                       Text="{Binding Price}" Foreground="{StaticResource PrimaryBrush}"
+                       Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
 
             <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
                 <Grid>
