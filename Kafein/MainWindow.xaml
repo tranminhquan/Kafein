@@ -8,6 +8,7 @@
                          xmlns:viewmodel="clr-namespace:Kafein.ViewModel"
                          xmlns:sales="clr-namespace:Kafein.View.SalesNPay"
                          xmlns:product="clr-namespace:Kafein.View.Product"
+                         xmlns:ingridient="clr-namespace:Kafein.View.Ingridient"
                          xmlns:system="clr-namespace:System;assembly=mscorlib"
                          xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                          xmlns:converters="clr-namespace:MaterialDesignThemes.Wpf.Converters;assembly=MaterialDesignThemes.Wpf"
@@ -42,6 +43,10 @@
 
             <DataTemplate DataType="{x:Type viewmodel:ProductManagementViewModel}">
                 <product:ProductManagement />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodel:IngridientManagementViewModel}">
+                <ingridient:IngridientManagement />
             </DataTemplate>
 
             <!--  This is the template for the menu items.  -->
@@ -223,6 +228,12 @@
                             <viewmodel:ProductManagementViewModel />
                         </mah:HamburgerMenuIconItem.Tag>
                     </mah:HamburgerMenuIconItem>
+
+                    <!--<mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Coffee}" Label="Nguyên liệu">
+                        <mah:HamburgerMenuIconItem.Tag>
+                            <viewmodel:IngridientManagementViewModel />
+                        </mah:HamburgerMenuIconItem.Tag>
+                    </mah:HamburgerMenuIconItem>-->
                 </mah:HamburgerMenuItemCollection>
 
             </mah:HamburgerMenu.ItemsSource>

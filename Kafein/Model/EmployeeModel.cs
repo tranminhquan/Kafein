@@ -13,7 +13,6 @@ namespace Kafein.Model
     {
         public string ID { get; set; }
         public string Name { get; set; }
-        public string Gender { get; set; }
         public DateTime Birthday { get; set; }
         public string CardID { get; set; }
         public string Phone { get; set; }
@@ -30,7 +29,6 @@ namespace Kafein.Model
         {
             ID = employee.ID;
             Name = employee.Name;
-            Gender = employee.Gender;
             Birthday = employee.Birthday;
             CardID = employee.CardID;
             Phone = employee.Phone;
@@ -39,11 +37,10 @@ namespace Kafein.Model
             Shift = employee.Shift;
         }
 
-        public EmployeeModel(string id, string name, string gender, DateTime birthday, string cardid, string phone, string positionId, DateTime startDate, string shift)
+        public EmployeeModel(string id, string name, DateTime birthday, string cardid, string phone, string positionId, DateTime startDate, string shift)
         {
             ID = id;
             Name = name;
-            Gender = gender;
             Birthday = birthday;
             CardID = cardid;
             Phone = phone;
@@ -88,8 +85,8 @@ namespace Kafein.Model
             try
             {
                 sqldb.Open();
-                sqldb.ExcuteNonQuery("UPDATE NHANVIEN SET HoTen = N'" + employee.Name + "', GioiTinh='" + employee.Gender + "', NgaySinh='" + employee.Birthday + "', CMND=" + employee.CardID +
-                                     ", SoDienThoai='" + employee.Phone + "', MaChucVu=" + employee.PositionID + "', NgayVaoLam=" + employee.StartDate + "', NgayVaoLam=" + employee.StartDate + "', Ca=" + employee.Shift +
+                sqldb.ExcuteNonQuery("UPDATE NHANVIEN SET HoTen = N'" + employee.Name + "', NgaySinh='" + employee.Birthday + "', CMND=" + employee.CardID +", SoDienThoai='" + employee.Phone + 
+                                     "', MaChucVu=" + employee.PositionID + "', NgayVaoLam=" + employee.StartDate + "', NgayVaoLam=" + employee.StartDate + "', Ca=" + employee.Shift +
                                      "' WHERE MaMatHang='" + employee.ID + "'");
             }
             catch (SqlException e)
@@ -126,7 +123,7 @@ namespace Kafein.Model
             try
             {
                 sqldb.Open();
-                sqldb.ExcuteNonQuery("INSERT INTO NHANVIEN VALUES('" + ID + "', N'" + Name + "', '" + Gender + "', '" + Birthday + "', " + CardID + ", '" + Phone + ", '" + PositionID +
+                sqldb.ExcuteNonQuery("INSERT INTO NHANVIEN VALUES('" + ID + "', N'" + Name + "', '" + Birthday + "', " + CardID + ", '" + Phone + ", '" + PositionID +
                                      ", '" + StartDate + ", '" + Shift + "', NULL)");
             }
             catch (SqlException e)

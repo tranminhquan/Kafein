@@ -133,6 +133,8 @@
     <Compile Include="Model\ProductTypeModel.cs" />
     <Compile Include="Model\UnitModel.cs" />
     <Compile Include="Utilities\Debug.cs" />
+    <Compile Include="ViewModel\AddEmployeeViewModel.cs" />
+    <Compile Include="ViewModel\AddIngridientViewModel.cs" />
     <Compile Include="ViewModel\AddProductViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\BilllManagementViewModel.cs" />
@@ -140,6 +142,7 @@
     <Compile Include="ViewModel\DetailBillViewModel.cs" />
     <Compile Include="ViewModel\Dialog\CheckoutDialogViewModel.cs" />
     <Compile Include="ViewModel\DragAndDropViewModel.cs" />
+    <Compile Include="ViewModel\IngridientManagementViewModel.cs" />
     <Compile Include="ViewModel\ListProductViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ProductManagementViewModel.cs" />
@@ -156,6 +159,21 @@
     </Compile>
     <Compile Include="View\Dialog\MessageInfo.xaml.cs">
       <DependentUpon>MessageInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Ingridient\AddIngridientDialog.xaml.cs">
+      <DependentUpon>AddIngridientDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Ingridient\DetailIngridient.xaml.cs">
+      <DependentUpon>DetailIngridient.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Ingridient\IngridientManagement.xaml.cs">
+      <DependentUpon>IngridientManagement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Ingridient\IngridientItem.xaml.cs">
+      <DependentUpon>IngridientItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Ingridient\SearchFilterDialog.xaml.cs">
+      <DependentUpon>SearchFilterDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Product\AddProductDialog.xaml.cs">
       <DependentUpon>AddProductDialog.xaml</DependentUpon>
@@ -217,6 +235,26 @@
     <Page Include="View\Dialog\MessageInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Ingridient\AddIngridientDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Ingridient\DetailIngridient.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Ingridient\IngridientManagement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Ingridient\IngridientItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Ingridient\SearchFilterDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\Product\AddProductDialog.xaml">
       <SubType>Designer</SubType>

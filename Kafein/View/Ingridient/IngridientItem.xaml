@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="Kafein.View.Ingridient.IngridientItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Kafein.View.Ingridient"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d">
+    <materialDesign:Card x:Name="IngridientCard" Width="150" Height="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Image Grid.Row="0" Width="150" Height="200" Source="{Binding ImageSource}" Stretch="Fill"/>
+            <Border Grid.Row="1" Background="{StaticResource PrimaryBrush}">
+                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}"
+                           TextAlignment="Center" Margin="5,5,5,5"
+                           Foreground="{StaticResource AccentBrush}"
+                           Text="{Binding Name}"/>
+            </Border>
+        </Grid>
+    </materialDesign:Card>
+</UserControl>
