@@ -142,6 +142,7 @@
     <Compile Include="ViewModel\DetailBillViewModel.cs" />
     <Compile Include="ViewModel\Dialog\CheckoutDialogViewModel.cs" />
     <Compile Include="ViewModel\DragAndDropViewModel.cs" />
+    <Compile Include="ViewModel\ImportationManagementViewModel.cs" />
     <Compile Include="ViewModel\IngridientManagementViewModel.cs" />
     <Compile Include="ViewModel\ListProductViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -159,6 +160,9 @@
     </Compile>
     <Compile Include="View\Dialog\MessageInfo.xaml.cs">
       <DependentUpon>MessageInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Importation\ImportationManagement.xaml.cs">
+      <DependentUpon>ImportationManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Ingridient\AddIngridientDialog.xaml.cs">
       <DependentUpon>AddIngridientDialog.xaml</DependentUpon>
@@ -233,6 +237,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Dialog\MessageInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Importation\ImportationManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
