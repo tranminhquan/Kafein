@@ -148,6 +148,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ProductManagementViewModel.cs" />
     <Compile Include="ViewModel\ProductTypeViewModel.cs" />
+    <Compile Include="ViewModel\ReportManagementViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\Dialog\CheckoutDialog.xaml.cs">
       <DependentUpon>CheckoutDialog.xaml</DependentUpon>
@@ -193,6 +194,9 @@
     </Compile>
     <Compile Include="View\Product\SearchFilterDialog.xaml.cs">
       <DependentUpon>SearchFilterDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Report\ReportManagement.xaml.cs">
+      <DependentUpon>ReportManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\SalesNPay\BillManagement.xaml.cs">
       <DependentUpon>BillManagement.xaml</DependentUpon>
@@ -281,6 +285,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Product\SearchFilterDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Report\ReportManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

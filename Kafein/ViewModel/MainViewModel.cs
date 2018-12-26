@@ -28,6 +28,8 @@ namespace Kafein.ViewModel
                 SelectedViewModel = new ProductManagementViewModel(ViewModelNavigator, parameters);
             if (obj.ToString() == "ImportationManagementViewModel")
                 SelectedViewModel = new ImportationManagementViewModel(ViewModelNavigator, parameters);
+            if (obj.ToString() == "ReportManagementViewModel")
+                SelectedViewModel = new ReportManagementViewModel(ViewModelNavigator, parameters);
         }
     }
 }

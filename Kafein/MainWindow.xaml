@@ -9,6 +9,7 @@
                          xmlns:sales="clr-namespace:Kafein.View.SalesNPay"
                          xmlns:product="clr-namespace:Kafein.View.Product"
                          xmlns:importation="clr-namespace:Kafein.View.Importation"
+                         xmlns:report="clr-namespace:Kafein.View.Report"
                          xmlns:ingridient="clr-namespace:Kafein.View.Ingridient"
                          xmlns:system="clr-namespace:System;assembly=mscorlib"
                          xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
@@ -48,6 +49,10 @@
 
             <DataTemplate DataType="{x:Type viewmodel:ImportationManagementViewModel}">
                 <importation:ImportationManagement/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodel:ReportManagementViewModel}">
+                <report:ReportManagement/>
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewmodel:IngridientManagementViewModel}">
@@ -237,6 +242,12 @@
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Import}" Label="Nhập hàng">
                         <mah:HamburgerMenuIconItem.Tag>
                             <viewmodel:ImportationManagementViewModel />
+                        </mah:HamburgerMenuIconItem.Tag>
+                    </mah:HamburgerMenuIconItem>
+
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=ChartBar}" Label="Báo cáo, thống kê">
+                        <mah:HamburgerMenuIconItem.Tag>
+                            <viewmodel:ReportManagementViewModel />
                         </mah:HamburgerMenuIconItem.Tag>
                     </mah:HamburgerMenuIconItem>
 

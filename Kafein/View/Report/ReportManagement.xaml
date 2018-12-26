@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Kafein.View.Report.ReportManagement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Kafein.View.Report"
+             xmlns:viewmodel="clr-namespace:Kafein.ViewModel"
+             xmlns:reportview="clr-namespace:Kafein.View.Report"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1000">
+    <Grid>
+        <Label>Report management view</Label>
+    </Grid>
+</UserControl>
