@@ -65,7 +65,7 @@
 
             <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" HorizontalAlignment="Center">
                 <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
-                       VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="Số lượng đã nhập: " TextWrapping="Wrap"/>
+                       VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="Số lần nhập hàng: " TextWrapping="Wrap"/>
                 <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
                        VerticalAlignment="Center" Margin="5" Foreground="{StaticResource PrimaryBrush}" Text="{Binding ImportIngridient}" TextWrapping="Wrap"/>
                 <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left"
