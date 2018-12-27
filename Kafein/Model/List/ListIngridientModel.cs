@@ -50,7 +50,7 @@ namespace Kafein.Model.List
             {
                 try
                 {
-                    if (!reader.IsDBNull(6))
+                    if (!reader.IsDBNull(5))
                         continue;
 
                     string id = reader.GetString(0);
@@ -58,11 +58,11 @@ namespace Kafein.Model.List
                     string unitid = reader.GetString(2);
                     double price = reader.GetSqlMoney(3).ToDouble();
                     string image;
-                    if (reader.IsDBNull(5))
+                    if (reader.IsDBNull(4))
                         image = null;
                     else
                     {
-                        image = reader.GetString(5);
+                        image = reader.GetString(4);
                         Debug.LogOutput(image);
                     }
 
