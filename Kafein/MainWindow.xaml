@@ -245,19 +245,18 @@
                         </mah:HamburgerMenuIconItem.Tag>
                     </mah:HamburgerMenuIconItem>
 
+                    <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Coffee}" Label="Nguyên liệu">
+                        <mah:HamburgerMenuIconItem.Tag>
+                            <viewmodel:IngridientManagementViewModel />
+                        </mah:HamburgerMenuIconItem.Tag>
+                    </mah:HamburgerMenuIconItem>
+
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=ChartBar}" Label="Báo cáo, thống kê">
                         <mah:HamburgerMenuIconItem.Tag>
                             <viewmodel:ReportManagementViewModel />
                         </mah:HamburgerMenuIconItem.Tag>
                     </mah:HamburgerMenuIconItem>
-
-                    <!--<mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Coffee}" Label="Nguyên liệu">
-                        <mah:HamburgerMenuIconItem.Tag>
-                            <viewmodel:IngridientManagementViewModel />
-                        </mah:HamburgerMenuIconItem.Tag>
-                    </mah:HamburgerMenuIconItem>-->
                 </mah:HamburgerMenuItemCollection>
-
             </mah:HamburgerMenu.ItemsSource>
 
             <!--  Options  -->

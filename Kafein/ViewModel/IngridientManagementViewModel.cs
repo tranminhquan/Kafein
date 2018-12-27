@@ -80,8 +80,8 @@ namespace Kafein.ViewModel
             NotifyChanged("Unit");
             NotifyChanged("Price");
             NotifyChanged("Image");
-            NotifyChanged("MaxSaleProduct");
-            NotifyChanged("SaleProduct");
+            NotifyChanged("MaxImportIngridient");
+            NotifyChanged("ImportIngridient");
             NotifyChanged("Popular");
             NotifyChanged("SelectedIngridient");
         }
@@ -106,13 +106,15 @@ namespace Kafein.ViewModel
             get { return SelectedIngridient.ImageSource; }
         }
 
-        public int MaxSaleProduct
+        public int MaxImportIngridient
         {
+            //get { return ListDetailImportationModel.GetSumDetailImportation(); }
             get { return ListDetailBillModel.GetSumDetailBill(); }
         }
 
-        public int SaleProduct
+        public int ImportIngridient
         {
+            //get { return ListDetailImportationModel.GetSumDetailImportationFromIngridient(SelectedIngridient.ID); }
             get { return ListDetailBillModel.GetSumDetailBillFromProduct(SelectedIngridient.ID); }
         }
 
@@ -120,7 +122,7 @@ namespace Kafein.ViewModel
         {
             get
             {
-                double p = Convert.ToDouble(SaleProduct) / Convert.ToDouble(MaxSaleProduct);
+                double p = Convert.ToDouble(ImportIngridient) / Convert.ToDouble(MaxImportIngridient);
                 return (Math.Round(p, 2) * 100).ToString() + "%";
             }
         }
