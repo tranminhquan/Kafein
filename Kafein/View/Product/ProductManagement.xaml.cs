@@ -24,5 +24,6 @@ namespace Kafein.View.Product
         {
             InitializeComponent();
         }
+
     }
 }
