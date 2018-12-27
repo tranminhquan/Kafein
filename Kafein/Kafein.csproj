@@ -111,7 +111,8 @@
     <Compile Include="Database\SQLDatabase.cs" />
     <Compile Include="Model\EmployeeModel.cs" />
     <Compile Include="Model\GeneralBillModel.cs" />
-    <Compile Include="Model\ImportationDetailModel.cs" />
+    <Compile Include="Model\DetailImportationModel.cs" />
+    <Compile Include="Model\GeneralImportationModel.cs" />
     <Compile Include="Model\ImportationModel.cs" />
     <Compile Include="Model\IngridientModel.cs" />
     <Compile Include="Model\List\BaseList.cs" />
@@ -140,6 +141,8 @@
     <Compile Include="ViewModel\BilllManagementViewModel.cs" />
     <Compile Include="ViewModel\DetailBillItemViewModel.cs" />
     <Compile Include="ViewModel\DetailBillViewModel.cs" />
+    <Compile Include="ViewModel\DetailImportationItemViewModel.cs" />
+    <Compile Include="ViewModel\DetailImportationViewModel.cs" />
     <Compile Include="ViewModel\Dialog\CheckoutDialogViewModel.cs" />
     <Compile Include="ViewModel\DragAndDropViewModel.cs" />
     <Compile Include="ViewModel\ImportationManagementViewModel.cs" />

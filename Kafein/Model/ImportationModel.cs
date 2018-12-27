@@ -19,7 +19,7 @@ namespace Kafein.Model.SalesNPay
         public double Price { get; set; }
 
         // for need
-        public string OrderTime
+        public string ImportTime
         {
             get
             {
@@ -93,10 +93,10 @@ namespace Kafein.Model.SalesNPay
                 catch (SqlNullValueException e)
                 {
                     sqldb.Close();
-                    return "HD" + DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2) + "001";
+                    return "NH" + DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2) + "001";
                 }
             }
-            return "HD" + DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2) + "001";
+            return "NH" + DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2) + "001";
         }
 
         public static void SaveToDatabase(ImportationModel importation)

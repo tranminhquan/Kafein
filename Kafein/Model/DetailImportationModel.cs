@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Kafein.Model
 {
-    public class ImportationDetailModel
+    public class DetailImportationModel
     {
         // from database
         public string ID { get; set; }
@@ -34,12 +34,12 @@ namespace Kafein.Model
             }
         }
 
-        public ImportationDetailModel()
+        public DetailImportationModel()
         {
 
         }
 
-        public ImportationDetailModel(string id, string importationId, string ingridientId, string unitid, int quantity, double price)
+        public DetailImportationModel(string id, string importationId, string ingridientId, string unitid, int quantity, double price)
         {
             ID = id;
             ImportationID = importationId;
@@ -57,7 +57,7 @@ namespace Kafein.Model
             if (listDetail.Count > 0)
             {
                 string maxid = listDetail[0].ID;
-                foreach (ImportationDetailModel bill in listDetail)
+                foreach (DetailImportationModel bill in listDetail)
                 {
                     string id = bill.ID;
                     int compare = String.Compare(maxid, id);
@@ -110,7 +110,7 @@ namespace Kafein.Model
             return "CT" + DateTime.Now.Day.ToString("00") + DateTime.Now.Month.ToString("00") + DateTime.Now.Year.ToString().Substring(2, 2) + "001";
         }
 
-        public static void SaveToDatabase(ImportationDetailModel detail)
+        public static void SaveToDatabase(DetailImportationModel detail)
         {
             IDatabase sqldb = new SQLDatabase();
             try
