@@ -8,9 +8,93 @@
              xmlns:local="clr-namespace:Kafein.View.Report"
              xmlns:viewmodel="clr-namespace:Kafein.ViewModel"
              xmlns:reportview="clr-namespace:Kafein.View.Report"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1000">
     <Grid>
-        <Label>Report management view</Label>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="350"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--Filter-->
+        <Grid Background="{StaticResource PrimaryBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Add product-->
+            <Button Grid.Column="0" Style="{StaticResource GhostButton}" Content="{materialDesign:PackIcon Kind=Plus,Size=20}"
+                    Foreground="White" Margin="8" BorderBrush="White" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Command="{Binding AddProductCommand}"/>
+
+            <!--Search-->
+            <!--<materialDesign:PackIcon Kind="SearchWeb"
+                        Grid.Column="1"
+                       VerticalAlignment="Center" HorizontalAlignment="Right" 
+                       Margin="5,5,5,5" Width="30" Height="30"
+                       Foreground="White" Padding="5,8,5,5"/>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <TextBox x:Name="txtSearch" Style="{StaticResource TxtBox}" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
+                     Foreground="White" Text="{Binding InputProduct}" BorderBrush="White" Margin="5" Width="103">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding SearchTextChangeCommand}"
+                                               CommandParameter="{Binding ElementName=txtSearch}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+
+                <Button Style="{StaticResource GhostButton}" Margin="5"
+                        Content="{materialDesign:PackIcon Kind=Settings, Size=25}"
+                        Foreground="White"
+                        HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                        Command="{Binding OpenSearchFilterCommand}"/>
+            </StackPanel>
+
+            --><!--Product type filter--><!--
+            <materialDesign:PackIcon Kind="Filter"
+                        Grid.Column="3"
+                       VerticalAlignment="Center" HorizontalAlignment="Right" 
+                       Margin="5,5,5,5" Width="30" Height="30"
+                       Foreground="White" Padding="5,8,5,5"/>
+
+            <ComboBox x:Name="cbProductType" SelectedItem="{Binding SelectedType, Source={StaticResource ProductTypeViewModel}}"
+                      Grid.Column="4" Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                      ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
+                      Width="100" HorizontalContentAlignment="Center"
+                      DisplayMemberPath="Name" Foreground="White"
+                      Style="{StaticResource MaterialDesignComboBox}"
+                      BorderBrush="White">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding TypeSelectionChangeCommand, Source={StaticResource ProductTypeViewModel}}"
+                                               CommandParameter="{Binding SelectedItem, ElementName=cbProductType}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>-->
+        </Grid>
+
+        <lvc:CartesianChart 
+            Grid.Column="0" Grid.Row="1"
+            Series="{Binding ReportCollection}" LegendLocation="Top" Margin="0,0,0,-548">
+            <lvc:CartesianChart.AxisX>
+                <lvc:Axis Title="Tháng - Năm" Labels="{Binding MonthRevenueLabels}"></lvc:Axis>
+                <lvc:Axis Labels="{Binding MonthExpenditureLabels}"></lvc:Axis>
+            </lvc:CartesianChart.AxisX>
+           
+            <lvc:CartesianChart.AxisY>
+                <lvc:Axis Title="Số tiền" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+            </lvc:CartesianChart.AxisY>
+        </lvc:CartesianChart>
     </Grid>
 </UserControl>

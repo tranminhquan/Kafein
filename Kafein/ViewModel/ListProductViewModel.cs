@@ -63,7 +63,7 @@ namespace Kafein.ViewModel
             if (parameters == null)
             {
                 newBill = new BillModel();
-                newBill.ID = BillModel.GenerateID(ListBillModel.GetInstace().List);
+                newBill.ID = BillModel.GenerateID(ListBillModel.GetInstance().List);
             }
             else
             {

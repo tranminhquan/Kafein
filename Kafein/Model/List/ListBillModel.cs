@@ -19,7 +19,7 @@ namespace Kafein.Model.List
 
         }
 
-        public static ListBillModel GetInstace()
+        public static ListBillModel GetInstance()
         {
             if (instance == null)
                 instance = new ListBillModel();
@@ -57,20 +57,17 @@ namespace Kafein.Model.List
             {
                 try
                 {
-                    if (!reader.IsDBNull(6))
-                        continue;
-
                     string id = reader.GetString(0);
-                    int deskno = reader.GetInt16(1);
+                    int deskno = reader.GetInt32(1);
                     DateTime date = reader.GetDateTime(2);
-                    double price = reader.GetSqlMoney(4).ToDouble();                  
+                    double price = reader.GetSqlMoney(3).ToDouble();
 
                     BillModel bill = new BillModel(id, deskno, date, price);
                     this.List.Add(bill);
                 }
-                catch (SqlException)
+                catch (SqlException e)
                 {
-
+                    Debug.LogOutput(">> SqlException at ListBillModel: " + e.ToString());
                 }
             }
         }
@@ -80,7 +77,7 @@ namespace Kafein.Model.List
             this.List.Clear();
             IDatabase sqldb = new SQLDatabase();
             sqldb.Open();
-            SqlDataReader reader = sqldb.ExcuteReader("SELECT * FROM HOADON WHERE Month(NgayLapHoaDon) = '" + month + "'");
+            SqlDataReader reader = sqldb.ExcuteReader("SELECT * FROM HOADON WHERE Month(NgayLapHoaDon) = " + month);
             while (reader.Read())
             {
                 try
@@ -105,7 +102,7 @@ namespace Kafein.Model.List
             this.List.Clear();
             IDatabase sqldb = new SQLDatabase();
             sqldb.Open();
-            SqlDataReader reader = sqldb.ExcuteReader("SELECT * FROM HOADON WHERE Day(NgayLapHoaDon) = '" + day + "'");
+            SqlDataReader reader = sqldb.ExcuteReader("SELECT * FROM HOADON WHERE Day(NgayLapHoaDon) = " + day);
             while (reader.Read())
             {
                 try
@@ -123,6 +120,60 @@ namespace Kafein.Model.List
 
                 }
             }
+        }
+
+        public void LoadBillFromDayAndMonth(int day, int month)
+        {
+            this.List.Clear();
+            IDatabase sqldb = new SQLDatabase();
+            sqldb.Open();
+            SqlDataReader reader = sqldb.ExcuteReader("SELECT * FROM HOADON WHERE Day(NgayLapHoaDon) = " + day + " AND Month(NgayLapHoaDon) = " + month);
+            while (reader.Read())
+            {
+                try
+                {
+                    string id = reader.GetString(0);
+                    int deskno = reader.GetInt16(1);
+                    DateTime date = reader.GetDateTime(2);
+                    double price = reader.GetSqlMoney(4).ToDouble();
+
+                    BillModel bill = new BillModel(id, deskno, date, price);
+                    this.List.Add(bill);
+                }
+                catch (SqlException e)
+                {
+                    Debug.LogOutput(">> SqlException at ListBillModel: " + e.ToString());
+                }
+            }
+        }
+
+        // Get total revenue group by day and month
+        // First column: "<day> - <month>"
+        // Second column: revenue
+        public static ObservableCollection<String[]> GetRevenueByDayAndMonth()
+        {
+            ObservableCollection<String[]> result = new ObservableCollection<string[]>();
+            IDatabase sqldb = new SQLDatabase();
+            sqldb.Open();
+            SqlDataReader reader = sqldb.ExcuteReader("SELECT CAST(MONTH(NgayLapHoaDon) AS VARCHAR(2)) + '-' + CAST(YEAR(NgayLapHoaDon) AS VARCHAR(4)), SUM(TongTriGia), MONTH(NgayLapHoaDon), YEAR(NgayLapHoaDon) FROM HOADON GROUP BY CAST(MONTH(NgayLapHoaDon) AS VARCHAR(2)) + '-' + CAST(YEAR(NgayLapHoaDon) AS VARCHAR(4)), MONTH(NgayLapHoaDon), YEAR(NgayLapHoaDon) ORDER BY YEAR(NgayLapHoaDon), MONTH(NgayLapHoaDon)");
+            while (reader.Read())
+            {
+                try
+                {
+                    string date = reader.GetString(0);         
+                    double price = reader.GetSqlMoney(1).ToDouble();
+                    int month = reader.GetInt32(2);
+                    int year = reader.GetInt32(3);
+
+                    result.Add(new String[] {date, price.ToString(), month.ToString(), year.ToString()});
+                }
+                catch (SqlException e)
+                {
+                    Debug.LogOutput(">> SqlException at ListBillModel: " + e.ToString());
+                }
+            }
+
+            return result;
         }
     }
 }
