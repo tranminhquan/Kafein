@@ -76,7 +76,6 @@ namespace Kafein.ViewModel
         private void NotifyProductChange()
         {
             NotifyChanged("Name");
-            NotifyChanged("Type");
             NotifyChanged("Unit");
             NotifyChanged("Price");
             NotifyChanged("Image");
@@ -108,14 +107,12 @@ namespace Kafein.ViewModel
 
         public int MaxImportIngridient
         {
-            //get { return ListDetailImportationModel.GetSumDetailImportation(); }
-            get { return ListDetailBillModel.GetSumDetailBill(); }
+            get { return ListDetailImportationModel.GetSumDetailImportation(); }
         }
 
         public int ImportIngridient
         {
-            //get { return ListDetailImportationModel.GetSumDetailImportationFromIngridient(SelectedIngridient.ID); }
-            get { return ListDetailBillModel.GetSumDetailBillFromProduct(SelectedIngridient.ID); }
+            get { return ListDetailImportationModel.GetSumDetailImportationFromIngridient(SelectedIngridient.ID); }
         }
 
         public string Popular
@@ -226,7 +223,7 @@ namespace Kafein.ViewModel
         private void RemoveIngridient()
         {
             ConfirmDialog confirmDialog =
-                new ConfirmDialog("CẢNH BÁO", "Nguyên liệu này sẽ không tồn tại trong hệ thống nếu tiếp tục. Xác nhận xóa mặt hàng?",
+                new ConfirmDialog("CẢNH BÁO", "Nguyên liệu này sẽ không tồn tại trong hệ thống nếu tiếp tục. Xác nhận xóa nguyên liệu?",
                  (Action)delegate
                  {
                      IngridientModel.RemoveFromDatabase(SelectedIngridient.ID);
