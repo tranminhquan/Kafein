@@ -89,12 +89,18 @@ namespace Kafein.ViewModel
             Formatter = value => value.ToString("N");
 
             // Month product combobox
-            SelectedMonthProduct = MonthRevenueLabels[0];
             NotifyChanged("SelectedMonthProduct");
             MonthProductChangeCommand = new DelegateCommand<string>(MonthProductChange);
 
             // init product chart
             ProductSeries = new SeriesCollection();
+
+            // Month product combobox
+            NotifyChanged("SelectedMonthIngredient");
+            MonthIngredientChangeCommand = new DelegateCommand<string>(MonthIngredientChange);
+
+            // init ingredient chart
+            IngredientSeries = new SeriesCollection();
 
         }
 
@@ -109,12 +115,18 @@ namespace Kafein.ViewModel
         public Func<double, string> Formatter { get; set; }
 
         // Combox for product
-        public ObservableCollection<string> ListMonthProduct { get; set; }
         public string SelectedMonthProduct { get; set; }
         public DelegateCommand<string> MonthProductChangeCommand { get; set; }
 
         // Product chart
         public SeriesCollection ProductSeries { get; set; }
+
+        // Combox for ingredient
+        public string SelectedMonthIngredient { get; set; }
+        public DelegateCommand<string> MonthIngredientChangeCommand { get; set; }
+
+        // Ingredient chart
+        public SeriesCollection IngredientSeries { get; set; }
 
         //// getter and setter
         //public ObservableCollection<BillModel> ListBill
@@ -137,7 +149,7 @@ namespace Kafein.ViewModel
         {
             int index = MonthRevenueLabels.IndexOf(item);
             ObservableCollection<string[]> result = AdvancedQuery.GetProductRevenue(revenue_month[index], revenue_year[index]);
-
+            ProductSeries.Clear();
             // Debug log
             for(int i=0;i<result.Count; i++)
             {
@@ -145,12 +157,33 @@ namespace Kafein.ViewModel
                     (
                         new PieSeries
                         {
-                            Title = result[i][1] + "\n" + result[i][2],
+                            Title = result[i][1] + " (" + result[i][2] + ")",
                             Values = new ChartValues<ObservableValue> { new ObservableValue(Double.Parse(result[i][3])) },
                             DataLabels = true
                         }                       
                     );
                 
+            }
+        }
+
+        public void MonthIngredientChange(string item)
+        {
+            int index = MonthExpenditureLabels.IndexOf(item);
+            ObservableCollection<string[]> result = AdvancedQuery.GetIngredientExpenditure(expenditure_month[index], expenditure_year[index]);
+            IngredientSeries.Clear();
+            // Debug log
+            for (int i = 0; i < result.Count; i++)
+            {
+                IngredientSeries.Add
+                    (
+                        new PieSeries
+                        {
+                            Title = result[i][1] + " (" + result[i][2] + ")",
+                            Values = new ChartValues<ObservableValue> { new ObservableValue(Double.Parse(result[i][3])) },
+                            DataLabels = true
+                        }
+                    );
+
             }
         }
 
