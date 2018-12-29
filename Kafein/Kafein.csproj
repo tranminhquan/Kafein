@@ -109,6 +109,7 @@
     </ApplicationDefinition>
     <Compile Include="Database\IDatabase.cs" />
     <Compile Include="Database\SQLDatabase.cs" />
+    <Compile Include="Model\AdvancedQuery.cs" />
     <Compile Include="Model\EmployeeModel.cs" />
     <Compile Include="Model\GeneralBillModel.cs" />
     <Compile Include="Model\DetailImportationModel.cs" />

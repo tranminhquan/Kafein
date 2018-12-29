@@ -13,8 +13,8 @@
              d:DesignHeight="600" d:DesignWidth="1000">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="350"/>
+            <ColumnDefinition Width="*"/>
+            <!--<ColumnDefinition Width="350"/>-->
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -59,42 +59,98 @@
                         Foreground="White"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                         Command="{Binding OpenSearchFilterCommand}"/>
-            </StackPanel>
+            </StackPanel>-->
 
-            --><!--Product type filter--><!--
-            <materialDesign:PackIcon Kind="Filter"
+            <!--Product type filter-->
+            <!--<materialDesign:PackIcon Kind="Filter"
                         Grid.Column="3"
                        VerticalAlignment="Center" HorizontalAlignment="Right" 
                        Margin="5,5,5,5" Width="30" Height="30"
                        Foreground="White" Padding="5,8,5,5"/>
 
-            <ComboBox x:Name="cbProductType" SelectedItem="{Binding SelectedType, Source={StaticResource ProductTypeViewModel}}"
+            <ComboBox x:Name="cbReportType" SelectedItem="{Binding SelectedType}"
                       Grid.Column="4" Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Left"
-                      ItemsSource="{Binding ListProductType, Source={StaticResource ProductTypeViewModel}}"
+                      ItemsSource="{Binding ListReportType}"
                       Width="100" HorizontalContentAlignment="Center"
-                      DisplayMemberPath="Name" Foreground="White"
+                      Foreground="White"
                       Style="{StaticResource MaterialDesignComboBox}"
                       BorderBrush="White">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding TypeSelectionChangeCommand, Source={StaticResource ProductTypeViewModel}}"
-                                               CommandParameter="{Binding SelectedItem, ElementName=cbProductType}"/>
+                        <i:InvokeCommandAction Command="{Binding TypeSelectionChangeCommand}"
+                                               CommandParameter="{Binding SelectedItem, ElementName=cbReportType}"/>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </ComboBox>-->
         </Grid>
 
-        <lvc:CartesianChart 
-            Grid.Column="0" Grid.Row="1"
-            Series="{Binding ReportCollection}" LegendLocation="Top" Margin="0,0,0,-548">
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Tháng - Năm" Labels="{Binding MonthRevenueLabels}"></lvc:Axis>
-                <lvc:Axis Labels="{Binding MonthExpenditureLabels}"></lvc:Axis>
-            </lvc:CartesianChart.AxisX>
-           
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Số tiền" LabelFormatter="{Binding Formatter}"></lvc:Axis>
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
+        <TabControl Grid.Column="0" Grid.Row="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch" Margin="0,0,0,-548">
+
+            <!--Overview chart-->
+            <TabItem Header="Tổng quan">
+                <lvc:CartesianChart 
+                    Series="{Binding ReportCollection}" LegendLocation="Top" Margin="0,0,0,-548">
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="Tháng - Năm" Labels="{Binding MonthRevenueLabels}"></lvc:Axis>
+                        <lvc:Axis Labels="{Binding MonthExpenditureLabels}"></lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
+
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Số tiền" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+                </lvc:CartesianChart>
+            </TabItem>
+
+            <!--Product chart-->
+            <TabItem Header="Mặt hàng">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="4*"/>
+                    </Grid.RowDefinitions>
+
+                    <ComboBox x:Name="cbMonthProduct" SelectedItem="{Binding SelectedMonthProduct}"
+                      Grid.Row="0" Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                      ItemsSource="{Binding MonthRevenueLabels}"
+                      Width="100" HorizontalContentAlignment="Center"
+                      Foreground="Black"
+                      Style="{StaticResource MaterialDesignComboBox}"
+                      BorderBrush="Black">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding MonthProductChangeCommand}"
+                                               CommandParameter="{Binding SelectedItem, ElementName=cbMonthProduct}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
+
+                    <lvc:PieChart 
+                    Grid.Row="1"
+                    LegendLocation="Top" Hoverable="False" DataTooltip="{x:Null}"
+                    Series="{Binding ProductSeries}">
+                        <!--<lvc:PieChart.Series>
+                        <lvc:PieSeries Title="Maria" Values="3" DataLabels="True"
+                               LabelPoint="{Binding PointLabel}"/>
+                        <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                        <lvc:PieSeries Title="Frida" Values="6" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                        <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" 
+                               LabelPoint="{Binding PointLabel}"/>
+                    </lvc:PieChart.Series>-->
+                    </lvc:PieChart>
+                </Grid>
+                
+            </TabItem>
+
+            <!--Ingredient chart-->
+            <TabItem Header="Nguyên liệu">
+               
+            </TabItem>
+        </TabControl>
+
+        
     </Grid>
 </UserControl>
