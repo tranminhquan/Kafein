@@ -35,7 +35,7 @@
 
             <viewmodel:MainViewModel x:Key="MainViewModel" />
 
-            <DataTemplate DataType="{x:Type viewmodel:BilllManagementViewModel}">
+            <DataTemplate DataType="{x:Type viewmodel:BillManagementViewModel}">
                 <sales:BillManagement />
             </DataTemplate>
 
@@ -49,6 +49,10 @@
 
             <DataTemplate DataType="{x:Type viewmodel:ImportationManagementViewModel}">
                 <importation:ImportationManagement/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodel:ListIngridientViewModel}">
+                <importation:DetailImportationManagement />
             </DataTemplate>
 
             <DataTemplate DataType="{x:Type viewmodel:ReportManagementViewModel}">

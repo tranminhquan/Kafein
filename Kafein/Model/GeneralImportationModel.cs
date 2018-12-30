@@ -1,25 +1,25 @@
 ﻿using Kafein.Model.List;
-using Kafein.Model.SalesNPay;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Kafein.Model.Importation;
 
 namespace Kafein.Model
 {
     public class GeneralImportationModel
     {
         public ImportationModel Importation { get; set; }
-        public ListDetailBillModel ListDetailImportation { get; set; }
+        public ListDetailImportationModel ListDetailImportation { get; set; }
 
         public GeneralImportationModel()
         {
             Importation = new ImportationModel();
-            ListDetailImportation = new ListDetailBillModel();
+            ListDetailImportation = new ListDetailImportationModel();
         }
 
-        public GeneralImportationModel(ImportationModel importation, ListDetailBillModel list)
+        public GeneralImportationModel(ImportationModel importation, ListDetailImportationModel list)
         {
             this.Importation = importation;
             this.ListDetailImportation = list;

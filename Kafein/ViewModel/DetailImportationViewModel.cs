@@ -59,7 +59,7 @@ namespace Kafein.ViewModel
 
             Debug.LogOutput(ingridient.Name);
 
-            //Check if product was chosen, then update quantity
+            //Check if ingridient was chosen, then update quantity
             foreach (DetailImportationItemViewModel item in ListDetailImportation)
             {
                 if (item.IngridientName.Equals(ingridient.Name))

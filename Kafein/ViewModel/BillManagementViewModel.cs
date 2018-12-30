@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace Kafein.ViewModel
 {
-    public class BilllManagementViewModel: BaseViewModel
+    public class BillManagementViewModel: BaseViewModel
     {
         private ListGeneralBillModel listGeneralBillModel;
 
-        public BilllManagementViewModel(): base()
+        public BillManagementViewModel(): base()
         {
             listGeneralBillModel = ListGeneralBillModel.GetInstance();
 
@@ -47,7 +47,7 @@ namespace Kafein.ViewModel
             CheckoutCommand = new DelegateCommand(ShowCheckoutDialog);
         }
 
-        public BilllManagementViewModel(Action<object, object[]> navigate, object[] parameters): this()
+        public BillManagementViewModel(Action<object, object[]> navigate, object[] parameters): this()
         {
             this.navigate = navigate;
         }
@@ -69,7 +69,7 @@ namespace Kafein.ViewModel
 
         private void CreateBill()
         {
-            navigate.Invoke("ListProductViewModel", null);  
+            navigate.Invoke("ListProductViewModel", null);
         }
 
         private void ShowDetail()

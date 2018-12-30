@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="Kafein.View.Importation.GeneralImportation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Kafein.View.Importation"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             Name="This">
+    <materialDesign:Card Width="210" Height="Auto">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Title Desk number-->
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="{StaticResource PrimaryHueMidBrush}">
+                <TextBlock TextAlignment="Center" Padding="10,10,10,10" 
+                           Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
+                <!--Foreground="White" Text = "{Binding DeskNo}"/>-->
+            </Border>
+
+            <!--Time-->
+            <materialDesign:PackIcon Grid.Row="1" Grid.Column="0" Foreground="{StaticResource PrimaryBrush}"
+                                     Kind="Timer" VerticalAlignment="Stretch"  
+                                     Margin="10,14,10,14" Padding="0,0,0,0" Width="30" Height="30"/>
+            <TextBlock Grid.Row="1" Grid.Column="1" Margin="8,16,10.4,16" Grid.ColumnSpan="2"
+                       Text="{Binding ImportTime}" Foreground="{StaticResource PrimaryBrush}"
+                       Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
+
+            <!--Price-->
+            <materialDesign:PackIcon Grid.Row="2" Grid.Column="0" Foreground="{StaticResource PrimaryBrush}"
+                                     Kind="CurrencyUsd" VerticalAlignment="Stretch" 
+                                     Margin="10,14,10,14" Padding="0,0,0,0" Width="30" Height="30"/>
+            <TextBlock Grid.Row="2" Grid.Column="1" Margin="8,16,10.4,16" Grid.ColumnSpan="2"
+                       Text="{Binding Price}" Foreground="{StaticResource PrimaryBrush}"
+                       Style="{DynamicResource MaterialDesignTitleTextBlock}"/>
+
+            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <!--<ColumnDefinition Width="*"/>-->
+                    </Grid.ColumnDefinitions>
+
+                    <!--Detail button-->
+                    <Button Grid.Row="0" Grid.Column="0"
+                    Padding="16,4" Margin="5,5,5,5"
+                    Style="{StaticResource ConfirmButton}"
+                    Command="{Binding Path=DataContext.DetailCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
+                        CHI TIẾT
+                    </Button>
+
+                    <!--Checkout button-->
+                    <!--
+                    <Button Grid.Row="0" Grid.Column="1" 
+                            Padding="16,4" Margin="5,5,5,5" 
+                            Style="{StaticResource ConfirmButton}"
+                            Command="{Binding Path=DataContext.CheckoutCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}">
+                        THANH TOÁN
+                    </Button>-->
+                </Grid>
+            </Border>
+
+        </Grid>
+    </materialDesign:Card>
+</UserControl>

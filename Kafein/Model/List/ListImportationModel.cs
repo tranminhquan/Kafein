@@ -1,5 +1,4 @@
 ﻿using Kafein.Database;
-using Kafein.Model.SalesNPay;
 using Kafein.Utilities;
 using System;
 using System.Collections.Generic;
@@ -8,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Kafein.Model.Importation;
 
 namespace Kafein.Model.List
 {
@@ -19,7 +19,7 @@ namespace Kafein.Model.List
 
         }
 
-        public static ListImportationModel GetInstace()
+        public static ListImportationModel GetInstance()
         {
             if (instance == null)
                 instance = new ListImportationModel();

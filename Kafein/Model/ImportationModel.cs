@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Kafein.Model.SalesNPay
+namespace Kafein.Model.Importation
 {
     public class ImportationModel
     {

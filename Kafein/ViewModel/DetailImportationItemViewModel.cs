@@ -34,7 +34,7 @@ namespace Kafein.ViewModel
             detailImportationModel = detail;
         }
 
-        // getter and setter need for detail bill view
+        // getter and setter need for detail importation view
         public DetailImportationModel DetailImportationModel
         {
             get { return detailImportationModel; }

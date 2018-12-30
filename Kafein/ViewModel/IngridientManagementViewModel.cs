@@ -29,7 +29,7 @@ namespace Kafein.ViewModel
 
             SelectedIngridient = new IngridientModel();
             SelectedIngridient = ListIngridient[0];
-            NotifyProductChange();
+            NotifyIngridientChange();
 
             fieldSearch = "Name";
 
@@ -55,7 +55,7 @@ namespace Kafein.ViewModel
                 listIngridientModel.List = value;
                 //SelectedIngridient = ListIngridient[0];
                 NotifyChanged("ListIngridient");
-                NotifyProductChange();
+                NotifyIngridientChange();
             }
         }
 
@@ -70,10 +70,10 @@ namespace Kafein.ViewModel
 
         private void IngridientChange(IngridientModel ingridient)
         {
-            NotifyProductChange();
+            NotifyIngridientChange();
         }
 
-        private void NotifyProductChange()
+        private void NotifyIngridientChange()
         {
             NotifyChanged("Name");
             NotifyChanged("Unit");
@@ -138,7 +138,7 @@ namespace Kafein.ViewModel
             if (textBox.Text.Length == 0)
             {
                 listIngridientModel.LoadAllIngridient();
-                NotifyProductChange();
+                NotifyIngridientChange();
                 return;
             }
 
