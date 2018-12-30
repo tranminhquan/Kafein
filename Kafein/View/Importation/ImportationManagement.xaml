@@ -11,6 +11,31 @@
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1000">
     <Grid>
-        <Label>Fucking life</Label>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="350"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--Filter-->
+        <Grid Background="{StaticResource PrimaryBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Add product-->
+            <Button Grid.Column="0" Style="{StaticResource GhostButton}" Content="{materialDesign:PackIcon Kind=Plus,Size=20}"
+                    Foreground="White" Margin="8" BorderBrush="White" VerticalAlignment="Center" HorizontalAlignment="Center"
+                    Command="{Binding AddImporationCommand}"/>
+        </Grid>
+
+        <Border Grid.Row="0" Grid.Column="1" Background="{StaticResource PrimaryBrush}"/>
     </Grid>
 </UserControl>
