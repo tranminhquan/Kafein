@@ -15,9 +15,11 @@ using System.Threading.Tasks;
 
 namespace Kafein.ViewModel
 {
-    public class ReportManagementViewModel: BaseViewModel
+    public class ReportManagementViewModel : BaseViewModel
     {
         private ListBillModel listBillModel;
+        private ListRevenueModel listRevenueModel;
+        private ListExpenditureModel listExpenditureModel;
 
         private ObservableCollection<double> revenue;
         private ObservableCollection<double> expenditure;
@@ -26,28 +28,38 @@ namespace Kafein.ViewModel
         private ObservableCollection<int> revenue_year;
         private ObservableCollection<int> expenditure_month;
         private ObservableCollection<int> expenditure_year;
+        private ObservableCollection<int> overview_month;
+        private ObservableCollection<int> overview_year;
 
-        
+
         //private ObservableCollection<String> timeline;
         //private ObservableCollection<DateTime> listDate;
 
-        public ReportManagementViewModel(): base()
+        public ReportManagementViewModel() : base()
         {
             listBillModel = ListBillModel.GetInstance();
+            listBillModel.LoadAllBill();
+
+            listRevenueModel = ListRevenueModel.GetInstance();
+            listExpenditureModel = ListExpenditureModel.GetInstance();
+
             ReportCollection = new SeriesCollection();
 
             MonthRevenueLabels = new ObservableCollection<String>();
             MonthExpenditureLabels = new ObservableCollection<String>();
-            listBillModel.LoadAllBill();
+            MonthReportLabels = new ObservableCollection<string>();
+
             revenue_month = new ObservableCollection<int>();
             revenue_year = new ObservableCollection<int>();
             expenditure_month = new ObservableCollection<int>();
             expenditure_year = new ObservableCollection<int>();
+            overview_month = new ObservableCollection<int>();
+            overview_year = new ObservableCollection<int>();
 
             // Calculate revenue
             revenue = new ObservableCollection<double>();
             ObservableCollection<String[]> result_revenue = ListBillModel.GetRevenueByDayAndMonth();
-            for(int i=0; i< result_revenue.Count;i++)
+            for (int i = 0; i < result_revenue.Count; i++)
             {
                 //Debug.LogOutput(result_revenue[i][0]);
                 String item_timeline = result_revenue[i][0].ToString();
@@ -88,6 +100,19 @@ namespace Kafein.ViewModel
 
             Formatter = value => value.ToString("N");
 
+            // Calculate for MonthReportLabels: find min and max timeline
+            ObservableCollection<string[]> overview_temp = new ObservableCollection<string[]>();
+            overview_temp = AdvancedQuery.GetAllTimeline();
+            for(int i=0;i<overview_temp.Count;i++)
+            {
+                MonthReportLabels.Add(overview_temp[i][0]);
+                overview_month.Add(Int32.Parse(overview_temp[i][1]));
+                overview_year.Add(Int32.Parse(overview_temp[i][2]));
+            }
+
+            // Month report combobox
+            MonthReportChangeCommand = new DelegateCommand<string>(MonthReportChange);
+
             // Month product combobox
             NotifyChanged("SelectedMonthProduct");
             MonthProductChangeCommand = new DelegateCommand<string>(MonthProductChange);
@@ -109,10 +134,51 @@ namespace Kafein.ViewModel
             this.navigate = navigate;
         }
 
+        public ObservableCollection<RevenueModel> ListRevenue
+        {
+            get { return listRevenueModel.List; }
+            set { listRevenueModel.List = value; NotifyChanged("ListRevenue"); }
+        }
+
+        public double TotalRevenue
+        {
+            get
+            {
+                return listRevenueModel.List.Sum(a => a.Price);
+            }
+        }
+
+        public ObservableCollection<ExpenditureModel> ListExpenditure
+        {
+            get { return listExpenditureModel.List; }
+            set { listExpenditureModel.List = value; NotifyChanged("ListExpanditure"); }
+        }
+
+        public double TotalExpenditure
+        {
+            get
+            {
+                return listExpenditureModel.List.Sum(a => a.Price);
+            }
+        }
+
+        public double Profit
+        {
+            get
+            {
+                return TotalRevenue - TotalExpenditure;
+            }
+        }
+
         public SeriesCollection ReportCollection { get; set; }
         public ObservableCollection<String> MonthRevenueLabels { get; set; }
         public ObservableCollection<String> MonthExpenditureLabels { get; set; }
         public Func<double, string> Formatter { get; set; }
+
+        // Combo box for overview report
+        public string SelectedMonthReport { get; set; }
+        public DelegateCommand<string> MonthReportChangeCommand { get; set; }
+        public ObservableCollection<string> MonthReportLabels { get; set; }
 
         // Combox for product
         public string SelectedMonthProduct { get; set; }
@@ -185,6 +251,21 @@ namespace Kafein.ViewModel
                     );
 
             }
+        }
+
+        public void MonthReportChange(string time)
+        {
+            listRevenueModel.List.Clear();
+            listExpenditureModel.List.Clear();
+
+            // temp
+            int index = MonthReportLabels.IndexOf(time);
+            listRevenueModel.LoadRevenueReport(overview_month[index], overview_year[index]);
+            listExpenditureModel.LoadExpenditureReport(overview_month[index], overview_year[index]);
+
+            NotifyChanged("TotalRevenue");
+            NotifyChanged("TotalExpenditure");
+            NotifyChanged("Profit");
         }
 
         public void CalculateProfit()

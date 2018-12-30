@@ -111,6 +111,7 @@
     <Compile Include="Database\SQLDatabase.cs" />
     <Compile Include="Model\AdvancedQuery.cs" />
     <Compile Include="Model\EmployeeModel.cs" />
+    <Compile Include="Model\ExpenditureModel.cs" />
     <Compile Include="Model\GeneralBillModel.cs" />
     <Compile Include="Model\DetailImportationModel.cs" />
     <Compile Include="Model\GeneralImportationModel.cs" />
@@ -123,16 +124,19 @@
     <Compile Include="Model\List\ListDetailBillModel.cs" />
     <Compile Include="Model\List\ListDetailImportationModel.cs" />
     <Compile Include="Model\List\ListEmployeeModel.cs" />
+    <Compile Include="Model\List\ListExpenditureModel.cs" />
     <Compile Include="Model\List\ListGeneralBillModel.cs" />
     <Compile Include="Model\List\ListImportationModel.cs" />
     <Compile Include="Model\List\ListIngridientModel.cs" />
     <Compile Include="Model\List\ListPositionModel.cs" />
     <Compile Include="Model\List\ListProductModel.cs" />
     <Compile Include="Model\List\ListProductTypeModel.cs" />
+    <Compile Include="Model\List\ListRevenueModel.cs" />
     <Compile Include="Model\List\ListUnitModel.cs" />
     <Compile Include="Model\PositionModel.cs" />
     <Compile Include="Model\ProductModel.cs" />
     <Compile Include="Model\ProductTypeModel.cs" />
+    <Compile Include="Model\RevenueModel.cs" />
     <Compile Include="Model\UnitModel.cs" />
     <Compile Include="Utilities\Debug.cs" />
     <Compile Include="ViewModel\AddEmployeeViewModel.cs" />

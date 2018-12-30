@@ -74,5 +74,35 @@ namespace Kafein.Model
 
             return result;
         }
+
+        public static ObservableCollection<string[]> GetAllTimeline()
+        {
+            ObservableCollection<string[]> result = new ObservableCollection<string[]>();
+            IDatabase sqldb = new SQLDatabase();
+            sqldb.Open();
+            SqlDataReader reader = sqldb.ExcuteReader("(SELECT CAST(MONTH(ngaylaphoadon) AS VARCHAR(2)) + '-' + CAST(YEAR(ngaylaphoadon) AS VARCHAR(4)), MONTH(ngaylaphoadon), YEAR(ngaylaphoadon)" +
+                " FROM HOADON) UNION" +
+                " (SELECT CAST(MONTH(ngaylapphieu) AS VARCHAR(2)) + '-' + CAST(YEAR(ngaylapphieu) AS VARCHAR(4)), MONTH(ngaylapphieu), YEAR(ngaylapphieu)" +
+                " FROM PHIEUNHAPHANG)" +
+                " ORDER BY YEAR(ngaylaphoadon), MONTH(ngaylaphoadon), CAST(MONTH(ngaylaphoadon) AS VARCHAR(2)) + '-' + CAST(YEAR(ngaylaphoadon) AS VARCHAR(4))");
+            while (reader.Read())
+            {
+                try
+                {
+                    string date = reader.GetString(0);
+                    string month = reader.GetInt32(1).ToString();
+                    string year = reader.GetInt32(2).ToString();
+
+                    result.Add(new string[] { date, month, year });
+
+                }
+                catch (SqlException e)
+                {
+                    Debug.LogOutput(">> Exception in AdvancedQuery: " + e.ToString());
+                }
+            }
+
+            return result;
+        }
     }
 }
