@@ -105,7 +105,7 @@ namespace Kafein.Model.Importation
             try
             {
                 sqldb.Open();
-                sqldb.ExcuteNonQuery("INSERT INTO PHIEUNHAPHANG VALUES('" + importation.ID + "', " + importation.Date + "', " + importation.Price + ")");
+                sqldb.ExcuteNonQuery("INSERT INTO PHIEUNHAPHANG VALUES('" + importation.ID + "', '" + importation.Date + "', " + importation.Price + ")");
                 sqldb.Close();
             }
             catch (SqlException e)
