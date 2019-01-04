@@ -46,28 +46,17 @@
                     Content="THÊM PHIẾU NHẬP HÀNG" HorizontalAlignment="Center"/>
         </Border>
 
-        <ListBox Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                 ItemsSource="{Binding ListImportation}" SelectedIndex="{Binding SelectedIndexImportation}">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Style.Triggers>
-                        <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                            <Setter Property="IsSelected" Value="True" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <local:GeneralImportation />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding ListExpenditure}" AutoGenerateColumns="False" Margin="0,0,0,-398">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Mã CT phiếu nhập" Binding="{Binding ImportationDetaillID}"/>
+                <DataGridTextColumn Header="Mã phiếu nhập" Binding="{Binding ImportationID}"/>
+                <DataGridTextColumn Header="Tên nguyên liệu" Binding="{Binding IngredientName}"/>
+                <DataGridTextColumn Header="Ngày lập" Binding="{Binding Date}"/>
+                <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}"/>
+                <DataGridTextColumn Header="Trị giá" Binding="{Binding Value}"/>
+                <DataGridTextColumn Header="Thành tiền" Binding="{Binding Price}"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </UserControl>

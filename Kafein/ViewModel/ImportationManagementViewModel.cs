@@ -17,10 +17,15 @@ namespace Kafein.ViewModel
     public class ImportationManagementViewModel : BaseViewModel
     {
         private ListGeneralImportationModel listGeneralImportationModel;
+        private ListExpenditureModel listExpenditureModel;
 
         public ImportationManagementViewModel() : base()
         {
             listGeneralImportationModel = ListGeneralImportationModel.GetInstance();
+            listExpenditureModel = ListExpenditureModel.GetInstance();
+            listExpenditureModel.List.Clear();
+            listExpenditureModel.LoadAllExpenditure();
+
 
             ////test
             //ListImportation.Add(new ImportationModel("1", DateTime.Now, 125000));
@@ -66,6 +71,11 @@ namespace Kafein.ViewModel
         public DelegateCommand CreateImportationCommand { get; set; }
         public DelegateCommand DetailCommand { get; set; }
         public DelegateCommand CheckoutCommand { get; set; }
+        public ObservableCollection<ExpenditureModel> ListExpenditure
+        {
+            get { return listExpenditureModel.List; }
+            set { listExpenditureModel.List = value; NotifyChanged("ListExpanditure"); }
+        }
 
 
         private void CreateImportation()
