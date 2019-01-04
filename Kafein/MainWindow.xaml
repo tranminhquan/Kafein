@@ -51,6 +51,10 @@
                 <importation:ImportationManagement/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewmodel:AddImportationViewModel}">
+                <importation:AddImportation/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewmodel:ListIngridientViewModel}">
                 <importation:DetailImportationManagement />
             </DataTemplate>
@@ -224,8 +228,7 @@
                            IsPaneOpen="True"
                            ItemInvoked="HamburgerMenuControl_OnItemInvoked"
                            ItemTemplate="{StaticResource MenuItemTemplate}"
-                           OptionsItemTemplate="{StaticResource MenuItemTemplate}"
-                           SelectedIndex="0"
+                           OptionsItemTemplate="{StaticResource MenuItemTemplate}"         
                            Style="{StaticResource HamburgerMenuCreatorsStyle}"
                            VerticalScrollBarOnLeftSide="False">
             <!--  Items  -->
@@ -234,6 +237,7 @@
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=CurrencyUsd}" Label="Bán hàng và Thanh toán">
                         <mah:HamburgerMenuIconItem.Tag>
                             <ContentControl Content="{Binding SelectedViewModel, Source={StaticResource MainViewModel}}"/>
+                            <!--<viewmodel:BillManagementViewModel/>-->
                         </mah:HamburgerMenuIconItem.Tag>
                     </mah:HamburgerMenuIconItem>
 
@@ -252,6 +256,7 @@
                     <mah:HamburgerMenuIconItem Icon="{iconPacks:Material Kind=Coffee}" Label="Nguyên liệu">
                         <mah:HamburgerMenuIconItem.Tag>
                             <viewmodel:IngridientManagementViewModel />
+                            <!--<ContentControl Content="{Binding SelectedViewModel, Source={StaticResource MainViewModel}}"/>-->
                         </mah:HamburgerMenuIconItem.Tag>
                     </mah:HamburgerMenuIconItem>
 

@@ -1,0 +1,204 @@
+﻿<Window x:Class="Kafein.View.Importation.AddImportaionDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Kafein.View.Importation"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:ingridientview="clr-namespace:Kafein.View.Ingridient"
+        xmlns:viewmodel="clr-namespace:Kafein.ViewModel"
+        Title="AddImportaionDialog" Height="600" Width="1000">
+
+    <Window.DataContext>
+        <viewmodel:AddImportationViewModel/>
+        <!--<viewmodel:IngridientManagementViewModel/>-->
+    </Window.DataContext>
+
+    <Window.Resources>
+        <viewmodel:IngridientManagementViewModel x:Key="IngridientManagementViewModel"/>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!--List ingridient-->
+        <ListBox Grid.Column="0" Grid.Row="1"
+                x:Name="lbIngridient"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ItemsSource="{Binding ListIngridient, Source={StaticResource IngridientManagementViewModel}}"
+                SelectedIndex="{Binding SelectedIndex}">
+
+            <ListBox.Template>
+                <ControlTemplate>
+                    <ItemsPresenter />
+                </ControlTemplate>
+            </ListBox.Template>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <ingridientview:IngridientItem/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction
+                            Command="{Binding IngridientSelectionChangeCommand}"
+                            CommandParameter="{Binding SelectedItem, ElementName=lbIngridient}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </ListBox>
+
+        <!--Detail bill-->
+        <Border Grid.Row="1" Grid.Column="1" VerticalAlignment="Stretch">
+
+            <materialDesign:Card Width="Auto" Height="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="250"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!--Desk number-->
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" Background="{StaticResource AccentBrush}">
+                        <TextBlock TextAlignment="Center" Padding="10,10,10,10" 
+                           Style="{DynamicResource MaterialDesignTitleTextBlock}" 
+                           Foreground="White" Margin="0,0,0,0" Width="133" Text="Ngày lập: "/>
+
+                        <TextBlock TextAlignment="Center" Padding="10,10,10,10" 
+                           Style="{DynamicResource MaterialDesignTitleTextBlock}" 
+                           Foreground="White" Margin="0,0,0,0" Width="133" Text="{Binding Date}"/>
+                    </StackPanel>
+
+                    <!--<TextBox Grid.Row="0" TextAlignment="Center" Style="{StaticResource TxtBox}"
+                            Margin="10" Width="120" Text="{Binding InputDeskNo, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"
+                            materialDesign:HintAssist.Hint="Nhập số bàn" Foreground="{StaticResource PrimaryBrush}"
+                            FontSize="20" HorizontalContentAlignment="Center"/>-->
+
+                    <!--List product selected-->
+                    <ListBox x:Name="DetailImportationlList" Grid.Row="1" ItemsSource="{Binding ListDetailImportation}">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                        <Setter Property="IsSelected" Value="True" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="110"/>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="100"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Button Grid.Column="0"
+                                            Content="{materialDesign:PackIcon Kind=Delete}" Style="{StaticResource GhostButton}"
+                                            Command="{Binding Path=DataContext.RemoveItemCommand,RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}" 
+                                            CommandParameter="{Binding SelectedItem, ElementName=DetailImportationlList}"/>
+                                    <!--<materialDesign:PackIcon Grid.Column="0" Kind="Delete"/>-->
+                                    <TextBlock Grid.Column="1" Style="{DynamicResource MaterialDesignBody2TextBlock}" 
+                                       Padding="10" Text="{Binding IngridientName}"/>
+                                    <TextBlock Grid.Column="2" Style="{DynamicResource MaterialDesignBody2TextBlock}" 
+                                       Padding="20,10,10,10" Text="{Binding UnitName}"/>
+                                    <TextBlock Grid.Column="3" Style="{DynamicResource MaterialDesignBody2TextBlock}" 
+                                       Padding="10,10,10,10" Text="{Binding Quantity}" HorizontalAlignment="Right"/>
+                                    <TextBlock Grid.Column="4" Style="{DynamicResource MaterialDesignBody2TextBlock}" 
+                                       Padding="50,10,10,10" Text="{Binding Price, StringFormat=C0, ConverterCulture=vi-VN}" HorizontalAlignment="Right"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <!--<i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding DetailSelectionChangeCommand}"
+                                                       CommandParameter="{Binding SelectedItem, ElementName=DetailBillList}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>-->
+                    </ListBox>
+
+                    <!--Price sum-->
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Background="{StaticResource AccentBrush}">
+                        <TextBlock TextAlignment="Center" Padding="10,10,10,10" 
+                           Style="{DynamicResource MaterialDesignTitleTextBlock}" 
+                           Foreground="White" Margin="0,0,0,0" Width="133">
+                    Tổng
+                        </TextBlock>
+                        <TextBlock Style="{DynamicResource MaterialDesignDisplay1TextBlock}" TextAlignment="Center" 
+                                   VerticalAlignment="Center"
+                                   Margin="0,0,0,0" Foreground="{StaticResource PrimaryBrush}"
+                                   Text="{Binding SumPrice, StringFormat=C0, ConverterCulture=vi-VN}"/>
+                    </StackPanel>
+
+                    <!--Button-->
+                    <Border Grid.Row="3" Background="Transparent">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--Create bill button-->
+                            <Button Grid.Column="0" Style="{StaticResource InfoButton}" Command="{Binding CreateImportationCommand}"
+                            Margin="5,5,5,5" Height="45">
+                                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">LƯU PHIẾU</TextBlock>
+                            </Button>
+
+                            <Button Grid.Column="1" Style="{StaticResource WarningButton}" Command="{Binding ClearImportationCommand}"
+                            Margin="5,5,5,5" Height="45">
+                                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">XÓA PHIẾU</TextBlock>
+                            </Button>
+
+                            <!--Check out button--><!--
+                            <Button Grid.Column="1" Style="{StaticResource GreenButton}" Command="{Binding CheckoutBillCommand}"
+                            Margin="5,5,2,5" Height="45">
+                                <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}">THANH TOÁN (F2)</TextBlock>
+                            </Button>-->
+
+                            <!--Print bill-->
+                            <!--<Button Grid.Column="2" Style="{StaticResource GhostButton}" Command="{Binding PrintBillCommand}"
+                            Margin="5,5,5,5" Height="45"
+                            Content="{materialDesign:PackIcon Kind=Printer, Size=25}"/>-->
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="4" Background="Transparent">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <!--Cancel button-->
+                       
+
+                            <!--remove bill button-->
+                            
+                        </Grid>
+                    </Border>
+                </Grid>
+            </materialDesign:Card>
+        </Border>
+    </Grid>
+</Window>

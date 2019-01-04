@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Kafein.View.Importation;
 
 namespace Kafein.ViewModel
 {
@@ -69,7 +70,9 @@ namespace Kafein.ViewModel
 
         private void CreateImportation()
         {
-            navigate.Invoke("ListIngridientViewModel", null);
+            //navigate.Invoke("AddImportationViewModel", null);
+            (new AddImportaionDialog()).ShowDialog();
+
         }
 
         private void ShowDetail()

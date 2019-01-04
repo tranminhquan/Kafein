@@ -1,3 +1,4 @@
+using Kafein.Utilities;
 using System.ComponentModel;
 
 namespace Kafein.ViewModel
@@ -8,6 +9,7 @@ namespace Kafein.ViewModel
         public MainViewModel()
         {
             SelectedViewModel = new BillManagementViewModel(ViewModelNavigator, null);
+            //SelectedViewModel = new ImportationManagementViewModel(ViewModelNavigator, null);
             //SelectedViewModel = new ProductManagementViewModel(ViewModelNavigator, null);
         }
 
@@ -15,7 +17,12 @@ namespace Kafein.ViewModel
         public object SelectedViewModel
         {
             get { return selectedViewModel; }
-            set { selectedViewModel = value; NotifyChanged("SelectedViewModel"); }
+            set
+            {
+                selectedViewModel = value;
+                NotifyChanged("SelectedViewModel");
+                Debug.LogOutput(value.ToString());
+            }
         }
 
         public void ViewModelNavigator(object obj, object[] parameters)
@@ -28,6 +35,8 @@ namespace Kafein.ViewModel
                 SelectedViewModel = new ProductManagementViewModel(ViewModelNavigator, parameters);
             if (obj.ToString() == "ImportationManagementViewModel")
                 SelectedViewModel = new ImportationManagementViewModel(ViewModelNavigator, parameters);
+            if (obj.ToString() == "AddImportationViewModel")
+                SelectedViewModel = new AddImportationViewModel(ViewModelNavigator, parameters);
             if (obj.ToString() == "ListIngridientViewModel")
                 SelectedViewModel = new ListIngridientViewModel(ViewModelNavigator, parameters);
             if (obj.ToString() == "IngridientManagementViewModel")

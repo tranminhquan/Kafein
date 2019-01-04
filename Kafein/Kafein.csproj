@@ -141,6 +141,7 @@
     <Compile Include="Model\UnitModel.cs" />
     <Compile Include="Utilities\Debug.cs" />
     <Compile Include="ViewModel\AddEmployeeViewModel.cs" />
+    <Compile Include="ViewModel\AddImportationViewModel.cs" />
     <Compile Include="ViewModel\AddIngridientViewModel.cs" />
     <Compile Include="ViewModel\AddProductViewModel.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
@@ -172,11 +173,20 @@
     <Compile Include="View\Dialog\MessageInfo.xaml.cs">
       <DependentUpon>MessageInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\Importation\AddImportaionDialog.xaml.cs">
+      <DependentUpon>AddImportaionDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Importation\AddImportation.xaml.cs">
+      <DependentUpon>AddImportation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Importation\DetailImportationManagement.xaml.cs">
       <DependentUpon>DetailImportationManagement.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Importation\GeneralImportation.xaml.cs">
       <DependentUpon>GeneralImportation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Importation\ImportationItem.xaml.cs">
+      <DependentUpon>ImportationItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Importation\ImportationManagement.xaml.cs">
       <DependentUpon>ImportationManagement.xaml</DependentUpon>
@@ -260,11 +270,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\Importation\AddImportaionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Importation\AddImportation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\Importation\DetailImportationManagement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Importation\GeneralImportation.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Importation\ImportationItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
