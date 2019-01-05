@@ -30,6 +30,11 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
+        <Border Grid.Row="0" Background="{StaticResource PrimaryBrush}" Grid.ColumnSpan="2">
+            <TextBlock Style="{DynamicResource MaterialDesignHeadlineTextBlock}" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" Foreground="White" Text="LẬP PHIẾU NHẬP HÀNG"/>
+        </Border>
+
         <!--List ingridient-->
         <ListBox Grid.Column="0" Grid.Row="1"
                 x:Name="lbIngridient"
