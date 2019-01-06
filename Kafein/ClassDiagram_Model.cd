@@ -1,0 +1,181 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Kafein.Model.BaseList&lt;T&gt;">
+    <Position X="6.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAIgACABAQIAAAAEAAwAAAAABAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Model\List\BaseList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.DetailBillModel">
+    <Position X="14" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAQAAgAAQAABAAAAAAAAAAAAAAAAMgAAIAAA=</HashCode>
+      <FileName>Model\DetailBillModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.DetailImportationModel">
+    <Position X="15.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAgAAAAABAAAAAAAAAAAAAAACMgAAKAAA=</HashCode>
+      <FileName>Model\DetailImportationModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.ExpenditureModel">
+    <Position X="17.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAQAAAAAAAAAAAAAABAAAAAABAACggAAAAAA=</HashCode>
+      <FileName>Model\ExpenditureModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.GeneralBillModel">
+    <Position X="14" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAQAAAAAAAEAAAAAAAQAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Model\GeneralBillModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.GeneralImportationModel">
+    <Position X="17.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACQAAAAAAAAAAAACgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\GeneralImportationModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.IngridientModel">
+    <Position X="15.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAgAAAAAFAAAUAAAAAAAAAAAQMAAAAAAA=</HashCode>
+      <FileName>Model\IngridientModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.ProductModel">
+    <Position X="12.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAgAAAAAFAAAUAAAAAAAAgAAQMAAAAAAA=</HashCode>
+      <FileName>Model\ProductModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.ProductTypeModel">
+    <Position X="17.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\ProductTypeModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.RevenueModel">
+    <Position X="12.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAQAAAAAAAAAAAAAAABAAAggAAICAA=</HashCode>
+      <FileName>Model\RevenueModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.UnitModel">
+    <Position X="10.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\UnitModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.List.ListBillModel">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAQAAAAAAAgAEAAAQAAEAEBABAAIAAQAAAAAAAAAA=</HashCode>
+      <FileName>Model\List\ListBillModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.List.ListDetailBillModel">
+    <Position X="2.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAIAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\List\ListDetailBillModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.List.ListDetailImportationModel">
+    <Position X="4.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Model\List\ListDetailImportationModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.List.ListExpenditureModel">
+    <Position X="8.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAAABABAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\List\ListExpenditureModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.List.ListGeneralBillModel">
+    <Position X="8.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAhABAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Model\List\ListGeneralBillModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Kafein.Model.List.ListGeneralImportationModel">
+    <Position X="6.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAhABAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Model\List\ListGeneralImportationModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Kafein.Model.List.ListImportationModel">
+    <Position X="2.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAABABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\List\ListImportationModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.List.ListIngridientModel">
+    <Position X="4.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAAAAAAAAAAAAAAAAABABAAAAAAAAIAACAAAA=</HashCode>
+      <FileName>Model\List\ListIngridientModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.List.ListProductModel">
+    <Position X="10.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EIAAAAAAAAAAAAAAAAAAAAAABARAAAAAAEAIAACAAAA=</HashCode>
+      <FileName>Model\List\ListProductModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.List.ListProductTypeModel">
+    <Position X="8.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Model\List\ListProductTypeModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.List.ListRevenueModel">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAABABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\List\ListRevenueModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.List.ListUnitModel">
+    <Position X="2.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Model\List\ListUnitModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.SalesNPay.BillModel">
+    <Position X="10.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAgAAAAEBAAAAAAQAAAAABAAAIAAAAAAA=</HashCode>
+      <FileName>Model\BillModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Kafein.Model.Importation.ImportationModel">
+    <Position X="14" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAgAAAAABAAACAAAAAAAABAAAIAAAAAAA=</HashCode>
+      <FileName>Model\ImportationModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

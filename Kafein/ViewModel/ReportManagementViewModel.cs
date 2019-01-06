@@ -12,6 +12,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Office.Interop.Excel;
 
 namespace Kafein.ViewModel
 {
@@ -43,7 +44,7 @@ namespace Kafein.ViewModel
             listRevenueModel = ListRevenueModel.GetInstance();
             listExpenditureModel = ListExpenditureModel.GetInstance();
 
-            ReportCollection = new SeriesCollection();
+            ReportCollection = new LiveCharts.SeriesCollection();
 
             MonthRevenueLabels = new ObservableCollection<String>();
             MonthExpenditureLabels = new ObservableCollection<String>();
@@ -103,12 +104,15 @@ namespace Kafein.ViewModel
             // Calculate for MonthReportLabels: find min and max timeline
             ObservableCollection<string[]> overview_temp = new ObservableCollection<string[]>();
             overview_temp = AdvancedQuery.GetAllTimeline();
-            for(int i=0;i<overview_temp.Count;i++)
+            for (int i = 0; i < overview_temp.Count; i++)
             {
                 MonthReportLabels.Add(overview_temp[i][0]);
                 overview_month.Add(Int32.Parse(overview_temp[i][1]));
                 overview_year.Add(Int32.Parse(overview_temp[i][2]));
             }
+
+            // Export Excel
+            ExportExcelCommand = new DelegateCommand(ExportExcel);
 
             // Month report combobox
             MonthReportChangeCommand = new DelegateCommand<string>(MonthReportChange);
@@ -118,14 +122,14 @@ namespace Kafein.ViewModel
             MonthProductChangeCommand = new DelegateCommand<string>(MonthProductChange);
 
             // init product chart
-            ProductSeries = new SeriesCollection();
+            ProductSeries = new LiveCharts.SeriesCollection();
 
             // Month product combobox
             NotifyChanged("SelectedMonthIngredient");
             MonthIngredientChangeCommand = new DelegateCommand<string>(MonthIngredientChange);
 
             // init ingredient chart
-            IngredientSeries = new SeriesCollection();
+            IngredientSeries = new LiveCharts.SeriesCollection();
 
         }
 
@@ -170,10 +174,11 @@ namespace Kafein.ViewModel
             }
         }
 
-        public SeriesCollection ReportCollection { get; set; }
+        public LiveCharts.SeriesCollection ReportCollection { get; set; }
         public ObservableCollection<String> MonthRevenueLabels { get; set; }
         public ObservableCollection<String> MonthExpenditureLabels { get; set; }
         public Func<double, string> Formatter { get; set; }
+        public DelegateCommand ExportExcelCommand { get; set; }
 
         // Combo box for overview report
         public string SelectedMonthReport { get; set; }
@@ -185,14 +190,14 @@ namespace Kafein.ViewModel
         public DelegateCommand<string> MonthProductChangeCommand { get; set; }
 
         // Product chart
-        public SeriesCollection ProductSeries { get; set; }
+        public LiveCharts.SeriesCollection ProductSeries { get; set; }
 
         // Combox for ingredient
         public string SelectedMonthIngredient { get; set; }
         public DelegateCommand<string> MonthIngredientChangeCommand { get; set; }
 
         // Ingredient chart
-        public SeriesCollection IngredientSeries { get; set; }
+        public LiveCharts.SeriesCollection IngredientSeries { get; set; }
 
         //// getter and setter
         //public ObservableCollection<BillModel> ListBill
@@ -217,7 +222,7 @@ namespace Kafein.ViewModel
             ObservableCollection<string[]> result = AdvancedQuery.GetProductRevenue(revenue_month[index], revenue_year[index]);
             ProductSeries.Clear();
             // Debug log
-            for(int i=0;i<result.Count; i++)
+            for (int i = 0; i < result.Count; i++)
             {
                 ProductSeries.Add
                     (
@@ -226,9 +231,9 @@ namespace Kafein.ViewModel
                             Title = result[i][1] + " (" + result[i][2] + ")",
                             Values = new ChartValues<ObservableValue> { new ObservableValue(Double.Parse(result[i][3])) },
                             DataLabels = true
-                        }                       
+                        }
                     );
-                
+
             }
         }
 
@@ -283,5 +288,27 @@ namespace Kafein.ViewModel
 
         }
 
+        private void ExportExcel()
+        {
+            Application app = new Application();
+            app.Visible = true;
+            app.WindowState = XlWindowState.xlNormal;
+            //app.DisplayAlerts = false;
+
+            Workbook wb = app.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+            Worksheet ws = wb.Worksheets[1];
+            DateTime currentDate = DateTime.Now;
+
+            ws.Range["A1:A3"].Value = "Who is number one? :)";
+            ws.Range["A4"].Value = "vitoshacademy.com";
+            ws.Range["A5"].Value = currentDate;
+            ws.Range["B6"].Value = "Tommorow's date is: =>";
+            ws.Range["C6"].FormulaLocal = "= A5 + 1";
+            ws.Range["A7"].FormulaLocal = "=SUM(D1:D10)";
+            for (int i = 1; i <= 10; i++)
+                ws.Range["D" + i].Value = i * 2;
+
+            wb.SaveAs("C:\\Temp\\vitoshacademy.xlsx");
+        }
     }
 }

@@ -84,13 +84,13 @@
             </ComboBox>-->
         </Grid>
 
- 
+
         <TabControl Grid.Column="0" Grid.Row="1"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch" Margin="0,0,0,-548">
 
-                <!--Overview chart-->
-                <TabItem Header="Thông tin">
+            <!--Overview chart-->
+            <TabItem Header="Thông tin">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -102,20 +102,34 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
 
-                        <ComboBox x:Name="cbMonthReport" SelectedItem="{Binding SelectedMonthReport}"
-                          Grid.Row="0" Margin="447,5" VerticalAlignment="Stretch" HorizontalAlignment="Center"
-                          ItemsSource="{Binding MonthReportLabels}"
-                          Width="100" HorizontalContentAlignment="Center"
-                          Foreground="Black"
-                          Style="{StaticResource MaterialDesignComboBox}"
-                          BorderBrush="Black">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding MonthReportChangeCommand}"
-                                                   CommandParameter="{Binding SelectedItem, ElementName=cbMonthReport}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </ComboBox>
+                        <Border Grid.Row="0" Background="Transparent" MaxWidth="500">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <ComboBox x:Name="cbMonthReport" SelectedItem="{Binding SelectedMonthReport}"
+                                          Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"
+                                          ItemsSource="{Binding MonthReportLabels}"
+                                          Width="100" HorizontalContentAlignment="Center"
+                                          Foreground="Black"
+                                          Style="{StaticResource MaterialDesignComboBox}"
+                                          BorderBrush="Black">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="SelectionChanged">
+                                            <i:InvokeCommandAction Command="{Binding MonthReportChangeCommand}"
+                                                                   CommandParameter="{Binding SelectedItem, ElementName=cbMonthReport}"/>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </ComboBox>
+
+                                <!--Open Excel with info-->
+                                <Button Grid.Column="1" Style="{StaticResource GhostButton}" Command="{Binding ExportExcelCommand}"
+                                        Margin="5,5,5,5" Height="45"
+                                        Content="{materialDesign:PackIcon Kind=FileExcel, Size=25}"/>
+                            </Grid>
+                        </Border>
 
                         <StackPanel Grid.Row="1" Orientation="Horizontal">
                             <TextBlock Text="Tổng thu: " Style="{DynamicResource MaterialDesignHeadlineTextBlock}"/>
@@ -157,48 +171,48 @@
                     </Grid>
                 </ScrollViewer>
             </TabItem>
-                <TabItem Header="Tổng quan">
-                    <lvc:CartesianChart 
+            <TabItem Header="Tổng quan">
+                <lvc:CartesianChart 
                     Series="{Binding ReportCollection}" LegendLocation="Top" Margin="5,5,5,5">
-                        <lvc:CartesianChart.AxisX>
-                            <lvc:Axis Title="Tháng - Năm" Labels="{Binding MonthRevenueLabels}"></lvc:Axis>
-                            <lvc:Axis Labels="{Binding MonthExpenditureLabels}"></lvc:Axis>
-                        </lvc:CartesianChart.AxisX>
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Title="Tháng - Năm" Labels="{Binding MonthRevenueLabels}"></lvc:Axis>
+                        <lvc:Axis Labels="{Binding MonthExpenditureLabels}"></lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
 
-                        <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Số tiền" LabelFormatter="{Binding Formatter}"></lvc:Axis>
-                        </lvc:CartesianChart.AxisY>
-                    </lvc:CartesianChart>
-                </TabItem>
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis Title="Số tiền" LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+                </lvc:CartesianChart>
+            </TabItem>
 
-                <!--Product chart-->
-                <TabItem Header="Mặt hàng">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="8*"/>
-                        </Grid.RowDefinitions>
+            <!--Product chart-->
+            <TabItem Header="Mặt hàng">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="8*"/>
+                    </Grid.RowDefinitions>
 
-                        <ComboBox x:Name="cbMonthProduct" SelectedItem="{Binding SelectedMonthProduct}"
+                    <ComboBox x:Name="cbMonthProduct" SelectedItem="{Binding SelectedMonthProduct}"
                       Grid.Row="0" Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Center"
                       ItemsSource="{Binding MonthRevenueLabels}"
                       Width="100" HorizontalContentAlignment="Center"
                       Foreground="Black"
                       Style="{StaticResource MaterialDesignComboBox}"
                       BorderBrush="Black">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding MonthProductChangeCommand}"
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding MonthProductChangeCommand}"
                                                CommandParameter="{Binding SelectedItem, ElementName=cbMonthProduct}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </ComboBox>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
 
-                        <lvc:PieChart 
+                    <lvc:PieChart 
                     Grid.Row="1"
                     LegendLocation="Top" Hoverable="False" DataTooltip="{x:Null}"
                     Series="{Binding ProductSeries}">
-                            <!--<lvc:PieChart.Series>
+                        <!--<lvc:PieChart.Series>
                         <lvc:PieSeries Title="Maria" Values="3" DataLabels="True"
                                LabelPoint="{Binding PointLabel}"/>
                         <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" 
@@ -208,39 +222,39 @@
                         <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" 
                                LabelPoint="{Binding PointLabel}"/>
                     </lvc:PieChart.Series>-->
-                        </lvc:PieChart>
-                    </Grid>
+                    </lvc:PieChart>
+                </Grid>
 
-                </TabItem>
+            </TabItem>
 
-                <!--Ingredient chart-->
-                <TabItem Header="Nguyên liệu">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="8*"/>
-                        </Grid.RowDefinitions>
+            <!--Ingredient chart-->
+            <TabItem Header="Nguyên liệu">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="8*"/>
+                    </Grid.RowDefinitions>
 
-                        <ComboBox x:Name="cbMonthIngredient" SelectedItem="{Binding SelectedMonthIngredient}"
+                    <ComboBox x:Name="cbMonthIngredient" SelectedItem="{Binding SelectedMonthIngredient}"
                       Grid.Row="0" Margin="5,5,5,5" VerticalAlignment="Bottom" HorizontalAlignment="Center"
                       ItemsSource="{Binding MonthExpenditureLabels}"
                       Width="100" HorizontalContentAlignment="Center"
                       Foreground="Black"
                       Style="{StaticResource MaterialDesignComboBox}"
                       BorderBrush="Black">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding MonthIngredientChangeCommand}"
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding MonthIngredientChangeCommand}"
                                                CommandParameter="{Binding SelectedItem, ElementName=cbMonthIngredient}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </ComboBox>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
 
-                        <lvc:PieChart 
+                    <lvc:PieChart 
                     Grid.Row="1"
                     LegendLocation="Top" Hoverable="False" DataTooltip="{x:Null}"
                     Series="{Binding IngredientSeries}">
-                            <!--<lvc:PieChart.Series>
+                        <!--<lvc:PieChart.Series>
                         <lvc:PieSeries Title="Maria" Values="3" DataLabels="True"
                                LabelPoint="{Binding PointLabel}"/>
                         <lvc:PieSeries Title="Charles" Values="4" DataLabels="True" 
@@ -250,10 +264,10 @@
                         <lvc:PieSeries Title="Frederic" Values="2" DataLabels="True" 
                                LabelPoint="{Binding PointLabel}"/>
                     </lvc:PieChart.Series>-->
-                        </lvc:PieChart>
-                    </Grid>
-                </TabItem>
-            </TabControl>
+                    </lvc:PieChart>
+                </Grid>
+            </TabItem>
+        </TabControl>
 
 
 
