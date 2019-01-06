@@ -39,14 +39,15 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0" Background="{StaticResource PrimaryBrush}">
             <Button Grid.Row="0" Command="{Binding CreateImportationCommand}" Margin="10" Width="200"
                     Content="THÊM PHIẾU NHẬP HÀNG" HorizontalAlignment="Center"/>
         </Border>
 
-        <DataGrid Grid.Row="1" ItemsSource="{Binding ListExpenditure}" AutoGenerateColumns="False" Margin="0,0,0,-398">
+        <DataGrid PreviewMouseWheel="UIElement_OnPreviewMouseWheel" ScrollViewer.CanContentScroll="True"
+                  Grid.Row="1" ItemsSource="{Binding ListExpenditure}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Mã CT phiếu nhập" Binding="{Binding ImportationDetaillID}"/>
                 <DataGridTextColumn Header="Mã phiếu nhập" Binding="{Binding ImportationID}"/>
