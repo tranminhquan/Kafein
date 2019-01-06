@@ -10,8 +10,12 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 using Microsoft.Office.Interop.Excel;
 
 namespace Kafein.ViewModel
@@ -290,25 +294,216 @@ namespace Kafein.ViewModel
 
         private void ExportExcel()
         {
-            Application app = new Application();
-            app.Visible = true;
-            app.WindowState = XlWindowState.xlNormal;
-            //app.DisplayAlerts = false;
+            //    Application app = new Application();
+            //    app.Visible = true;
+            //    app.WindowState = XlWindowState.xlNormal;
+            //    //app.DisplayAlerts = false;
 
-            Workbook wb = app.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
-            Worksheet ws = wb.Worksheets[1];
-            DateTime currentDate = DateTime.Now;
+            //    Workbook wb = app.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+            //    Worksheet ws = wb.Worksheets[1];
 
-            ws.Range["A1:A3"].Value = "Who is number one? :)";
-            ws.Range["A4"].Value = "vitoshacademy.com";
-            ws.Range["A5"].Value = currentDate;
-            ws.Range["B6"].Value = "Tommorow's date is: =>";
-            ws.Range["C6"].FormulaLocal = "= A5 + 1";
-            ws.Range["A7"].FormulaLocal = "=SUM(D1:D10)";
-            for (int i = 1; i <= 10; i++)
-                ws.Range["D" + i].Value = i * 2;
+            //    ws.Range["A1"].Value = "Ngày lập báo cáo: " + DateTime.Now;
+            //    ws.Range["A2"].Value = "Quán cà phê Tri Ân - Địa chỉ: 252 Sông Lu, xã Trung An";
+            //    ws.Range["D6"].Value = "BÁO CÁO LỢI NHUẬN THÁNG" + MonthReportLabels;
+            //    ws.Range["D6"].Font.Bold = true;
+            //    ws.Range["D6"].Font.Size = 20;
 
-            wb.SaveAs("C:\\Temp\\vitoshacademy.xlsx");
+
+            //    //ws.Range["A7"].FormulaLocal = "=SUM(D1:D10)";
+            //    //for (int i = 1; i <= 10; i++)
+            //    //    ws.Range["D" + i].Value = i * 2;
+
+
+            //    for (int j = 0; j < dgrid.Columns.Count; j++)
+            //    {
+            //        Range myRange = (Range)ws.Cells[1, j + 1];
+            //        ws.Cells[1, j + 1].Font.Bold = true;
+            //        ws.Columns[j + 1].ColumnWidth = 15; 
+            //        myRange.Value2 = dgrid.Columns[j].Header;
+            //    }
+            //    for (int i = 0; i < dgrid.Columns.Count; i++)
+            //    { 
+            //        for (int j = 0; j < dgrid.Items.Count; j++)
+            //        {
+            //            TextBlock b = dgrid.Columns[i].GetCellContent(dgrid.Items[j]) as TextBlock;
+            //            Range myRange = (Range)ws.Cells[j + 2, i + 1];
+            //            myRange.Value2 = b.Text;
+            //        }
+            //    }
+
+            //    //wb.SaveAs("C:\\test.xlsx");
+            Export(ListRevenue);
+        }
+        public static void ExportDataGrid(object sender)
+        {
+            DataGrid currentGrid = sender as DataGrid;
+            //if (currentGrid != null)
+            {
+                StringBuilder sbGridData = new StringBuilder();
+                List<string> listColumns = new List<string>();
+
+                List<DataGridColumn> listVisibleDataGridColumns = new List<DataGridColumn>();
+
+                List<string> listHeaders = new List<string>();
+
+                Microsoft.Office.Interop.Excel.Application application = null;
+
+                Microsoft.Office.Interop.Excel.Workbook workbook = null;
+
+                Microsoft.Office.Interop.Excel.Worksheet worksheet = null;
+
+                int rowCount = 1;
+
+                int colCount = 1;
+
+                try
+                {
+                    application = new Microsoft.Office.Interop.Excel.Application();
+                    workbook = application.Workbooks.Add(Type.Missing);
+                    worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Worksheets[1];
+
+                    if (currentGrid.HeadersVisibility == DataGridHeadersVisibility.Column || currentGrid.HeadersVisibility == DataGridHeadersVisibility.All)
+                    {
+                        foreach (DataGridColumn dataGridColumn in currentGrid.Columns.Where(dataGridColumn => dataGridColumn.Visibility == Visibility.Visible))
+                        {
+                            listVisibleDataGridColumns.Add(dataGridColumn);
+                            if (dataGridColumn.Header != null)
+                            {
+                                listHeaders.Add(dataGridColumn.Header.ToString());
+                            }
+                            worksheet.Cells[rowCount, colCount] = dataGridColumn.Header;
+                            colCount++;
+                        }
+
+                        // IEnumerable collection = currentGrid.ItemsSource;
+
+                        foreach (object data in currentGrid.ItemsSource)
+                        {
+                            listColumns.Clear();
+
+                            colCount = 1;
+
+                            rowCount++;
+
+                            foreach (DataGridColumn dataGridColumn in listVisibleDataGridColumns)
+                            {
+                                string strValue = string.Empty;
+                                Binding objBinding = null;
+                                DataGridBoundColumn dataGridBoundColumn = dataGridColumn as DataGridBoundColumn;
+
+                                if (dataGridBoundColumn != null)
+                                {
+                                    objBinding = dataGridBoundColumn.Binding as Binding;
+                                }
+
+                                DataGridTemplateColumn dataGridTemplateColumn = dataGridColumn as DataGridTemplateColumn;
+
+                                if (dataGridTemplateColumn != null)
+                                {
+                                    // This is a template column...let us see the underlying dependency object
+
+                                    DependencyObject dependencyObject = dataGridTemplateColumn.CellTemplate.LoadContent();
+
+                                    FrameworkElement frameworkElement = dependencyObject as FrameworkElement;
+                                    if (frameworkElement != null)
+                                    {
+                                        FieldInfo fieldInfo = frameworkElement.GetType().GetField("ContentProperty", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
+                                        if (fieldInfo == null)
+                                        {
+                                            if (frameworkElement is System.Windows.Controls.TextBox || frameworkElement is TextBlock || frameworkElement is ComboBox)
+                                            {
+                                                fieldInfo = frameworkElement.GetType().GetField("TextProperty");
+                                            }
+                                            else if (frameworkElement is DatePicker)
+                                            {
+                                                fieldInfo = frameworkElement.GetType().GetField("SelectedDateProperty");
+                                            }
+                                        }
+
+                                        if (fieldInfo != null)
+                                        {
+                                            DependencyProperty dependencyProperty = fieldInfo.GetValue(null) as DependencyProperty;
+                                            if (dependencyProperty != null)
+                                            {
+                                                BindingExpression bindingExpression = frameworkElement.GetBindingExpression(dependencyProperty);
+                                                if (bindingExpression != null)
+                                                {
+                                                    objBinding = bindingExpression.ParentBinding;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (objBinding != null)
+                                {
+
+                                    if (!String.IsNullOrEmpty(objBinding.Path.Path))
+                                    {
+
+                                        PropertyInfo pi = data.GetType().GetProperty(objBinding.Path.Path);
+
+                                        if (pi != null)
+                                        {
+
+                                            object propValue = pi.GetValue(data, null);
+
+                                            if (propValue != null)
+                                            {
+                                                strValue = Convert.ToString(propValue);
+                                            }
+
+                                            else
+                                            {
+                                                strValue = string.Empty;
+                                            }
+                                        }
+                                    }
+
+                                    if (objBinding.Converter != null)
+                                    {
+                                        if (!String.IsNullOrEmpty(strValue))
+                                        {
+                                            strValue = objBinding.Converter.Convert(strValue, typeof(string), objBinding.ConverterParameter, objBinding.ConverterCulture).ToString();
+                                        }
+
+                                        else
+                                        {
+                                            strValue = objBinding.Converter.Convert(data, typeof(string), objBinding.ConverterParameter, objBinding.ConverterCulture).ToString();
+                                        }
+                                    }
+                                }
+
+                                listColumns.Add(strValue);
+
+                                worksheet.Cells[rowCount, colCount] = strValue;
+
+                                colCount++;
+                            }
+                        }
+                    }
+
+                }
+
+                catch (System.Runtime.InteropServices.COMException)
+                {
+                }
+
+                finally
+                {
+                    workbook.Close();
+                    application.Quit();
+                    System.Runtime.InteropServices.Marshal.ReleaseComObject(application);
+                }
+
+            }
+        }
+        private void Export(object gridExcel)
+        {
+            if (gridExcel != null)
+            {
+                ExportDataGrid(gridExcel);
+            }
         }
     }
 }
