@@ -152,7 +152,7 @@ namespace Kafein.ViewModel
         {
             get
             {
-                return listRevenueModel.List.Sum(a => a.Price);
+                return listRevenueModel.List.Sum(a => a.Value * a.Quantity);
             }
         }
 
@@ -166,7 +166,7 @@ namespace Kafein.ViewModel
         {
             get
             {
-                return listExpenditureModel.List.Sum(a => a.Price);
+                return listExpenditureModel.List.Sum(a => a.Value * a.Quantity);
             }
         }
 

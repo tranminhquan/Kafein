@@ -46,7 +46,7 @@ namespace Kafein.Model.List
                     DateTime date = reader.GetDateTime(3);
                     int quantity = reader.GetInt32(4);
                     double value = reader.GetSqlMoney(5).ToDouble();
-                    double price = reader.GetSqlMoney(6).ToDouble();
+                    double price = quantity * value;
 
                     this.List.Add(new RevenueModel(detailbillid, billid, productname, date, quantity, value, price));
                 }

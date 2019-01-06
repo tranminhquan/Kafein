@@ -19,10 +19,11 @@ namespace Kafein.ViewModel
     {
         private ListDetailImportationModel listDetailImportation;
         private ImportationModel newImportation;
+        private ListExpenditureModel listExpenditureModel;
 
         public AddImportationViewModel(): base()
         {
-            
+            listExpenditureModel = ListExpenditureModel.GetInstance();
             listDetailImportation = new ListDetailImportationModel();
             IngridientSelectionChangeCommand = new DelegateCommand<IngridientModel>(IngridientChange);
             CreateImportationCommand = new DelegateCommand(CreateImportation);
@@ -112,6 +113,8 @@ namespace Kafein.ViewModel
                     DetailImportationModel.SaveToDatabase(item.DetailImportationModel);
                 }
             })).ShowDialog();
+            listExpenditureModel.List.Clear();
+            listExpenditureModel.LoadAllExpenditure();
         }
 
         public void InitImportation()
