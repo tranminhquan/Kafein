@@ -18,7 +18,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <!--Filter-->
@@ -85,77 +85,73 @@
         </Grid>
 
  
-        <TabControl Grid.Column="0" Grid.Row="1"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch" Margin="0,0,0,-548">
+        <TabControl Grid.Column="0" Grid.Row="1">
 
                 <!--Overview chart-->
                 <TabItem Header="Thông tin">
-                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="6*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="6*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="6*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                        <ComboBox x:Name="cbMonthReport" SelectedItem="{Binding SelectedMonthReport}"
+                    <ComboBox x:Name="cbMonthReport" SelectedItem="{Binding SelectedMonthReport}"
                           Grid.Row="0" Margin="447,5" VerticalAlignment="Stretch" HorizontalAlignment="Center"
                           ItemsSource="{Binding MonthReportLabels}"
                           Width="100" HorizontalContentAlignment="Center"
                           Foreground="Black"
                           Style="{StaticResource MaterialDesignComboBox}"
                           BorderBrush="Black">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="SelectionChanged">
-                                    <i:InvokeCommandAction Command="{Binding MonthReportChangeCommand}"
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding MonthReportChangeCommand}"
                                                    CommandParameter="{Binding SelectedItem, ElementName=cbMonthReport}"/>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </ComboBox>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </ComboBox>
 
-                        <StackPanel Grid.Row="1" Orientation="Horizontal">
-                            <TextBlock Text="Tổng thu: " Style="{DynamicResource MaterialDesignHeadlineTextBlock}"/>
-                            <TextBlock Text="{Binding TotalRevenue}" Style="{DynamicResource MaterialDesignHeadlineTextBlock}" Padding="10,0,0,0"/>
-                        </StackPanel>
-                        <DataGrid Grid.Row="2" ItemsSource="{Binding ListRevenue}" AutoGenerateColumns="False">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Mã CT hóa đơn" Binding="{Binding BillDetailID}"/>
-                                <DataGridTextColumn Header="Số hóa đơn" Binding="{Binding BillID}"/>
-                                <DataGridTextColumn Header="Tên mặt hàng" Binding="{Binding ProductName}"/>
-                                <DataGridTextColumn Header="Ngày lập" Binding="{Binding Date}"/>
-                                <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}"/>
-                                <DataGridTextColumn Header="Trị giá" Binding="{Binding Value}"/>
-                                <DataGridTextColumn Header="Thành tiền" Binding="{Binding Price}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <TextBlock Text="Tổng thu: " Style="{DynamicResource MaterialDesignHeadlineTextBlock}"/>
+                        <TextBlock Text="{Binding TotalRevenue}" Style="{DynamicResource MaterialDesignHeadlineTextBlock}" Padding="10,0,0,0"/>
+                    </StackPanel>
+                    <DataGrid Grid.Row="2" ItemsSource="{Binding ListRevenue}" AutoGenerateColumns="False" Height="350">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Mã CT hóa đơn" Binding="{Binding BillDetailID}"/>
+                            <DataGridTextColumn Header="Số hóa đơn" Binding="{Binding BillID}"/>
+                            <DataGridTextColumn Header="Tên mặt hàng" Binding="{Binding ProductName}"/>
+                            <DataGridTextColumn Header="Ngày lập" Binding="{Binding Date}"/>
+                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}"/>
+                            <DataGridTextColumn Header="Trị giá" Binding="{Binding Value}"/>
+                            <DataGridTextColumn Header="Thành tiền" Binding="{Binding Price}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
-                        <StackPanel Grid.Row="3" Orientation="Horizontal">
-                            <TextBlock Text="Tổng chi: " Style="{DynamicResource MaterialDesignHeadlineTextBlock}"/>
-                            <TextBlock Text="{Binding TotalExpenditure}" Padding="10,0,0,0" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"/>
-                        </StackPanel>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal">
+                        <TextBlock Text="Tổng chi: " Style="{DynamicResource MaterialDesignHeadlineTextBlock}"/>
+                        <TextBlock Text="{Binding TotalExpenditure}" Padding="10,0,0,0" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"/>
+                    </StackPanel>
 
-                        <DataGrid Grid.Row="4" ItemsSource="{Binding ListExpenditure}" AutoGenerateColumns="False">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Mã CT phiếu nhập" Binding="{Binding ImportationDetaillID}"/>
-                                <DataGridTextColumn Header="Mã phiếu nhập" Binding="{Binding ImportationID}"/>
-                                <DataGridTextColumn Header="Tên nguyên liệu" Binding="{Binding IngredientName}"/>
-                                <DataGridTextColumn Header="Ngày lập" Binding="{Binding Date}"/>
-                                <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}"/>
-                                <DataGridTextColumn Header="Trị giá" Binding="{Binding Value}"/>
-                                <DataGridTextColumn Header="Thành tiền" Binding="{Binding Price}"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                    <DataGrid Grid.Row="4" ItemsSource="{Binding ListExpenditure}" AutoGenerateColumns="False" Height="350">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Mã CT phiếu nhập" Binding="{Binding ImportationDetaillID}"/>
+                            <DataGridTextColumn Header="Mã phiếu nhập" Binding="{Binding ImportationID}"/>
+                            <DataGridTextColumn Header="Tên nguyên liệu" Binding="{Binding IngredientName}"/>
+                            <DataGridTextColumn Header="Ngày lập" Binding="{Binding Date}"/>
+                            <DataGridTextColumn Header="Số lượng" Binding="{Binding Quantity}"/>
+                            <DataGridTextColumn Header="Trị giá" Binding="{Binding Value}"/>
+                            <DataGridTextColumn Header="Thành tiền" Binding="{Binding Price}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
-                        <StackPanel Grid.Row="5" Orientation="Horizontal">
-                            <TextBlock Text="Lợi nhuận: " Style="{DynamicResource MaterialDesignHeadlineTextBlock}"/>
-                            <TextBlock Text="{Binding Profit}" Padding="10,0,0,0" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"/>
-                        </StackPanel>
-                    </Grid>
-                </ScrollViewer>
+                    <StackPanel Grid.Row="5" Orientation="Horizontal">
+                        <TextBlock Text="Lợi nhuận: " Style="{DynamicResource MaterialDesignHeadlineTextBlock}"/>
+                        <TextBlock Text="{Binding Profit}" Padding="10,0,0,0" Style="{DynamicResource MaterialDesignHeadlineTextBlock}"/>
+                    </StackPanel>
+                </Grid>
             </TabItem>
                 <TabItem Header="Tổng quan">
                     <lvc:CartesianChart 
