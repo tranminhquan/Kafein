@@ -56,11 +56,11 @@
                     </i:Interaction.Triggers>
                 </TextBox>
 
-                <Button Style="{StaticResource GhostButton}" Margin="5"
+                <!--<Button Style="{StaticResource GhostButton}" Margin="5"
                         Content="{materialDesign:PackIcon Kind=Settings, Size=25}"
                         Foreground="White"
                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                        Command="{Binding OpenSearchFilterCommand}"/>
+                        Command="{Binding OpenSearchFilterCommand}"/>-->
             </StackPanel>
 
 

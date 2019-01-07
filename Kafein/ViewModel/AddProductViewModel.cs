@@ -92,7 +92,7 @@ namespace Kafein.ViewModel
             if (Name.Trim().Length == 0)
                 return;
 
-            if (Price == 0)
+            if (Price <= 0)
             {
                 (new MessageInfo("Chưa đặt giá tiền hoặc không đúng định dạng", "Warning")).ShowDialog();
                 return;

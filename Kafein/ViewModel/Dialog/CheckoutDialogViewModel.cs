@@ -1,6 +1,7 @@
 ﻿using Kafein.Model;
 using Kafein.Model.List;
 using Kafein.Model.SalesNPay;
+using Kafein.View.Dialog;
 using Prism.Commands;
 using System;
 using System.Collections.Generic;
@@ -129,6 +130,11 @@ namespace Kafein.ViewModel.Dialog
 
         private void PrintAndCheckout()
         {
+            if (MoneyReceived < SumPrice)
+            {
+                new MessageInfo("Số tiền thu nhỏ hơn cần thanh toán", "THÔNG BÁO").ShowDialog();
+                return;
+            }
             SaveToDatabase();
             Print();
             navigate.Invoke("BillManagementViewModel", null);
@@ -137,6 +143,11 @@ namespace Kafein.ViewModel.Dialog
 
         private void Checkout()
         {
+            if (MoneyReceived < SumPrice)
+            {
+                new MessageInfo("Số tiền thu nhỏ hơn cần thanh toán", "THÔNG BÁO").ShowDialog();
+                return;
+            }
             SaveToDatabase();
             navigate.Invoke("BillManagementViewModel", null);
             Cancel();
