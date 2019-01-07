@@ -1,5 +1,6 @@
 ﻿using Kafein.Model;
 using Kafein.Model.List;
+using Kafein.View.Dialog;
 using Microsoft.Win32;
 using Prism.Commands;
 using System;
@@ -80,12 +81,23 @@ namespace Kafein.ViewModel
         }
 
         private void AddProduct()
-        {         
+        {
             //check null
+            if (Name == null)
+            {
+                (new MessageInfo("Tên mặt hàng rỗng", "Warning")).ShowDialog();
+                return;
+            }
+                
             if (Name.Trim().Length == 0)
                 return;
+
             if (Price == 0)
+            {
+                (new MessageInfo("Chưa đặt giá tiền hoặc không đúng định dạng", "Warning")).ShowDialog();
                 return;
+            }
+                
 
             // create mode
             if (updateProduct == null)

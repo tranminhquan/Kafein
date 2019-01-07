@@ -103,11 +103,11 @@
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="10*"/>
-                                <!--<ColumnDefinition Width="2*"/>-->
+                                <ColumnDefinition Width="2*"/>
                             </Grid.ColumnDefinitions>
 
                             <ComboBox x:Name="cbMonthReport" SelectedItem="{Binding SelectedMonthReport}"
-                                      Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"
+                                      Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center"
                                       ItemsSource="{Binding MonthReportLabels}"
                                       Width="100" HorizontalContentAlignment="Center"
                                       Foreground="Black"
@@ -121,8 +121,8 @@
                                 </i:Interaction.Triggers>
                             </ComboBox>
 
-                            <!--<Button Grid.Row="0" Grid.Column="2" 
-                                    Style="{StaticResource RaisedButton}" Width="120" Margin="23,0" Command="{Binding ExportExcelCommand}">EXPORT EXCEL</Button>-->
+                            <Button Grid.Row="0" Grid.Column="1" 
+                                    Style="{StaticResource RaisedButton}" Width="120" Margin="23,0" Command="{Binding ExportExcelCommand}">EXPORT EXCEL</Button>
                         </Grid>
                     </Border>
 

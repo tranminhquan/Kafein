@@ -10,12 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using Microsoft.Office.Interop.Excel;
 
 namespace Kafein.ViewModel
@@ -294,216 +288,78 @@ namespace Kafein.ViewModel
 
         private void ExportExcel()
         {
-            //    Application app = new Application();
-            //    app.Visible = true;
-            //    app.WindowState = XlWindowState.xlNormal;
-            //    //app.DisplayAlerts = false;
+            Application app = new Application();
+            app.Visible = true;
+            app.WindowState = XlWindowState.xlNormal;
+            //app.DisplayAlerts = false;
 
-            //    Workbook wb = app.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
-            //    Worksheet ws = wb.Worksheets[1];
+            Workbook wb = app.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+            Worksheet ws = wb.Worksheets[1];
 
-            //    ws.Range["A1"].Value = "Ngày lập báo cáo: " + DateTime.Now;
-            //    ws.Range["A2"].Value = "Quán cà phê Tri Ân - Địa chỉ: 252 Sông Lu, xã Trung An";
-            //    ws.Range["D6"].Value = "BÁO CÁO LỢI NHUẬN THÁNG" + MonthReportLabels;
-            //    ws.Range["D6"].Font.Bold = true;
-            //    ws.Range["D6"].Font.Size = 20;
+            ws.Range["A1"].Value = "Ngày lập báo cáo: " + DateTime.Now;
+            ws.Range["A2"].Value = "Quán cà phê Tri Ân - Địa chỉ: 252 Sông Lu, xã Trung An";
+            ws.Range["D4"].Value = "BÁO CÁO LỢI NHUẬN THÁNG " + SelectedMonthReport;
+            ws.Range["D4"].Font.Bold = true;
+            ws.Range["D4"].Font.Size = 20;
 
+            ws.Range["B5"].Value = "Tổng thu";
+            ws.Range["B5"].Font.Bold = true;
+            ws.Range["C5"].Value = TotalRevenue;
+            ws.Range["C5"].Font.Bold = true;
+            ws.Range["D5"].Value = "Tổng chi";
+            ws.Range["D5"].Font.Bold = true;
+            ws.Range["E5"].Value = TotalExpenditure;
+            ws.Range["E5"].Font.Bold = true;
+            ws.Range["F5"].Value = "Lợi nhuận";
+            ws.Range["F5"].Font.Bold = true;
+            ws.Range["G5"].Value = Profit;
+            ws.Range["G5"].Font.Bold = true;
 
-            //    //ws.Range["A7"].FormulaLocal = "=SUM(D1:D10)";
-            //    //for (int i = 1; i <= 10; i++)
-            //    //    ws.Range["D" + i].Value = i * 2;
+            ws.Range["A7"].Value = "Ma CT Hoa Don";
+            ws.Range["B7"].Value = "Ma HD";
+            ws.Range["C7"].Value = "Ten mat hang";
+            ws.Range["D7"].Value = "Ngay lap";
+            ws.Range["E7"].Value = "So luong";
+            ws.Range["F7"].Value = "Don gia";
+            ws.Range["G7"].Value = "Thanh tien";
+            for (int i = 8; i < ListRevenue.Count + 8; i++)
+                ws.Range["A" + i].Value = ListRevenue[i - 8].BillDetailID;
+            for (int i = 8; i < ListRevenue.Count + 8; i++)
+                ws.Range["B" + i].Value = ListRevenue[i - 8].BillID;
+            for (int i = 8; i < ListRevenue.Count + 8; i++)
+                ws.Range["C" + i].Value = ListRevenue[i - 8].ProductName;
+            for (int i = 8; i < ListRevenue.Count + 8; i++)
+                ws.Range["D" + i].Value = ListRevenue[i - 8].Date.ToShortDateString();
+            for (int i = 8; i < ListRevenue.Count + 8; i++)
+                ws.Range["E" + i].Value = ListRevenue[i - 8].Quantity;
+            for (int i = 8; i < ListRevenue.Count + 8; i++)
+                ws.Range["F" + i].Value = ListRevenue[i - 8].Value;
+            for (int i = 8; i < ListRevenue.Count + 8; i++)
+                ws.Range["G" + i].Value = ListRevenue[i - 8].Price;
 
+            ws.Range["I7"].Value = "Ma CT Phieu xuat";
+            ws.Range["J7"].Value = "Ma Phieu xuat";
+            ws.Range["K7"].Value = "Ten nguyen lieu";
+            ws.Range["L7"].Value = "Ngay lap";
+            ws.Range["M7"].Value = "So luong";
+            ws.Range["N7"].Value = "Don gia";
+            ws.Range["O7"].Value = "Thanh tien";
 
-            //    for (int j = 0; j < dgrid.Columns.Count; j++)
-            //    {
-            //        Range myRange = (Range)ws.Cells[1, j + 1];
-            //        ws.Cells[1, j + 1].Font.Bold = true;
-            //        ws.Columns[j + 1].ColumnWidth = 15; 
-            //        myRange.Value2 = dgrid.Columns[j].Header;
-            //    }
-            //    for (int i = 0; i < dgrid.Columns.Count; i++)
-            //    { 
-            //        for (int j = 0; j < dgrid.Items.Count; j++)
-            //        {
-            //            TextBlock b = dgrid.Columns[i].GetCellContent(dgrid.Items[j]) as TextBlock;
-            //            Range myRange = (Range)ws.Cells[j + 2, i + 1];
-            //            myRange.Value2 = b.Text;
-            //        }
-            //    }
-
-            //    //wb.SaveAs("C:\\test.xlsx");
-            Export(ListRevenue);
+            for (int i = 8; i < ListExpenditure.Count + 8; i++)
+                ws.Range["I" + i].Value = ListExpenditure[i - 8].ImportationDetaillID;
+            for (int i = 8; i < ListExpenditure.Count + 8; i++)
+                ws.Range["J" + i].Value = ListExpenditure[i - 8].ImportationID;
+            for (int i = 8; i < ListExpenditure.Count + 8; i++)
+                ws.Range["K" + i].Value = ListExpenditure[i - 8].IngredientName;
+            for (int i = 8; i < ListExpenditure.Count + 8; i++)
+                ws.Range["L" + i].Value = ListExpenditure[i - 8].Date.ToShortDateString();
+            for (int i = 8; i < ListExpenditure.Count + 8; i++)
+                ws.Range["M" + i].Value = ListExpenditure[i - 8].Quantity;
+            for (int i = 8; i < ListExpenditure.Count + 8; i++)
+                ws.Range["N" + i].Value = ListExpenditure[i - 8].Value;
+            for (int i = 8; i < ListExpenditure.Count + 8; i++)
+                ws.Range["O" + i].Value = ListExpenditure[i - 8].Price;
         }
-        public static void ExportDataGrid(object sender)
-        {
-            DataGrid currentGrid = sender as DataGrid;
-            //if (currentGrid != null)
-            {
-                StringBuilder sbGridData = new StringBuilder();
-                List<string> listColumns = new List<string>();
-
-                List<DataGridColumn> listVisibleDataGridColumns = new List<DataGridColumn>();
-
-                List<string> listHeaders = new List<string>();
-
-                Microsoft.Office.Interop.Excel.Application application = null;
-
-                Microsoft.Office.Interop.Excel.Workbook workbook = null;
-
-                Microsoft.Office.Interop.Excel.Worksheet worksheet = null;
-
-                int rowCount = 1;
-
-                int colCount = 1;
-
-                try
-                {
-                    application = new Microsoft.Office.Interop.Excel.Application();
-                    workbook = application.Workbooks.Add(Type.Missing);
-                    worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Worksheets[1];
-
-                    if (currentGrid.HeadersVisibility == DataGridHeadersVisibility.Column || currentGrid.HeadersVisibility == DataGridHeadersVisibility.All)
-                    {
-                        foreach (DataGridColumn dataGridColumn in currentGrid.Columns.Where(dataGridColumn => dataGridColumn.Visibility == Visibility.Visible))
-                        {
-                            listVisibleDataGridColumns.Add(dataGridColumn);
-                            if (dataGridColumn.Header != null)
-                            {
-                                listHeaders.Add(dataGridColumn.Header.ToString());
-                            }
-                            worksheet.Cells[rowCount, colCount] = dataGridColumn.Header;
-                            colCount++;
-                        }
-
-                        // IEnumerable collection = currentGrid.ItemsSource;
-
-                        foreach (object data in currentGrid.ItemsSource)
-                        {
-                            listColumns.Clear();
-
-                            colCount = 1;
-
-                            rowCount++;
-
-                            foreach (DataGridColumn dataGridColumn in listVisibleDataGridColumns)
-                            {
-                                string strValue = string.Empty;
-                                Binding objBinding = null;
-                                DataGridBoundColumn dataGridBoundColumn = dataGridColumn as DataGridBoundColumn;
-
-                                if (dataGridBoundColumn != null)
-                                {
-                                    objBinding = dataGridBoundColumn.Binding as Binding;
-                                }
-
-                                DataGridTemplateColumn dataGridTemplateColumn = dataGridColumn as DataGridTemplateColumn;
-
-                                if (dataGridTemplateColumn != null)
-                                {
-                                    // This is a template column...let us see the underlying dependency object
-
-                                    DependencyObject dependencyObject = dataGridTemplateColumn.CellTemplate.LoadContent();
-
-                                    FrameworkElement frameworkElement = dependencyObject as FrameworkElement;
-                                    if (frameworkElement != null)
-                                    {
-                                        FieldInfo fieldInfo = frameworkElement.GetType().GetField("ContentProperty", BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
-                                        if (fieldInfo == null)
-                                        {
-                                            if (frameworkElement is System.Windows.Controls.TextBox || frameworkElement is TextBlock || frameworkElement is ComboBox)
-                                            {
-                                                fieldInfo = frameworkElement.GetType().GetField("TextProperty");
-                                            }
-                                            else if (frameworkElement is DatePicker)
-                                            {
-                                                fieldInfo = frameworkElement.GetType().GetField("SelectedDateProperty");
-                                            }
-                                        }
-
-                                        if (fieldInfo != null)
-                                        {
-                                            DependencyProperty dependencyProperty = fieldInfo.GetValue(null) as DependencyProperty;
-                                            if (dependencyProperty != null)
-                                            {
-                                                BindingExpression bindingExpression = frameworkElement.GetBindingExpression(dependencyProperty);
-                                                if (bindingExpression != null)
-                                                {
-                                                    objBinding = bindingExpression.ParentBinding;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-
-                                if (objBinding != null)
-                                {
-
-                                    if (!String.IsNullOrEmpty(objBinding.Path.Path))
-                                    {
-
-                                        PropertyInfo pi = data.GetType().GetProperty(objBinding.Path.Path);
-
-                                        if (pi != null)
-                                        {
-
-                                            object propValue = pi.GetValue(data, null);
-
-                                            if (propValue != null)
-                                            {
-                                                strValue = Convert.ToString(propValue);
-                                            }
-
-                                            else
-                                            {
-                                                strValue = string.Empty;
-                                            }
-                                        }
-                                    }
-
-                                    if (objBinding.Converter != null)
-                                    {
-                                        if (!String.IsNullOrEmpty(strValue))
-                                        {
-                                            strValue = objBinding.Converter.Convert(strValue, typeof(string), objBinding.ConverterParameter, objBinding.ConverterCulture).ToString();
-                                        }
-
-                                        else
-                                        {
-                                            strValue = objBinding.Converter.Convert(data, typeof(string), objBinding.ConverterParameter, objBinding.ConverterCulture).ToString();
-                                        }
-                                    }
-                                }
-
-                                listColumns.Add(strValue);
-
-                                worksheet.Cells[rowCount, colCount] = strValue;
-
-                                colCount++;
-                            }
-                        }
-                    }
-
-                }
-
-                catch (System.Runtime.InteropServices.COMException)
-                {
-                }
-
-                finally
-                {
-                    workbook.Close();
-                    application.Quit();
-                    System.Runtime.InteropServices.Marshal.ReleaseComObject(application);
-                }
-
-            }
-        }
-        private void Export(object gridExcel)
-        {
-            if (gridExcel != null)
-            {
-                ExportDataGrid(gridExcel);
-            }
-        }
+      
     }
 }

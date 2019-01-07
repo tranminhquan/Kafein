@@ -72,7 +72,7 @@
             <Button Style="{StaticResource GhostButton}" Content="THOÁT" HorizontalAlignment="Center" FontSize="20"
                     Margin="10" Width="150" Height="40" Command="{Binding CancelCommand}"/>
             <Button x:Name="btnConfirm" Style="{StaticResource RaisedButton}" HorizontalAlignment="Center" FontSize="20"
-                    Margin="10" Width="150" Height="40" Command="{Binding AddProductCommand}"/>
+                    Margin="10" Height="40" Command="{Binding AddProductCommand}"/>
         </StackPanel>
 
     </Grid>

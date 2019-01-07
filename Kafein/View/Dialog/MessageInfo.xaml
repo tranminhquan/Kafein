@@ -20,7 +20,7 @@
         </Border>
 
         <TextBlock x:Name="tbContent" Grid.Row="1" Style="{DynamicResource MaterialDesignTitleTextBlock}" Foreground="{DynamicResource PrimaryBrush}"
-                       VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Height="26" Margin="146,33.8,145.6,34.6" Width="102"/>
+                       VerticalAlignment="Center" HorizontalAlignment="Center" TextAlignment="Center" Height="Auto" Width="Auto"/>
 
         <Button x:Name="btnConfirm" Grid.Row="2" Style="{StaticResource ConfirmButton}" Margin="0,0,0,0" Click="btnConfirm_Click">
             <TextBlock Style="{DynamicResource MaterialDesignSubheadingTextBlock}" Foreground="{DynamicResource PrimaryBrush}"
